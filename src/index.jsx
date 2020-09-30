@@ -6,6 +6,8 @@ import createStore from "./store/createStore";
 import rootReducer from "./reducers";
 import Route from "./routes";
 
+import "./stylesheets/app.scss";
+
 ReactDOM.render(
   <Provider store={createStore(rootReducer)}>
     <Route />
