@@ -1,9 +1,5 @@
 module.exports = {
-  env: {
-    browser: true,
-    es2021: true,
-  },
-  extends: ["airbnb", "prettier", "prettier/react"],
+  parser: "babel-eslint",
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
@@ -12,8 +8,16 @@ module.exports = {
     sourceType: "module",
   },
   plugins: ["react", "prettier"],
+  extends: ["airbnb", "eslint:recommended", "prettier", "prettier/react"],
   rules: {
-    "prettier/prettier": ["warn"],
+    "prettier/prettier": "warn",
     "import/no-extraneous-dependencies": 0,
+    "react/prop-types": "warn",
+    "jsx-a11y/no-static-element-interactions": 0,
+    "jsx-a11y/click-events-have-key-events": 0,
+  },
+  env: {
+    browser: true,
+    es6: true,
   },
 };
