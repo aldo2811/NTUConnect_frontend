@@ -1,0 +1,17 @@
+.interaction_bar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  max-width: 100%;
+
+  > :not(:nth-last-child(1)) {
+    padding-right: 20px;
+  }
+}
+
+.rounded_icon {
+  border: 2px solid;
+  padding: 5px 10px;
+  display: inline-block;
+  border-radius: 10px;
+}
