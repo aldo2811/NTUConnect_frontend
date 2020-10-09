@@ -9,6 +9,15 @@ module.exports = {
         exclude: /node_modules/,
         use: ["babel-loader", "eslint-loader"],
       },
+      {
+        test: /\.(png|jpg|gif|svg|ico)$/,
+        include: path.resolve(__dirname, "assets"),
+        use: [
+          {
+            loader: "file-loader",
+          },
+        ],
+      },
     ],
   },
   resolve: {
