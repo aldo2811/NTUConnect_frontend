@@ -19,14 +19,20 @@ const VoteBar = ({ votes, userVote }) => {
 
   return (
     <div className={styles.vote_bar}>
-      <div onClick={() => onVoteClick(currentUserVote, 1)}>
+      <div
+        className={styles.vote_button}
+        onClick={() => onVoteClick(currentUserVote, 1)}
+      >
         <img
           src={currentUserVote === 1 ? upvoteActive : upvoteInactive}
           alt="upvote"
         />
       </div>
-      <div>{otherVotes + currentUserVote}</div>
-      <div onClick={() => onVoteClick(currentUserVote, -1)}>
+      <div className={styles.vote_text}>{otherVotes + currentUserVote}</div>
+      <div
+        className={styles.vote_button}
+        onClick={() => onVoteClick(currentUserVote, -1)}
+      >
         <img
           src={currentUserVote === -1 ? downvoteActive : downvoteInactive}
           alt="downvote"

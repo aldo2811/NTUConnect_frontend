@@ -3,11 +3,18 @@
   flex-direction: row;
   align-items: center;
 
-  > :not(:nth-last-child(1)) {
-    padding-right: 10px;
+  .vote_text {
+    padding: 0 10px;
   }
 
-  img {
-    height: 24px;
+  .vote_button {
+    &:hover {
+      opacity: 0.4;
+    }
+
+    img {
+      height: 24px;
+      cursor: pointer;
+    }
   }
 }
