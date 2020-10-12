@@ -1,5 +1,9 @@
 @import "layout.scss";
 
+.content {
+  @extend %content;
+}
+
 .container {
   @extend %container;
 }
