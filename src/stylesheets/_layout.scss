@@ -3,6 +3,7 @@
 %content {
   box-sizing: border-box;
   max-width: 720px;
+  min-height: calc(100vh - 60px);
   padding: 0 10px;
   margin: 0 auto;
   border-left: 1px solid $color-stroke;

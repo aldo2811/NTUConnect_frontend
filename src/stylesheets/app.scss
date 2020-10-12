@@ -39,3 +39,11 @@ ol, ul {
     margin-bottom: 20px;
   }
 }
+
+.content_section {
+  overflow: auto;
+
+  > div {
+    margin-bottom: 10px;
+  }
+}
