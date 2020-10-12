@@ -6,6 +6,7 @@ import CourseCodeIcon from "../InteractionBar/CourseCodeIcon/CourseCodeIcon";
 import AnsweredIcon from "../InteractionBar/AnsweredIcon";
 
 import appStyles from "../../stylesheets/app.scss";
+import UnansweredIcon from "../InteractionBar/UnansweredIcon";
 
 const ThreadBox = ({
   id,
@@ -25,7 +26,8 @@ const ThreadBox = ({
       <h1>{title}</h1>
       <InteractionBar>
         <CourseCodeIcon courseCode={courseCode} />
-        <AnsweredIcon answered={answered} />
+        {answered && <AnsweredIcon />}
+        {!answered && <UnansweredIcon />}
         <div>{votes} votes</div>
         <div>{comments} comments</div>
       </InteractionBar>
