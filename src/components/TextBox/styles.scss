@@ -1,0 +1,19 @@
+@import "base.scss";
+
+.text_box {
+  box-sizing: border-box;
+  border-radius: 3px;
+  border: 2px solid $color-stroke;
+
+  &:focus {
+    border-color: $color-grey-dark;
+  }
+}
+
+.multiline {
+  height: 200px;
+}
+
+.fullwidth {
+  width: 100%;
+}
