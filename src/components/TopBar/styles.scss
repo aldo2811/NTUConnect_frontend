@@ -1,0 +1,28 @@
+@import "base.scss";
+
+.topbar {
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 60px;
+  background-color: $color-primary;
+
+  .content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 1000px;
+
+    > * {
+      padding: 0 20px;
+    }
+
+    .search_bar {
+      max-width: 720px;
+      height: 36px;
+    }
+  }
+}

@@ -1,0 +1,10 @@
+@import "base.scss";
+
+.sidebar_item {
+  cursor: pointer;
+  padding: 10px 10px;
+}
+
+.active {
+  background-color: $color-stroke;
+}
