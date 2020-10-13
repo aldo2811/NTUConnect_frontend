@@ -2,7 +2,6 @@ import React from "react";
 
 import ThreadBox from "../../../components/ThreadBox";
 
-import styles from "./styles.scss";
 import appStyles from "../../../stylesheets/app.scss";
 
 const Home = () => {
@@ -42,8 +41,8 @@ const Home = () => {
   return (
     <div className={appStyles.content_section}>
       <div>
-        <h1 className={styles.heading}>All Discussions</h1>
-        <p className={styles.subheading}>
+        <h1 className={appStyles.heading}>All Discussions</h1>
+        <p className={appStyles.subheading}>
           All discussions in courses which you joined
         </p>
       </div>
@@ -60,6 +59,7 @@ const Home = () => {
         } = discussion;
         return (
           <ThreadBox
+            key={id}
             id={id}
             name={name}
             datePosted={datePosted}
