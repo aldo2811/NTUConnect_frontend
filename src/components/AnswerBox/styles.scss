@@ -1,0 +1,16 @@
+@import "base.scss";
+
+.container {
+  position: relative;
+
+  .verified_container {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+
+    .verified_icon {
+      color: $color-green;
+      background-color: $color-white;
+    }
+  }
+}
