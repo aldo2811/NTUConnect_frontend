@@ -34,6 +34,7 @@ module.exports = {
     contentBase: "./build",
     hot: true,
     compress: true,
+    historyApiFallback: true,
   },
   plugins: [
     new HtmlWebpackPlugin({
