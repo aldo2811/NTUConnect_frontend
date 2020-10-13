@@ -1,0 +1,36 @@
+@import "base.scss";
+
+.container {
+  position: absolute;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: $color-primary;
+
+  .login_box {
+    box-sizing: border-box;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    margin: auto;
+    padding: 60px 100px 120px 100px;
+    width: 35%;
+    max-width: 600px;
+    background-color: $color-white;
+    border-radius: 15px;
+    text-align: center;
+
+    .title {
+      margin-bottom: 100px;
+    }
+
+    .textbox {
+      margin-bottom: 30px;
+    }
+
+    .button_submit {
+      width: 100%;
+      margin-bottom: 20px;
+    }
+  }
+}
