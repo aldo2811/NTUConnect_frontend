@@ -1,11 +1,9 @@
 import React from "react";
-import cx from "classnames";
 
 import QuestionBox from "../../../components/QuestionBox";
 import AnswerInput from "../../../components/AnswerInput";
 import AnswerBox from "../../../components/AnswerBox";
 
-import styles from "./styles.scss";
 import appStyles from "../../../stylesheets/app.scss";
 
 const Thread = () => {
@@ -45,12 +43,7 @@ const Thread = () => {
   ];
 
   return (
-    <div
-      className={cx({
-        [appStyles.content_section]: true,
-        [styles.container]: true,
-      })}
-    >
+    <div className={appStyles.content_section}>
       <QuestionBox {...mockQuestion} />
       <AnswerInput />
       {mockAnswers.map((answer) => {
