@@ -1,10 +1,20 @@
 import React from "react";
+import cx from "classnames";
+import { useLocation, Link } from "react-router-dom";
 
 import ThreadBox from "../../../components/ThreadBox";
+import Button from "../../../components/Button";
 
+import styles from "./styles.scss";
 import appStyles from "../../../stylesheets/app.scss";
 
-const Home = () => {
+const CoursePage = ({
+  match: {
+    params: { course },
+  },
+}) => {
+  const currentUrl = useLocation().pathname;
+
   const mockDiscussions = [
     {
       id: 1,
@@ -39,11 +49,19 @@ const Home = () => {
   ];
 
   return (
-    <div className={appStyles.content_section}>
-      <h1 className={appStyles.heading}>All Discussions</h1>
-      <p className={appStyles.subheading}>
-        All discussions in courses which you joined
-      </p>
+    <div
+      className={cx({
+        [appStyles.content_section]: true,
+        [styles.container]: true,
+      })}
+    >
+      <Link to={`${currentUrl}/new`}>
+        <Button className={styles.button_ask} size="large">
+          Ask Question
+        </Button>
+      </Link>
+      <h1 className={appStyles.heading}>{course} Discussions</h1>
+      <p className={appStyles.subheading}>All {course} discussions</p>
       {mockDiscussions.map((discussion) => {
         return <ThreadBox key={discussion.id} {...discussion} />;
       })}
@@ -51,4 +69,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default CoursePage;
