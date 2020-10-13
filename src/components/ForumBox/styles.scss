@@ -1,0 +1,13 @@
+.container {
+  position: relative;
+
+  .title {
+    width: 80%;
+  }
+
+  .button_join {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  }
+}
