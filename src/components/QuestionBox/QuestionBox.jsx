@@ -15,6 +15,7 @@ const QuestionBox = ({
   content,
   courseCode,
   votes,
+  userVote,
 }) => {
   if (!id) return null;
 
@@ -25,7 +26,7 @@ const QuestionBox = ({
       <p>{content}</p>
       <InteractionBar>
         <CourseCodeIcon courseCode={courseCode} />
-        <VoteBar votes={votes} userVote={0} />
+        <VoteBar votes={votes} userVote={userVote} />
       </InteractionBar>
     </div>
   );
