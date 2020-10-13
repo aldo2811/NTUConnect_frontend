@@ -1,9 +1,10 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import cx from "classnames";
 
 import styles from "./styles.scss";
 
-const SideBarItem = ({ name, onClick, className, active }) => {
+const SideBarItem = ({ name, url, onClick, className, active }) => {
   const classnames = cx(
     {
       [styles.sidebar_item]: true,
@@ -13,9 +14,11 @@ const SideBarItem = ({ name, onClick, className, active }) => {
   );
 
   return (
-    <div className={classnames} onClick={onClick}>
-      {name}
-    </div>
+    <Link to={url}>
+      <div className={classnames} onClick={onClick}>
+        {name}
+      </div>
+    </Link>
   );
 };
 
