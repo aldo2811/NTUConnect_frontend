@@ -38,10 +38,8 @@ const CourseList = () => {
   return (
     <div className={appStyles.content_section}>
       <div>
-        <h1 className={appStyles.heading}>All Discussions</h1>
-        <p className={appStyles.subheading}>
-          All discussions in courses which you joined
-        </p>
+        <h1 className={appStyles.heading}>All Courses</h1>
+        <p className={appStyles.subheading}>All courses available</p>
       </div>
       {mockCourses.map((course) => {
         const {
