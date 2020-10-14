@@ -1,6 +1,7 @@
 import { SET, RESET } from "../actions/user.action";
 
 const initialState = {
+  user: {},
   token: null,
   error: null,
 };
@@ -8,7 +9,7 @@ const initialState = {
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case SET:
-      return state.set(action.key, action.value);
+      return action.value;
     case RESET:
       return initialState;
     default:

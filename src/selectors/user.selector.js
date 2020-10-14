@@ -1,2 +1,3 @@
-export const selectUserToken = (state) => state.user.get("token");
-export const selectUserError = (state) => state.user.get("error");
+export const selectUser = (state) => state.user.user;
+export const selectUserToken = (state) => state.user.token;
+export const selectUserError = (state) => state.user.error;
