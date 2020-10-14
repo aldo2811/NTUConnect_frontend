@@ -10,7 +10,7 @@ module.exports = {
     chunkFilename: "[name].js",
     publicPath: "/",
   },
-  devtool: "source-map",
+  devtool: "#source-map",
   module: {
     rules: [
       {
@@ -31,10 +31,25 @@ module.exports = {
     ],
   },
   devServer: {
-    contentBase: "./build",
+    contentBase: path.resolve(__dirname, "build"),
     hot: true,
     compress: true,
     historyApiFallback: true,
+    disableHostCheck: true,
+    proxy: {
+      "/api": {
+        target:
+          "https://rd1q7s8kc8.execute-api.ap-southeast-1.amazonaws.com/dev",
+        changeOrigin: true,
+        secure: false,
+      },
+      "/auth": {
+        target:
+          "https://rd1q7s8kc8.execute-api.ap-southeast-1.amazonaws.com/dev",
+        changeOrigin: true,
+        secure: false,
+      },
+    },
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -44,6 +59,8 @@ module.exports = {
     new webpack.EnvironmentPlugin({
       NODE_ENV: "development",
       DEBUG: true,
+      API_URL: "/api",
+      AUTH_URL: "/auth",
     }),
   ],
 };
