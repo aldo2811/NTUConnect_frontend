@@ -10,11 +10,13 @@ import {
 } from "../../../selectors/threads.selector";
 import * as actions from "../../../actions/threads.action";
 
-const Home = ({ allThreads, getAll }) => {
+const Home = ({ allThreads, reset, getAll }) => {
   useEffect(() => {
     getAll();
+    return () => reset();
   }, []);
 
+  if (!allThreads) return null;
   return (
     <div className={appStyles.content_section}>
       <h1 className={appStyles.heading}>All Discussions</h1>

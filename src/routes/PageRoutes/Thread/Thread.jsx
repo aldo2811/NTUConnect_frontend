@@ -11,11 +11,12 @@ import {
   selectMessagesJS,
   selectMessagesThreadJS,
 } from "../../../selectors/messages.selector";
-import * as action from "../../../actions/messages.action";
+import * as actions from "../../../actions/messages.action";
 
 const Thread = ({
   thread,
   messages,
+  reset,
   getAll,
   match: {
     params: { threadId },
@@ -23,8 +24,10 @@ const Thread = ({
 }) => {
   useEffect(() => {
     getAll(threadId);
+    return () => reset();
   }, []);
 
+  if (!thread) return null;
   return (
     <div className={appStyles.content_section}>
       <QuestionBox {...thread} />
@@ -49,7 +52,8 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = {
-  getAll: action.getAll,
+  getAll: actions.getAll,
+  reset: actions.reset,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Thread);

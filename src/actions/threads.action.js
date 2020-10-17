@@ -16,6 +16,7 @@ export const getAll = () => async (dispatch, getState) => {
   const accessToken = getToken(getState);
   const res = await threadService.list(accessToken);
   if (res.data) {
+    dispatch(set("forum", {}));
     dispatch(set("threads", res.data));
   } else {
     dispatch(set("error", res));
