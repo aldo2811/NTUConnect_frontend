@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 import TextBox from "../../components/TextBox";
 import Button from "../../components/Button";
@@ -8,14 +8,19 @@ import Button from "../../components/Button";
 import {
   selectUser,
   selectUserError,
-  selectUserToken,
+  selectUserAccessToken,
 } from "../../selectors/user.selector";
 
 import * as actions from "../../actions/user.action";
 
 import styles from "./styles.scss";
 
-const Login = ({ submit }) => {
+const Login = ({ accessToken, login, reset, verifyAccess }) => {
+  useEffect(() => {
+    reset();
+    verifyAccess();
+  }, []);
+
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -35,9 +40,13 @@ const Login = ({ submit }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (username && email && password) {
-      submit(username, email, password);
+      login(username, email, password);
     }
   };
+
+  if (accessToken) {
+    return <Redirect to="/" push />;
+  }
 
   return (
     <div className={styles.container}>
@@ -84,17 +93,18 @@ const Login = ({ submit }) => {
 
 const mapStateToProps = (state) => {
   const user = selectUser(state);
-  const token = selectUserToken(state);
+  const accessToken = selectUserAccessToken(state);
   const error = selectUserError(state);
   return {
     user,
-    token,
+    accessToken,
     error,
   };
 };
 
 const mapDispatchToProps = {
-  submit: actions.submit,
+  verifyAccess: actions.verifyAccess,
+  login: actions.login,
   reset: actions.reset,
 };
 

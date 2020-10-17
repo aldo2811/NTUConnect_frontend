@@ -1,39 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
 
 import ForumBox from "../../../components/ForumBox";
 
+import {
+  selectAllForumsJS,
+  selectForumsErrorJS,
+} from "../../../selectors/forums.selector";
+
+import * as actions from "../../../actions/forums.action";
+
 import appStyles from "../../../stylesheets/app.scss";
 
-const CourseList = () => {
-  const mockCourses = [
-    {
-      id: 1,
-      courseName: "Advanced Computer Architecture",
-      courseCode: "CZ3001",
-      description: "Description",
-      students: 100,
-      threads: 100,
-      joined: false,
-    },
-    {
-      id: 2,
-      courseName: "Advanced Software Engineering",
-      courseCode: "CZ3002",
-      description: "Description",
-      students: 200,
-      threads: 200,
-      joined: true,
-    },
-    {
-      id: 3,
-      courseName: "Software System Analysis & Design",
-      courseCode: "CZ3003",
-      description: "Description",
-      students: 300,
-      threads: 300,
-      joined: true,
-    },
-  ];
+const CourseList = ({ allForums, getAll }) => {
+  useEffect(() => {
+    getAll();
+  }, []);
 
   return (
     <div className={appStyles.content_section}>
@@ -41,30 +23,42 @@ const CourseList = () => {
         <h1 className={appStyles.heading}>All Courses</h1>
         <p className={appStyles.subheading}>All courses available</p>
       </div>
-      {mockCourses.map((course) => {
-        const {
-          id,
-          courseName,
-          courseCode,
-          description,
-          students,
-          threads,
-          joined,
-        } = course;
-        return (
-          <ForumBox
-            id={id}
-            courseName={courseName}
-            courseCode={courseCode}
-            description={description}
-            students={students}
-            threads={threads}
-            joined={joined}
-          />
-        );
-      })}
+      {allForums &&
+        allForums.map((course) => {
+          const {
+            id,
+            courseTitle,
+            courseCode,
+            description,
+            students,
+            threads,
+            joined,
+          } = course;
+          return (
+            <ForumBox
+              key={id}
+              id={id}
+              courseTitle={courseTitle}
+              courseCode={courseCode}
+              description={description}
+              students={students}
+              threads={threads}
+              joined={joined}
+            />
+          );
+        })}
     </div>
   );
 };
 
-export default CourseList;
+const mapStateToProps = (state) => {
+  const allForums = selectAllForumsJS(state);
+  const error = selectForumsErrorJS(state);
+  return { allForums, error };
+};
+
+const mapDispatchToProps = {
+  getAll: actions.getAll,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CourseList);
