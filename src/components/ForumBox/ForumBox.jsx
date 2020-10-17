@@ -9,7 +9,7 @@ import Button from "../Button";
 
 const ForumBox = ({
   id,
-  courseName,
+  courseTitle,
   courseCode,
   description,
   students,
@@ -36,7 +36,7 @@ const ForumBox = ({
         </Button>
       )}
       <h2 className={styles.title}>
-        {courseCode}: {courseName}
+        {courseCode}: {courseTitle}
       </h2>
       <p>{description}</p>
       <InteractionBar>
