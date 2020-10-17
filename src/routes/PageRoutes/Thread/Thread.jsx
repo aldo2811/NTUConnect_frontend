@@ -18,6 +18,7 @@ const Thread = ({
   messages,
   reset,
   getAll,
+  createMessage,
   match: {
     params: { threadId },
   },
@@ -27,11 +28,15 @@ const Thread = ({
     return () => reset();
   }, []);
 
+  const onSubmitClick = (content) => {
+    createMessage(content, threadId);
+  };
+
   if (!thread) return null;
   return (
     <div className={appStyles.content_section}>
       <QuestionBox {...thread} />
-      <AnswerInput />
+      <AnswerInput onSubmitClick={onSubmitClick} />
       {messages.map((answer) => {
         return <AnswerBox key={answer.id} {...answer} />;
       })}
@@ -53,6 +58,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
   getAll: actions.getAll,
   reset: actions.reset,
+  createMessage: actions.createMessage,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Thread);

@@ -13,4 +13,17 @@ const list = async (threadId, accessToken) => {
   }
 };
 
-export default { list };
+const create = async (content, threadId, accessToken) => {
+  try {
+    const res = await axios.post(
+      `${baseUrl}/messages/create/`,
+      { content, thread: threadId },
+      { headers: { Authorization: accessToken } }
+    );
+    return res;
+  } catch (e) {
+    return e.response;
+  }
+};
+
+export default { list, create };
