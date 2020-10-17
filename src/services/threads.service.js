@@ -7,11 +7,27 @@ const list = async (accessToken) => {
     const res = await axios.get(`${baseUrl}/threads/list/`, {
       headers: { Authorization: accessToken },
     });
-    console.log(res);
     return res;
   } catch (e) {
     return e.response;
   }
 };
 
-export default { list };
+const create = async (title, description, forumId, accessToken) => {
+  try {
+    const res = await axios.post(
+      `${baseUrl}/threads/create/`,
+      {
+        title,
+        description,
+        forum: forumId,
+      },
+      { headers: { Authorization: accessToken } }
+    );
+    return res;
+  } catch (e) {
+    return e.response;
+  }
+};
+
+export default { list, create };
