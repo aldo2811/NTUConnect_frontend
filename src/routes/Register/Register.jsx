@@ -1,21 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 import TextBox from "../../components/TextBox";
 import Button from "../../components/Button";
 
 import {
-  selectUser,
-  selectUserError,
-  selectUserAccessToken,
+  selectUserJS,
+  selectUserErrorJS,
+  selectUserAccessTokenJS,
 } from "../../selectors/user.selector";
 
 import * as actions from "../../actions/user.action";
 
 import styles from "../Login/styles.scss";
 
-const Register = ({ register }) => {
+const Register = ({ accessToken, register, reset, verifyAccess }) => {
+  useEffect(() => {
+    reset();
+    verifyAccess();
+  }, []);
+
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password1, setPassword1] = useState("");
@@ -41,6 +46,10 @@ const Register = ({ register }) => {
     e.preventDefault();
     register(username, email, password1, password2);
   };
+
+  if (accessToken) {
+    return <Redirect to="/" push />;
+  }
 
   return (
     <div className={styles.container}>
@@ -94,9 +103,9 @@ const Register = ({ register }) => {
 };
 
 const mapStateToProps = (state) => {
-  const user = selectUser(state);
-  const accessToken = selectUserAccessToken(state);
-  const error = selectUserError(state);
+  const user = selectUserJS(state);
+  const accessToken = selectUserAccessTokenJS(state);
+  const error = selectUserErrorJS(state);
 
   return {
     user,
@@ -106,6 +115,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = {
+  verifyAccess: actions.verifyAccess,
   register: actions.register,
   reset: actions.reset,
 };
