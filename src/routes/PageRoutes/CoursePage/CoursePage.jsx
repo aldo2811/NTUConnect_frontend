@@ -24,7 +24,7 @@ const CoursePage = ({
       courseCode: "CZ3002",
       answered: true,
       comments: 100,
-      votes: 200,
+      upvote: 200,
     },
     {
       id: 2,
@@ -34,7 +34,7 @@ const CoursePage = ({
       courseCode: "CZ3002",
       answered: false,
       comments: 200,
-      votes: 300,
+      upvote: 300,
     },
     {
       id: 3,
@@ -44,7 +44,7 @@ const CoursePage = ({
       courseCode: "CZ3002",
       answered: true,
       comments: 10,
-      votes: 50,
+      upvote: 50,
     },
   ];
 

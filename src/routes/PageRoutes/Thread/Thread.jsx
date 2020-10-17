@@ -1,56 +1,55 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
 
 import QuestionBox from "../../../components/QuestionBox";
 import AnswerInput from "../../../components/AnswerInput";
 import AnswerBox from "../../../components/AnswerBox";
 
 import appStyles from "../../../stylesheets/app.scss";
+import {
+  selectMessagesErrorJS,
+  selectMessagesJS,
+  selectMessagesThreadJS,
+} from "../../../selectors/messages.selector";
+import * as action from "../../../actions/messages.action";
 
-const Thread = () => {
-  const placeholderText =
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed viverra lacus et varius tincidunt. Nam in aliquet felis, non consequat ex. Nunc tristique tincidunt consectetur. Aenean pulvinar condimentum dolor et vestibulum. Morbi rutrum purus commodo ligula accumsan, quis lacinia ligula auctor.";
-
-  const mockQuestion = {
-    id: 1,
-    name: "Name 0",
-    datePosted: "13/10 19:00",
-    title: "Question Title",
-    content: placeholderText,
-    courseCode: "CZ3002",
-    votes: 123,
-    userVote: 0,
-  };
-
-  const mockAnswers = [
-    {
-      id: 1,
-      name: "Name 1",
-      datePosted: "13/10 19:10",
-      content: placeholderText,
-      votes: 100,
-      verified: true,
-      userVote: 1,
-    },
-    {
-      id: 2,
-      name: "Name 2",
-      datePosted: "13/10 19:30",
-      content: placeholderText,
-      votes: 10,
-      verified: false,
-      userVote: -1,
-    },
-  ];
+const Thread = ({
+  thread,
+  messages,
+  getAll,
+  match: {
+    params: { threadId },
+  },
+}) => {
+  useEffect(() => {
+    getAll(threadId);
+  }, []);
 
   return (
     <div className={appStyles.content_section}>
-      <QuestionBox {...mockQuestion} />
+      <QuestionBox {...thread} />
       <AnswerInput />
-      {mockAnswers.map((answer) => {
+      {messages.map((answer) => {
+        console.log(answer);
         return <AnswerBox key={answer.id} {...answer} />;
       })}
     </div>
   );
 };
 
-export default Thread;
+const mapStateToProps = (state) => {
+  const messages = selectMessagesJS(state);
+  const thread = selectMessagesThreadJS(state);
+  const error = selectMessagesErrorJS(state);
+  return {
+    messages,
+    thread,
+    error,
+  };
+};
+
+const mapDispatchToProps = {
+  getAll: action.getAll,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Thread);
