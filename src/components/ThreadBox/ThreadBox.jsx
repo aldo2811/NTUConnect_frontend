@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import UserBar from "../UserBar";
 import InteractionBar from "../InteractionBar";
@@ -23,7 +24,9 @@ const ThreadBox = ({
   return (
     <div className={appStyles.box_container}>
       <UserBar name={name} datePosted={datePosted} />
-      <h1>{title}</h1>
+      <Link to={`/thread/${id}`}>
+        <h1>{title}</h1>
+      </Link>
       <InteractionBar>
         <CourseCodeIcon courseCode={courseCode} />
         {answered && <AnsweredIcon />}

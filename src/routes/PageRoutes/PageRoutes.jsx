@@ -10,6 +10,7 @@ import CourseList from "./CourseList";
 import AskQuestionPage from "./AskQuestionPage/AskQuestionPage";
 import CoursePage from "./CoursePage";
 import WithAuth from "../RedirectHOC/withAuth";
+import Thread from "./Thread";
 
 const PageRoutes = ({ match: { url } }) => {
   const menu = [
@@ -27,6 +28,10 @@ const PageRoutes = ({ match: { url } }) => {
             <Route
               path={`${url}thread/new`}
               component={WithAuth(AskQuestionPage)}
+            />
+            <Route
+              path={`${url}thread/:threadId`}
+              component={WithAuth(Thread)}
             />
             <Route
               path={`${url}courses/:course/new`}
