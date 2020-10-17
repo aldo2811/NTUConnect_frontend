@@ -1,11 +1,10 @@
 import { fromJS } from "immutable";
-import { SET, RESET } from "../actions/user.action";
+import { SET, RESET } from "../actions/threads.action";
 
 const initialState = fromJS({
-  user: {},
-  refreshToken: "",
-  accessToken: "",
-  error: null,
+  forum: {},
+  threads: [],
+  error: "",
 });
 
 export default function reducer(state = initialState, action) {

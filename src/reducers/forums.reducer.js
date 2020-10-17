@@ -1,10 +1,8 @@
 import { fromJS } from "immutable";
-import { SET, RESET } from "../actions/user.action";
+import { SET, RESET } from "../actions/forums.action";
 
 const initialState = fromJS({
-  user: {},
-  refreshToken: "",
-  accessToken: "",
+  forums: [],
   error: null,
 });
 
