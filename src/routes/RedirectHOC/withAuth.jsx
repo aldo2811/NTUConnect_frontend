@@ -4,7 +4,7 @@ import { Redirect } from "react-router-dom";
 
 import {
   selectUserAccessTokenJS,
-  selectUserError,
+  selectUserErrorJS,
   selectUserRefreshTokenJS,
 } from "../../selectors/user.selector";
 
@@ -34,7 +34,7 @@ const WithAuth = (WrappedComponent) => {
   const mapStateToProps = (state) => {
     const accessToken = selectUserAccessTokenJS(state);
     const refreshToken = selectUserRefreshTokenJS(state);
-    const error = selectUserError(state);
+    const error = selectUserErrorJS(state);
     return { accessToken, refreshToken, error };
   };
 
