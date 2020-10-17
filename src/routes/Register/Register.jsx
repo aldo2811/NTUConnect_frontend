@@ -95,12 +95,12 @@ const Register = ({ register }) => {
 
 const mapStateToProps = (state) => {
   const user = selectUser(state);
-  const token = selectUserAccessToken(state);
+  const accessToken = selectUserAccessToken(state);
   const error = selectUserError(state);
 
   return {
     user,
-    token,
+    accessToken,
     error,
   };
 };
