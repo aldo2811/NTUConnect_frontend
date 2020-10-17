@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const baseUrl = process.env.AUTH_URL;
+const apiUrl = process.env.API_URL;
 
 const login = async (username, email, password) => {
   try {
@@ -49,4 +50,15 @@ const refresh = async (refreshToken) => {
   }
 };
 
-export default { login, register, verify, refresh };
+const list = async (accessToken) => {
+  try {
+    const res = await axios.get(`${apiUrl}/users/`, {
+      headers: { Authorization: accessToken },
+    });
+    return res;
+  } catch (e) {
+    return e.response;
+  }
+};
+
+export default { login, register, verify, refresh, list };
