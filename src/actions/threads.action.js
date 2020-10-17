@@ -16,6 +16,16 @@ export const getAll = () => async (dispatch, getState) => {
   const accessToken = getToken(getState);
   const res = await threadService.list(accessToken);
   if (res.data) {
+    const forums = await forumService.list(accessToken);
+    if (forums.data) {
+      const forumMap = {};
+      forums.data.forEach((forum) => {
+        forumMap[forum.id] = forum.courseCode;
+      });
+      res.data.forEach((thread) => {
+        thread.courseCode = forumMap[thread.forum];
+      });
+    }
     dispatch(set("forum", {}));
     dispatch(set("threads", res.data));
   } else {
