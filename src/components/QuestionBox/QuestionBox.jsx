@@ -6,14 +6,21 @@ import CourseCodeIcon from "../InteractionBar/CourseCodeIcon/CourseCodeIcon";
 
 import appStyles from "../../stylesheets/app.scss";
 
-const QuestionBox = ({ id, name, datePosted, title, content, courseCode }) => {
+const QuestionBox = ({
+  id,
+  name,
+  datePosted,
+  title,
+  description,
+  courseCode,
+}) => {
   if (!id) return null;
 
   return (
     <div className={appStyles.box_container}>
       <UserBar name={name} datePosted={datePosted} />
       <h1>{title}</h1>
-      <p>{content}</p>
+      <p>{description}</p>
       <InteractionBar>
         <CourseCodeIcon courseCode={courseCode} />
       </InteractionBar>
