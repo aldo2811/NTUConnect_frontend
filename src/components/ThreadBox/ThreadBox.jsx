@@ -9,30 +9,19 @@ import AnsweredIcon from "../InteractionBar/AnsweredIcon";
 import appStyles from "../../stylesheets/app.scss";
 import UnansweredIcon from "../InteractionBar/UnansweredIcon";
 
-const ThreadBox = ({
-  id,
-  name,
-  datePosted,
-  title,
-  courseCode,
-  answered,
-  votes,
-  comments,
-}) => {
+const ThreadBox = ({ id, name, datePosted, title, courseCode, solved }) => {
   if (!id) return null;
 
   return (
     <div className={appStyles.box_container}>
       <UserBar name={name} datePosted={datePosted} />
-      <Link to={`/thread/${id}`}>
-        <h1>{title}</h1>
-      </Link>
+      <h1>
+        <Link to={`/thread/${id}`}>{title}</Link>
+      </h1>
       <InteractionBar>
         <CourseCodeIcon courseCode={courseCode} />
-        {answered && <AnsweredIcon />}
-        {!answered && <UnansweredIcon />}
-        <div>{votes} votes</div>
-        <div>{comments} comments</div>
+        {solved && <AnsweredIcon />}
+        {!solved && <UnansweredIcon />}
       </InteractionBar>
     </div>
   );

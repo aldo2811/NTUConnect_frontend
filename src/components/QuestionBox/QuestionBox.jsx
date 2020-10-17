@@ -2,21 +2,11 @@ import React from "react";
 
 import UserBar from "../UserBar";
 import InteractionBar from "../InteractionBar";
-import VoteBar from "../InteractionBar/VoteBar";
 import CourseCodeIcon from "../InteractionBar/CourseCodeIcon/CourseCodeIcon";
 
 import appStyles from "../../stylesheets/app.scss";
 
-const QuestionBox = ({
-  id,
-  name,
-  datePosted,
-  title,
-  content,
-  courseCode,
-  votes,
-  userVote,
-}) => {
+const QuestionBox = ({ id, name, datePosted, title, content, courseCode }) => {
   if (!id) return null;
 
   return (
@@ -26,7 +16,6 @@ const QuestionBox = ({
       <p>{content}</p>
       <InteractionBar>
         <CourseCodeIcon courseCode={courseCode} />
-        <VoteBar votes={votes} userVote={userVote} />
       </InteractionBar>
     </div>
   );

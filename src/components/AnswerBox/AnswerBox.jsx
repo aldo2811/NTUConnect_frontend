@@ -4,18 +4,18 @@ import cx from "classnames";
 import UserBar from "../UserBar";
 import InteractionBar from "../InteractionBar";
 import VoteBar from "../InteractionBar/VoteBar";
+import RoundedIcon from "../RoundedIcon";
 
 import styles from "./styles.scss";
 import appStyles from "../../stylesheets/app.scss";
-import RoundedIcon from "../RoundedIcon";
 
 const AnswerBox = ({
   id,
   name,
   datePosted,
   content,
-  votes,
-  verified,
+  upvote,
+  isCorrect,
   userVote,
 }) => {
   if (!id) return null;
@@ -27,7 +27,7 @@ const AnswerBox = ({
         [appStyles.box_container]: true,
       })}
     >
-      {verified && (
+      {isCorrect && (
         <div className={styles.verified_container}>
           <RoundedIcon
             className={styles.verified_icon}
@@ -39,7 +39,7 @@ const AnswerBox = ({
       <UserBar name={name} datePosted={datePosted} />
       <p>{content}</p>
       <InteractionBar>
-        <VoteBar votes={votes} userVote={userVote} />
+        <VoteBar upvote={upvote} userVote={userVote} />
       </InteractionBar>
     </div>
   );
