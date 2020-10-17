@@ -38,7 +38,7 @@ const PageRoutes = ({ match: { url } }) => {
               component={WithAuth(AskQuestionPage)}
             />
             <Route
-              path={`${url}courses/:course`}
+              path={`${url}courses/:courseId`}
               component={WithAuth(CoursePage)}
             />
             <Route path={`${url}courses`} component={WithAuth(CourseList)} />
