@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 
 import styles from "./styles.scss";
 import TextBox from "../TextBox";
-import * as action from "../../actions/user.action";
+import * as actions from "../../actions/user.action";
 
 const TopBar = ({ logout }) => {
   const history = useHistory();
@@ -29,6 +29,6 @@ const TopBar = ({ logout }) => {
 };
 
 const mapDispatchToProps = {
-  logout: action.logout,
+  logout: actions.logout,
 };
 export default connect(null, mapDispatchToProps)(TopBar);

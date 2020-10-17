@@ -13,23 +13,26 @@ import {
   selectThreadsErrorJS,
   selectThreadsForumJS,
 } from "../../../selectors/threads.selector";
-import * as action from "../../../actions/threads.action";
+import * as actions from "../../../actions/threads.action";
 
 const CoursePage = ({
   forum,
   threads,
   getThreadsOfForum,
+  reset,
   match: {
     params: { courseId },
   },
 }) => {
   useEffect(() => {
     getThreadsOfForum(courseId);
+    return () => reset();
   }, []);
 
   const currentUrl = useLocation().pathname;
-
   const { courseCode, courseTitle } = forum;
+
+  if (!threads) return null;
   return (
     <div
       className={cx({
@@ -42,7 +45,9 @@ const CoursePage = ({
           Ask Question
         </Button>
       </Link>
-      <h1 className={appStyles.heading}>{courseCode} Discussions</h1>
+      <h1 className={appStyles.heading}>
+        {courseCode && `${courseCode} Discussions`}
+      </h1>
       <p className={appStyles.subheading}>{courseTitle}</p>
       {threads.map((discussion) => {
         return (
@@ -65,7 +70,8 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = {
-  getThreadsOfForum: action.getThreadsOfForum,
+  getThreadsOfForum: actions.getThreadsOfForum,
+  reset: actions.reset,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CoursePage);

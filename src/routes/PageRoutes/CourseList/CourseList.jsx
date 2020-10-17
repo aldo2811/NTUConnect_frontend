@@ -12,9 +12,10 @@ import * as actions from "../../../actions/forums.action";
 
 import appStyles from "../../../stylesheets/app.scss";
 
-const CourseList = ({ allForums, getAll }) => {
+const CourseList = ({ allForums, reset, getAll }) => {
   useEffect(() => {
     getAll();
+    return () => reset();
   }, []);
 
   return (
@@ -39,6 +40,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
   getAll: actions.getAll,
+  reset: actions.reset,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CourseList);
