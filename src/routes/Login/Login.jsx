@@ -6,9 +6,9 @@ import TextBox from "../../components/TextBox";
 import Button from "../../components/Button";
 
 import {
-  selectUser,
-  selectUserError,
-  selectUserAccessToken,
+  selectUserJS,
+  selectUserErrorJS,
+  selectUserAccessTokenJS,
 } from "../../selectors/user.selector";
 
 import * as actions from "../../actions/user.action";
@@ -92,9 +92,9 @@ const Login = ({ accessToken, login, reset, verifyAccess }) => {
 };
 
 const mapStateToProps = (state) => {
-  const user = selectUser(state);
-  const accessToken = selectUserAccessToken(state);
-  const error = selectUserError(state);
+  const user = selectUserJS(state);
+  const accessToken = selectUserAccessTokenJS(state);
+  const error = selectUserErrorJS(state);
   return {
     user,
     accessToken,
