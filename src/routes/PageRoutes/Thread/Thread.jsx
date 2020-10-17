@@ -33,7 +33,6 @@ const Thread = ({
       <QuestionBox {...thread} />
       <AnswerInput />
       {messages.map((answer) => {
-        console.log(answer);
         return <AnswerBox key={answer.id} {...answer} />;
       })}
     </div>

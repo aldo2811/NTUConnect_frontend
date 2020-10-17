@@ -14,6 +14,11 @@ export const selectMessagesThreadJS = createSelector(
   (thread) => thread && thread.toJS()
 );
 
+export const selectMessagesThreadIdJS = createSelector(
+  selectMessagesThreadJS,
+  (thread) => thread.id
+);
+
 export const selectMessagesErrorJS = createSelector(
   selectMessagesError,
   (error) => error
