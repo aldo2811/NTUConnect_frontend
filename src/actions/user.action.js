@@ -18,14 +18,14 @@ const setAccessToken = (accessToken) => {
 };
 
 export const login = (username, email, password) => async (dispatch) => {
-  const result = await userService.login(username, email, password);
-  if (result.data) {
-    const { accessToken, refreshToken, user } = result.data;
+  const res = await userService.login(username, email, password);
+  if (res.data) {
+    const { accessToken, refreshToken, user } = res.data;
     dispatch(setRefreshToken(refreshToken));
     dispatch(setAccessToken(accessToken));
     dispatch(set("user", user));
   } else {
-    dispatch(set("error", result));
+    dispatch(set("error", res));
   }
 };
 
@@ -37,19 +37,14 @@ export const logout = () => (dispatch) => {
 export const register = (username, email, password1, password2) => async (
   dispatch
 ) => {
-  const result = await userService.register(
-    username,
-    email,
-    password1,
-    password2
-  );
-  if (result.data) {
-    const { accessToken, refreshToken, user } = result.data;
+  const res = await userService.register(username, email, password1, password2);
+  if (res.data) {
+    const { accessToken, refreshToken, user } = res.data;
     dispatch(setRefreshToken(refreshToken));
     dispatch(setAccessToken(accessToken));
     dispatch(set("user", user));
   } else {
-    dispatch(set("error", result));
+    dispatch(set("error", res));
   }
 };
 
