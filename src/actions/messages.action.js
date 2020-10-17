@@ -3,8 +3,10 @@ import threadService from "../services/threads.service";
 
 export const SET = "MESSAGES_SET";
 export const RESET = "MESSAGES_RESET";
+export const UPDATE = "MESSAGES_UPDATE";
 
 export const set = (key, value) => ({ type: SET, key, value });
+export const update = (key, value) => ({ type: UPDATE, key, value });
 export const reset = () => ({ type: RESET });
 
 const getToken = (getState) => {
@@ -38,6 +40,19 @@ export const createThread = (title, description, forumId) => async (
   if (res.data) {
     dispatch(set("messages", []));
     dispatch(set("thread", res.data));
+  } else {
+    dispatch(set("error", res));
+  }
+};
+
+export const createMessage = (content, threadId) => async (
+  dispatch,
+  getState
+) => {
+  const accessToken = getToken(getState);
+  const res = await messageService.create(content, threadId, accessToken);
+  if (res.data) {
+    dispatch(update("messages", res.data));
   } else {
     dispatch(set("error", res));
   }
