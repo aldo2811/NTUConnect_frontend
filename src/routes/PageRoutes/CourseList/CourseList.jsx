@@ -24,28 +24,8 @@ const CourseList = ({ allForums, getAll }) => {
         <p className={appStyles.subheading}>All courses available</p>
       </div>
       {allForums &&
-        allForums.map((course) => {
-          const {
-            id,
-            courseTitle,
-            courseCode,
-            description,
-            students,
-            threads,
-            joined,
-          } = course;
-          return (
-            <ForumBox
-              key={id}
-              id={id}
-              courseTitle={courseTitle}
-              courseCode={courseCode}
-              description={description}
-              students={students}
-              threads={threads}
-              joined={joined}
-            />
-          );
+        allForums.map((forum) => {
+          return <ForumBox key={forum.id} {...forum} />;
         })}
     </div>
   );
