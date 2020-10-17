@@ -9,6 +9,7 @@ import styles from "./styles.scss";
 import CourseList from "./CourseList";
 import AskQuestionPage from "./AskQuestionPage/AskQuestionPage";
 import CoursePage from "./CoursePage";
+import WithAuth from "../RedirectHOC/withAuth";
 
 const PageRoutes = ({ match: { url } }) => {
   const menu = [
@@ -23,14 +24,20 @@ const PageRoutes = ({ match: { url } }) => {
         <SideBarMenu menu={menu} currentUrl={url} />
         <div className={styles.content}>
           <Switch>
-            <Route path={`${url}thread/new`} component={AskQuestionPage} />
+            <Route
+              path={`${url}thread/new`}
+              component={WithAuth(AskQuestionPage)}
+            />
             <Route
               path={`${url}courses/:course/new`}
-              component={AskQuestionPage}
+              component={WithAuth(AskQuestionPage)}
             />
-            <Route path={`${url}courses/:course`} component={CoursePage} />
-            <Route path={`${url}courses`} component={CourseList} />
-            <Route path={url} component={Home} />
+            <Route
+              path={`${url}courses/:course`}
+              component={WithAuth(CoursePage)}
+            />
+            <Route path={`${url}courses`} component={WithAuth(CourseList)} />
+            <Route path={url} component={WithAuth(Home)} />
           </Switch>
         </div>
       </div>
