@@ -10,7 +10,7 @@ module.exports = {
   plugins: ["react", "prettier"],
   extends: ["airbnb", "eslint:recommended", "prettier", "prettier/react"],
   rules: {
-    "prettier/prettier": "warn",
+    "prettier/prettier": ["warn", { endOfLine: "auto" }],
     "import/no-extraneous-dependencies": 0,
     "react/prop-types": "warn",
     "react/jsx-props-no-spreading": 0,
