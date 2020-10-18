@@ -17,8 +17,15 @@ const ForumBox = ({
   students,
   threads,
   isJoined,
+  onJoinClick,
 }) => {
   const currentUrl = useLocation().pathname;
+
+  const onClick = (e) => {
+    e.preventDefault();
+    onJoinClick(id);
+  };
+
   if (!id) return null;
 
   return (
@@ -45,6 +52,7 @@ const ForumBox = ({
             [styles.join]: true,
           })}
           size="large"
+          onClick={onClick}
         >
           Join
         </Button>

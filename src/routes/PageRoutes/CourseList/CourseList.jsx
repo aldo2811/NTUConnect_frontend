@@ -12,11 +12,15 @@ import * as actions from "../../../actions/forums.action";
 
 import appStyles from "../../../stylesheets/app.scss";
 
-const CourseList = ({ allForums, reset, getAll }) => {
+const CourseList = ({ allForums, reset, getAll, joinForum }) => {
   useEffect(() => {
     getAll();
     return () => reset();
   }, []);
+
+  const onJoinClick = (forumId) => {
+    joinForum(forumId);
+  };
 
   return (
     <div className={appStyles.content_section}>
@@ -26,7 +30,9 @@ const CourseList = ({ allForums, reset, getAll }) => {
       </div>
       {allForums &&
         allForums.map((forum) => {
-          return <ForumBox key={forum.id} {...forum} />;
+          return (
+            <ForumBox key={forum.id} onJoinClick={onJoinClick} {...forum} />
+          );
         })}
     </div>
   );
@@ -41,6 +47,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
   getAll: actions.getAll,
   reset: actions.reset,
+  joinForum: actions.joinForum,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CourseList);
