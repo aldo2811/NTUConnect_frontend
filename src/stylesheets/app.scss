@@ -8,6 +8,7 @@ small, strike, strong, sub, sup, tt, var,
 dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td {
+  font-weight: normal;
   margin: 0;
   padding: 0;
   border: 0;
@@ -32,6 +33,11 @@ ol, ul {
 
 a {
   text-decoration: none;
+  color: $color-blue;
+
+  &:visited {
+
+  }
 }
 
 .box_container {
