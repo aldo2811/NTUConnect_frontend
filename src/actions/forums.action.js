@@ -25,7 +25,7 @@ export const joinForum = (forumId) => async (dispatch, getState) => {
   const accessToken = getToken(getState);
   const res = await forumService.join(forumId, accessToken);
   if (res.data) {
-    dispatch(set("forums", res.data));
+    dispatch(getAll());
   } else {
     dispatch(set("error", res));
   }
