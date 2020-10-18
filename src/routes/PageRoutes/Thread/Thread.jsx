@@ -40,6 +40,7 @@ const Thread = ({
   getAllUser,
   getAllForums,
   createMessage,
+  upvoteMessage,
   resetMessage,
   match: {
     params: { threadId },
@@ -57,6 +58,10 @@ const Thread = ({
     createMessage(content, threadId);
   };
 
+  const onVote = (action, messageId) => {
+    upvoteMessage(action, messageId);
+  };
+
   if (messageLoading || userLoading || forumLoading) return null;
 
   return (
@@ -72,6 +77,7 @@ const Thread = ({
           <AnswerBox
             key={answer.id}
             username={getUsernameById(allUsers, answer.creator)}
+            onVote={onVote}
             {...answer}
           />
         );
@@ -107,6 +113,7 @@ const mapDispatchToProps = {
   getAllUser: userActions.getAll,
   getAllForums: forumActions.getAll,
   createMessage: messageActions.createMessage,
+  upvoteMessage: messageActions.upvoteMessage,
   resetMessage: messageActions.reset,
 };
 
