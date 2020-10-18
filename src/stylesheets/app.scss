@@ -23,7 +23,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 body {
   line-height: 1;
   color: black;
-  background: white;
+  background-color: $color-grey-light;
   padding-top: 60px;
 }
 
@@ -34,14 +34,11 @@ ol, ul {
 a {
   text-decoration: none;
   color: $color-blue;
-
-  &:visited {
-
-  }
 }
 
 .box_container {
-  border: 1px solid $color-stroke;
+  background-color: $color-white;
+  border: 1px solid $color-primary;
   border-radius: 10px;
   padding: 20px;
 
@@ -55,7 +52,7 @@ a {
   padding-top: 30px;
 
   > div {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
   }
 }
 
