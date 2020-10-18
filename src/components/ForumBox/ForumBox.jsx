@@ -7,6 +7,7 @@ import Button from "../Button";
 
 import styles from "./styles.scss";
 import appStyles from "../../stylesheets/app.scss";
+import RoundedIcon from "../RoundedIcon";
 
 const ForumBox = ({
   id,
@@ -15,7 +16,7 @@ const ForumBox = ({
   description,
   students,
   threads,
-  joined,
+  isJoined,
 }) => {
   const currentUrl = useLocation().pathname;
   if (!id) return null;
@@ -27,20 +28,34 @@ const ForumBox = ({
         [styles.container]: true,
       })}
     >
-      {joined && (
-        <Button className={styles.button_join} size="medium">
-          Joined
-        </Button>
+      {isJoined && (
+        <RoundedIcon
+          className={cx({
+            [styles.icon_joined]: true,
+            [styles.join]: true,
+          })}
+          size="large"
+          text="Joined"
+        />
       )}
-      {!joined && (
-        <Button className={styles.button_join} size="medium">
+      {!isJoined && (
+        <Button
+          className={cx({
+            [styles.button_join]: true,
+            [styles.join]: true,
+          })}
+          size="large"
+        >
           Join
         </Button>
       )}
       <h2 className={styles.title}>
-        <Link to={`${currentUrl}/${id}`}>
-          {courseCode}: {courseTitle}
-        </Link>
+        {isJoined && (
+          <Link to={`${currentUrl}/${id}`}>
+            {courseCode}: {courseTitle}
+          </Link>
+        )}
+        {!isJoined && `${courseCode}: ${courseTitle}`}
       </h2>
       <p>{description}</p>
       <InteractionBar>
