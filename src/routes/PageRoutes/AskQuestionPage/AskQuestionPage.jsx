@@ -16,7 +16,6 @@ import * as messageActions from "../../../actions/messages.action";
 
 const AskQuestionPage = ({
   createThread,
-  messageLoading,
   match: {
     params: { courseId },
   },
@@ -24,7 +23,7 @@ const AskQuestionPage = ({
   const history = useHistory();
   const onSubmitClick = (title, description) => {
     createThread(title, description, courseId);
-    if (!messageLoading) history.push(`/courses/${courseId}`);
+    history.push(`/courses/${courseId}`);
   };
 
   return (
