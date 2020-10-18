@@ -2,7 +2,6 @@ import React from "react";
 import cx from "classnames";
 import { Link, useLocation } from "react-router-dom";
 
-import InteractionBar from "../InteractionBar";
 import Button from "../Button";
 
 import styles from "./styles.scss";
@@ -13,9 +12,7 @@ const ForumBox = ({
   id,
   courseTitle,
   courseCode,
-  description,
-  students,
-  threads,
+  username,
   isJoined,
   onJoinClick,
 }) => {
@@ -65,11 +62,7 @@ const ForumBox = ({
         )}
         {!isJoined && `${courseCode}: ${courseTitle}`}
       </h2>
-      <p>{description}</p>
-      <InteractionBar>
-        <p>{students} students</p>
-        <p>{threads} threads</p>
-      </InteractionBar>
+      <p>Course Instructor: {username}</p>
     </div>
   );
 };
