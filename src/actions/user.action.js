@@ -17,6 +17,11 @@ const setAccessToken = (accessToken) => {
   return set("accessToken", accessToken);
 };
 
+const getToken = (getState) => {
+  const accessToken = getState().user.get("accessToken");
+  return `Bearer ${accessToken}`;
+};
+
 export const login = (username, email, password) => async (dispatch) => {
   const res = await userService.login(username, email, password);
   if (res.data) {
@@ -69,6 +74,16 @@ export const verifyAccess = () => async (dispatch, getState) => {
     } else {
       dispatch(set("error", res.statusText));
     }
+  } else {
+    dispatch(set("error", res));
+  }
+};
+
+export const getAll = () => async (dispatch, getState) => {
+  const accessToken = getToken(getState);
+  const res = await userService.list(accessToken);
+  if (res.data) {
+    dispatch(set("users", res.data));
   } else {
     dispatch(set("error", res));
   }

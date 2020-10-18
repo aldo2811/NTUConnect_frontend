@@ -2,6 +2,7 @@ import { fromJS } from "immutable";
 import { SET, RESET } from "../actions/user.action";
 
 const initialState = fromJS({
+  users: [],
   user: {},
   refreshToken: "",
   accessToken: "",
