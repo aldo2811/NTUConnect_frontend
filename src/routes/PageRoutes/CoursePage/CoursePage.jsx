@@ -23,6 +23,8 @@ import {
 import * as threadActions from "../../../actions/threads.action";
 import * as userActions from "../../../actions/user.action";
 
+import { getUsernameById } from "../../../utils/helper";
+
 const CoursePage = ({
   forum,
   threads,
@@ -66,9 +68,7 @@ const CoursePage = ({
         return (
           <ThreadBox
             key={thread.id}
-            username={
-              allUsers.find((user) => user.id === thread.creator).username
-            }
+            username={getUsernameById(allUsers, thread.creator)}
             courseCode={courseCode}
             {...thread}
           />
