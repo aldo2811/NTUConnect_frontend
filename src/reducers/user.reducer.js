@@ -6,6 +6,7 @@ const initialState = fromJS({
   user: {},
   refreshToken: "",
   accessToken: "",
+  loading: true,
   error: null,
 });
 

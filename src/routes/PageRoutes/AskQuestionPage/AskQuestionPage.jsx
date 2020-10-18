@@ -7,20 +7,24 @@ import QuestionInput from "../../../components/QuestionInput";
 import styles from "./styles.scss";
 import appStyles from "../../../stylesheets/app.scss";
 
-import * as actions from "../../../actions/messages.action";
-import { selectMessagesThreadIdJS } from "../../../selectors/messages.selector";
+import {
+  selectMessagesLoadingJS,
+  selectMessagesThreadIdJS,
+} from "../../../selectors/messages.selector";
+
+import * as messageActions from "../../../actions/messages.action";
 
 const AskQuestionPage = ({
   createThread,
+  messageLoading,
   match: {
     params: { courseId },
   },
 }) => {
   const history = useHistory();
   const onSubmitClick = (title, description) => {
-    createThread(title, description, courseId).then(() => {
-      history.push(`/courses/${courseId}`);
-    });
+    createThread(title, description, courseId);
+    if (!messageLoading) history.push(`/courses/${courseId}`);
   };
 
   return (
@@ -33,11 +37,12 @@ const AskQuestionPage = ({
 
 const mapStateToProps = (state) => {
   const threadId = selectMessagesThreadIdJS(state);
-  return { threadId };
+  const messageLoading = selectMessagesLoadingJS(state);
+  return { threadId, messageLoading };
 };
 
 const mapDispatchToProps = {
-  createThread: actions.createThread,
+  createThread: messageActions.createThread,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(AskQuestionPage);

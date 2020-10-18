@@ -1,38 +1,53 @@
 import React, { useEffect } from "react";
-import cx from "classnames";
 import { connect } from "react-redux";
 import { useLocation, Link } from "react-router-dom";
+import cx from "classnames";
 
 import ThreadBox from "../../../components/ThreadBox";
 import Button from "../../../components/Button";
 
 import styles from "./styles.scss";
 import appStyles from "../../../stylesheets/app.scss";
+
 import {
   selectThreadsJS,
   selectThreadsErrorJS,
   selectThreadsForumJS,
+  selectThreadsLoadingJS,
 } from "../../../selectors/threads.selector";
-import * as actions from "../../../actions/threads.action";
+import {
+  selectAllUsersJS,
+  selectUserLoadingJS,
+} from "../../../selectors/user.selector";
+
+import * as threadActions from "../../../actions/threads.action";
+import * as userActions from "../../../actions/user.action";
 
 const CoursePage = ({
   forum,
   threads,
+  allUsers,
+  threadLoading,
+  userLoading,
   getThreadsOfForum,
-  reset,
+  getAllUsers,
+  resetThread,
   match: {
     params: { courseId },
   },
 }) => {
   useEffect(() => {
+    getAllUsers();
     getThreadsOfForum(courseId);
-    return () => reset();
+
+    return () => resetThread();
   }, []);
 
   const currentUrl = useLocation().pathname;
   const { courseCode, courseTitle } = forum;
 
-  if (!threads) return null;
+  if (threadLoading || userLoading) return null;
+
   return (
     <div
       className={cx({
@@ -45,16 +60,17 @@ const CoursePage = ({
           Ask Question
         </Button>
       </Link>
-      <h1 className={appStyles.heading}>
-        {courseCode && `${courseCode} Discussions`}
-      </h1>
+      <h1 className={appStyles.heading}>{courseCode} Discussions</h1>
       <p className={appStyles.subheading}>{courseTitle}</p>
-      {threads.map((discussion) => {
+      {threads.map((thread) => {
         return (
           <ThreadBox
-            key={discussion.id}
+            key={thread.id}
+            username={
+              allUsers.find((user) => user.id === thread.creator).username
+            }
             courseCode={courseCode}
-            {...discussion}
+            {...thread}
           />
         );
       })}
@@ -65,13 +81,17 @@ const CoursePage = ({
 const mapStateToProps = (state) => {
   const forum = selectThreadsForumJS(state);
   const threads = selectThreadsJS(state);
+  const allUsers = selectAllUsersJS(state);
+  const threadLoading = selectThreadsLoadingJS(state);
+  const userLoading = selectUserLoadingJS(state);
   const error = selectThreadsErrorJS(state);
-  return { forum, threads, error };
+  return { forum, threads, allUsers, threadLoading, userLoading, error };
 };
 
 const mapDispatchToProps = {
-  getThreadsOfForum: actions.getThreadsOfForum,
-  reset: actions.reset,
+  getThreadsOfForum: threadActions.getThreadsOfForum,
+  getAllUsers: userActions.getAll,
+  resetThread: threadActions.reset,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CoursePage);
