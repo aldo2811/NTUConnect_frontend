@@ -40,6 +40,8 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
+      chunks: ["index"],
+      filename: "index.html",
       template: path.resolve(__dirname, "public", "index.html"),
     }),
     new MiniCssExtractPlugin({
