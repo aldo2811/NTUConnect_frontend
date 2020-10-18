@@ -55,6 +55,7 @@ const list = async (accessToken) => {
     const res = await axios.get(`${apiUrl}/users/`, {
       headers: { Authorization: accessToken },
     });
+    console.log(res.data);
     return res;
   } catch (e) {
     return e.response;

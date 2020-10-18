@@ -14,7 +14,7 @@ const ThreadBox = ({ id, username, datePosted, title, courseCode, solved }) => {
 
   return (
     <div className={appStyles.box_container}>
-      <UserBar name={username} datePosted={datePosted} />
+      <UserBar username={username} datePosted={datePosted} />
       <h1>
         <Link to={`/thread/${id}`}>{title}</Link>
       </h1>

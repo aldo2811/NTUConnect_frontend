@@ -11,7 +11,7 @@ import appStyles from "../../stylesheets/app.scss";
 
 const AnswerBox = ({
   id,
-  name,
+  username,
   datePosted,
   content,
   upvote,
@@ -36,7 +36,7 @@ const AnswerBox = ({
         </div>
       )}
 
-      <UserBar name={name} datePosted={datePosted} />
+      <UserBar username={username} datePosted={datePosted} />
       <p>{content}</p>
       <InteractionBar>
         <VoteBar upvote={upvote} userVote={userVote} />

@@ -1,9 +1,15 @@
 import { createSelector } from "reselect";
 
+const selectAllUsers = (state) => state.user.get("users");
 const selectUser = (state) => state.user.get("user");
 const selectUserAccessToken = (state) => state.user.get("accessToken");
 const selectUserRefreshToken = (state) => state.user.get("refreshToken");
 const selectUserError = (state) => state.user.get("error");
+
+export const selectAllUsersJS = createSelector(
+  selectAllUsers,
+  (users) => users && users.toJS()
+);
 
 export const selectUserJS = createSelector(
   selectUser,

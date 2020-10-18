@@ -1,6 +1,5 @@
 import messageService from "../services/messages.service";
 import threadService from "../services/threads.service";
-import forumService from "../services/forums.service";
 
 export const SET = "MESSAGES_SET";
 export const RESET = "MESSAGES_RESET";
@@ -17,20 +16,18 @@ const getToken = (getState) => {
 
 export const getAll = (threadId) => async (dispatch, getState) => {
   const accessToken = getToken(getState);
+  dispatch(set("loading", true));
   const res = await messageService.list(threadId, accessToken);
+  console.log(res.data);
 
   if (res.data) {
-    const forums = await forumService.list(accessToken);
-    if (forums.data) {
-      const forumId = forums.data.find((f) => f.id === res.data.forum);
-      res.data.courseCode = forumId.courseCode;
-    }
     const { messages, ...rest } = res.data;
     dispatch(set("thread", { ...rest }));
     dispatch(set("messages", messages));
   } else {
     dispatch(set("error", res));
   }
+  dispatch(set("loading", false));
 };
 
 export const createThread = (title, description, forumId) => async (

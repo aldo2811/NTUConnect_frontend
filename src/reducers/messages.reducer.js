@@ -4,6 +4,7 @@ import { SET, UPDATE, RESET } from "../actions/messages.action";
 const initialState = fromJS({
   thread: {},
   messages: [],
+  loading: true,
   error: "",
 });
 

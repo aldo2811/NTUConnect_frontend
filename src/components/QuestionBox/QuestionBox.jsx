@@ -8,7 +8,7 @@ import appStyles from "../../stylesheets/app.scss";
 
 const QuestionBox = ({
   id,
-  name,
+  username,
   datePosted,
   title,
   description,
@@ -18,7 +18,7 @@ const QuestionBox = ({
 
   return (
     <div className={appStyles.box_container}>
-      <UserBar name={name} datePosted={datePosted} />
+      <UserBar username={username} datePosted={datePosted} />
       <h1>{title}</h1>
       <p>{description}</p>
       <InteractionBar>
