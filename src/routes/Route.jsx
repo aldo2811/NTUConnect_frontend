@@ -1,4 +1,5 @@
 import React from "react";
+import { hot } from "react-hot-loader/root";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import PageRoutes from "./PageRoutes";
@@ -17,4 +18,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default hot(App);
