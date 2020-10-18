@@ -1,3 +1,5 @@
+@import "base.scss";
+
 .container {
   position: relative;
 
@@ -5,9 +7,17 @@
     width: 80%;
   }
 
-  .button_join {
+  .join {
     position: absolute;
     top: 20px;
     right: 20px;
+  }
+
+  .button_join {
+    background-color: $color-primary-dark;
+  }
+
+  .icon_joined {
+    color: $color-primary-dark;
   }
 }

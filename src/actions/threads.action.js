@@ -49,20 +49,23 @@ export const getThreadsOfForum = (forumId) => async (dispatch, getState) => {
   const accessToken = getToken(getState);
   const res = await forumService.detail(forumId, accessToken);
   if (res.data) {
-    const users = await userService.list(accessToken);
-    if (users.data) {
-      const userMap = {};
-      users.data.forEach((user) => {
-        userMap[user.id] = user.username;
-      });
-      res.data.threads.forEach((thread) => {
-        thread.username = userMap[thread.creator];
-      });
-    }
+    if (!res.data.isJoined) dispatch(set("error", "Forbidden"));
+    else {
+      const users = await userService.list(accessToken);
+      if (users.data) {
+        const userMap = {};
+        users.data.forEach((user) => {
+          userMap[user.id] = user.username;
+        });
+        res.data.threads.forEach((thread) => {
+          thread.username = userMap[thread.creator];
+        });
+      }
 
-    const { threads, ...rest } = res.data;
-    dispatch(set("forum", { ...rest }));
-    dispatch(set("threads", threads));
+      const { threads, ...rest } = res.data;
+      dispatch(set("forum", { ...rest }));
+      dispatch(set("threads", threads));
+    }
   } else {
     dispatch(set("errors", res));
   }

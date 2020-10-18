@@ -13,6 +13,7 @@ const Button = ({ className, children, size, ...rest }) => {
     },
     className
   );
+
   return (
     <button type="button" className={classnames} {...rest}>
       {children}
