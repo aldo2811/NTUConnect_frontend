@@ -18,7 +18,6 @@ export const getAll = (threadId) => async (dispatch, getState) => {
   const accessToken = getToken(getState);
   dispatch(set("loading", true));
   const res = await messageService.list(threadId, accessToken);
-  console.log(res.data);
 
   if (res.data) {
     const { messages, ...rest } = res.data;
@@ -35,6 +34,7 @@ export const createThread = (title, description, forumId) => async (
   getState
 ) => {
   const accessToken = getToken(getState);
+  dispatch(set("loading", true));
   const res = await threadService.create(
     title,
     description,
@@ -47,6 +47,7 @@ export const createThread = (title, description, forumId) => async (
   } else {
     dispatch(set("error", res));
   }
+  dispatch(set("loading", false));
 };
 
 export const createMessage = (content, threadId) => async (

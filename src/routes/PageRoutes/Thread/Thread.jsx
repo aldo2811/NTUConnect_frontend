@@ -6,54 +6,74 @@ import AnswerInput from "../../../components/AnswerInput";
 import AnswerBox from "../../../components/AnswerBox";
 
 import appStyles from "../../../stylesheets/app.scss";
+
 import {
   selectMessagesErrorJS,
   selectMessagesJS,
   selectMessagesLoadingJS,
   selectMessagesThreadJS,
 } from "../../../selectors/messages.selector";
-import * as actions from "../../../actions/messages.action";
+import {
+  selectAllUsersJS,
+  selectUserLoadingJS,
+} from "../../../selectors/user.selector";
+import {
+  selectAllForumsJS,
+  selectForumsLoadingJS,
+} from "../../../selectors/forums.selector";
+
+import * as messageActions from "../../../actions/messages.action";
 import * as userActions from "../../../actions/user.action";
-import { selectAllUsersJS } from "../../../selectors/user.selector";
+import * as forumActions from "../../../actions/forums.action";
 
 const Thread = ({
   thread,
-  messages,
+  allMessages,
+  allUsers,
+  allForums,
   messageLoading,
-  users,
-  resetMessages,
+  userLoading,
+  forumLoading,
   getAllMessage,
   getAllUser,
+  getAllForums,
   createMessage,
+  resetMessage,
   match: {
     params: { threadId },
   },
 }) => {
   useEffect(() => {
     getAllUser();
+    getAllForums();
     getAllMessage(threadId);
 
-    return () => resetMessages();
+    return () => resetMessage();
   }, []);
 
   const onSubmitClick = (content) => {
     createMessage(content, threadId);
   };
 
-  console.log(messageLoading);
-  if (messageLoading) return null;
+  if (messageLoading || userLoading || forumLoading) return null;
+
   return (
     <div className={appStyles.content_section}>
       <QuestionBox
-        username={users.find((user) => user.id === thread.creator).username}
+        username={allUsers.find((user) => user.id === thread.creator).username}
+        courseCode={
+          allForums.find((forum) => forum.id === thread.forum).courseCode
+        }
         {...thread}
       />
       <AnswerInput onSubmitClick={onSubmitClick} />
-      {messages.map((answer) => {
+      {allMessages.map((answer) => {
         return (
           <AnswerBox
             key={answer.id}
-            username={users.find((user) => user.id === answer.creator).username}
+            username={
+              allUsers.find((user) => user.id === answer.creator).username
+            }
             {...answer}
           />
         );
@@ -63,25 +83,33 @@ const Thread = ({
 };
 
 const mapStateToProps = (state) => {
-  const messages = selectMessagesJS(state);
   const thread = selectMessagesThreadJS(state);
+  const allMessages = selectMessagesJS(state);
+  const allUsers = selectAllUsersJS(state);
+  const allForums = selectAllForumsJS(state);
   const messageLoading = selectMessagesLoadingJS(state);
+  const userLoading = selectUserLoadingJS(state);
+  const forumLoading = selectForumsLoadingJS(state);
   const error = selectMessagesErrorJS(state);
-  const users = selectAllUsersJS(state);
+
   return {
-    messages,
     thread,
+    allMessages,
+    allUsers,
+    allForums,
     messageLoading,
+    userLoading,
+    forumLoading,
     error,
-    users,
   };
 };
 
 const mapDispatchToProps = {
-  getAllMessage: actions.getAll,
-  resetMessages: actions.reset,
-  createMessage: actions.createMessage,
+  getAllMessage: messageActions.getAll,
   getAllUser: userActions.getAll,
+  getAllForums: forumActions.getAll,
+  createMessage: messageActions.createMessage,
+  resetMessage: messageActions.reset,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Thread);

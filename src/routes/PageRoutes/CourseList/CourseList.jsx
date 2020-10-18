@@ -3,24 +3,34 @@ import { connect } from "react-redux";
 
 import ForumBox from "../../../components/ForumBox";
 
+import appStyles from "../../../stylesheets/app.scss";
+
 import {
   selectAllForumsJS,
   selectForumsErrorJS,
+  selectForumsLoadingJS,
 } from "../../../selectors/forums.selector";
 
-import * as actions from "../../../actions/forums.action";
+import * as forumActions from "../../../actions/forums.action";
 
-import appStyles from "../../../stylesheets/app.scss";
-
-const CourseList = ({ allForums, reset, getAll, joinForum }) => {
+const CourseList = ({
+  allForums,
+  forumLoading,
+  getAll,
+  joinForum,
+  resetForum,
+}) => {
   useEffect(() => {
     getAll();
-    return () => reset();
+
+    return () => resetForum();
   }, []);
 
   const onJoinClick = (forumId) => {
     joinForum(forumId);
   };
+
+  if (forumLoading) return null;
 
   return (
     <div className={appStyles.content_section}>
@@ -40,14 +50,15 @@ const CourseList = ({ allForums, reset, getAll, joinForum }) => {
 
 const mapStateToProps = (state) => {
   const allForums = selectAllForumsJS(state);
+  const forumLoading = selectForumsLoadingJS(state);
   const error = selectForumsErrorJS(state);
-  return { allForums, error };
+  return { allForums, forumLoading, error };
 };
 
 const mapDispatchToProps = {
-  getAll: actions.getAll,
-  reset: actions.reset,
-  joinForum: actions.joinForum,
+  getAll: forumActions.getAll,
+  joinForum: forumActions.joinForum,
+  resetForum: forumActions.reset,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CourseList);

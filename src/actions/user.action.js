@@ -81,10 +81,12 @@ export const verifyAccess = () => async (dispatch, getState) => {
 
 export const getAll = () => async (dispatch, getState) => {
   const accessToken = getToken(getState);
+  dispatch(set("loading", true));
   const res = await userService.list(accessToken);
   if (res.data) {
     dispatch(set("users", res.data));
   } else {
     dispatch(set("error", res));
   }
+  dispatch(set("loading", false));
 };

@@ -4,27 +4,63 @@ import { connect } from "react-redux";
 import ThreadBox from "../../../components/ThreadBox";
 
 import appStyles from "../../../stylesheets/app.scss";
+
 import {
   selectThreadsErrorJS,
   selectThreadsJS,
+  selectThreadsLoadingJS,
 } from "../../../selectors/threads.selector";
-import * as actions from "../../../actions/threads.action";
+import {
+  selectAllForumsJS,
+  selectForumsLoadingJS,
+} from "../../../selectors/forums.selector";
+import {
+  selectAllUsersJS,
+  selectUserLoadingJS,
+} from "../../../selectors/user.selector";
 
-const Home = ({ allThreads, reset, getAll }) => {
+import * as threadActions from "../../../actions/threads.action";
+import * as userActions from "../../../actions/user.action";
+import * as forumActions from "../../../actions/forums.action";
+
+const Home = ({
+  allThreads,
+  allUsers,
+  allForums,
+  threadLoading,
+  forumLoading,
+  userLoading,
+  getAllThreads,
+  getAllUsers,
+  getAllForums,
+  resetThread,
+}) => {
   useEffect(() => {
-    getAll();
-    return () => reset();
+    getAllThreads();
+    getAllUsers();
+    getAllForums();
+
+    return () => resetThread();
   }, []);
 
-  if (!allThreads) return null;
+  if (threadLoading || userLoading || forumLoading) return null;
   return (
     <div className={appStyles.content_section}>
       <h1 className={appStyles.heading}>All Discussions</h1>
       <p className={appStyles.subheading}>
         All discussions in courses which you joined
       </p>
-      {allThreads.map((discussion) => {
-        return <ThreadBox key={discussion.id} {...discussion} />;
+      {allThreads.map((thread) => {
+        return (
+          <ThreadBox
+            key={thread.id}
+            username={allUsers.find((user) => user.id === thread.creator).name}
+            courseCode={
+              allForums.find((forum) => forum.id === thread.forum).courseCode
+            }
+            {...thread}
+          />
+        );
       })}
     </div>
   );
@@ -32,14 +68,29 @@ const Home = ({ allThreads, reset, getAll }) => {
 
 const mapStateToProps = (state) => {
   const allThreads = selectThreadsJS(state);
+  const allUsers = selectAllUsersJS(state);
+  const allForums = selectAllForumsJS(state);
   const error = selectThreadsErrorJS(state);
+  const threadLoading = selectThreadsLoadingJS(state);
+  const forumLoading = selectForumsLoadingJS(state);
+  const userLoading = selectUserLoadingJS(state);
 
-  return { allThreads, error };
+  return {
+    allThreads,
+    allUsers,
+    allForums,
+    error,
+    threadLoading,
+    forumLoading,
+    userLoading,
+  };
 };
 
 const mapDispatchToProps = {
-  getAll: actions.getAll,
-  reset: actions.reset,
+  getAllThreads: threadActions.getAll,
+  getAllUsers: userActions.getAll,
+  getAllForums: forumActions.getAll,
+  resetThread: threadActions.reset,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

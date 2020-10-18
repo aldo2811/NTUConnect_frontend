@@ -13,12 +13,14 @@ const getToken = (getState) => {
 
 export const getAll = () => async (dispatch, getState) => {
   const accessToken = getToken(getState);
+  dispatch(set("loading", true));
   const res = await forumService.list(accessToken);
   if (res.data) {
     dispatch(set("forums", res.data));
   } else {
     dispatch(set("error", res));
   }
+  dispatch(set("loading", false));
 };
 
 export const joinForum = (forumId) => async (dispatch, getState) => {

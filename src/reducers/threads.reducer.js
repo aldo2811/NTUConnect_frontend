@@ -4,6 +4,7 @@ import { SET, RESET } from "../actions/threads.action";
 const initialState = fromJS({
   forum: {},
   threads: [],
+  loading: true,
   error: "",
 });
 
