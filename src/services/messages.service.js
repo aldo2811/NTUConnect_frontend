@@ -26,4 +26,17 @@ const create = async (content, threadId, accessToken) => {
   }
 };
 
-export default { list, create };
+const upvote = async (action, messageId, accessToken) => {
+  try {
+    const res = await axios.put(
+      `${baseUrl}/messages/${messageId}/upvote`,
+      { action },
+      { headers: { Authorization: accessToken } }
+    );
+    return res;
+  } catch (e) {
+    return e.response;
+  }
+};
+
+export default { list, create, upvote };

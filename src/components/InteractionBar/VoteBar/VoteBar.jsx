@@ -7,14 +7,22 @@ import downvoteActive from "../../../../assets/downvote_active.png";
 import downvoteInactive from "../../../../assets/downvote_inactive.png";
 import upvoteActive from "../../../../assets/upvote_active.png";
 
-const VoteBar = ({ upvote, userVote }) => {
+const VoteBar = ({ id, upvote, userVote, onVote }) => {
   const [currentUserVote, setCurrentUserVote] = useState(userVote);
 
   const otherVotes = upvote - userVote;
 
   const onVoteClick = (prev, next) => {
-    if (prev === next) setCurrentUserVote(0);
-    else setCurrentUserVote(next);
+    let action;
+    if (prev === next) {
+      setCurrentUserVote(0);
+      action = prev * -1;
+    } else {
+      setCurrentUserVote(next);
+      if (prev === 0) action = next;
+      else action = next * 2;
+    }
+    onVote(action, id);
   };
 
   return (

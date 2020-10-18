@@ -9,6 +9,11 @@ export const selectAllForumsJS = createSelector(
   (forums) => forums && forums.toJS()
 );
 
+export const selectAllForumsJoinedJS = createSelector(
+  selectAllForums,
+  (forums) => forums && forums.filter((forum) => forum.isJoined === true).toJS()
+);
+
 export const selectForumsLoadingJS = createSelector(
   selectForumsLoading,
   (loading) => loading

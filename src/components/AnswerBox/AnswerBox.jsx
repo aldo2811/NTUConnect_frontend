@@ -16,7 +16,8 @@ const AnswerBox = ({
   content,
   upvote,
   isCorrect,
-  userVote,
+  status,
+  onVote,
 }) => {
   if (!id) return null;
 
@@ -39,7 +40,12 @@ const AnswerBox = ({
       <UserBar username={username} datePosted={datePosted} />
       <p>{content}</p>
       <InteractionBar>
-        <VoteBar upvote={upvote} userVote={userVote} />
+        <VoteBar
+          id={id}
+          upvote={upvote}
+          userVote={status[0].value}
+          onVote={onVote}
+        />
       </InteractionBar>
     </div>
   );

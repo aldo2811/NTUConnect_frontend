@@ -62,3 +62,14 @@ export const createMessage = (content, threadId) => async (
     dispatch(set("error", res));
   }
 };
+
+export const upvoteMessage = (action, messageId) => async (
+  dispatch,
+  getState
+) => {
+  const accessToken = getToken(getState);
+  const res = await messageService.upvote(action, messageId, accessToken);
+  if (!res.data) {
+    dispatch(set("error", res));
+  }
+};
