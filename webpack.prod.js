@@ -40,7 +40,9 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, "src", "index.html"),
+      chunks: ["index"],
+      filename: "index.html",
+      template: path.resolve(__dirname, "public", "index.html"),
     }),
     new MiniCssExtractPlugin({
       filename: `[name].[hash].css`,
@@ -48,6 +50,10 @@ module.exports = {
     new webpack.EnvironmentPlugin({
       NODE_ENV: "production",
       DEBUG: false,
+      API_URL:
+        "https://xoel2szaa2.execute-api.ap-southeast-1.amazonaws.com/production/api",
+      AUTH_URL:
+        "https://xoel2szaa2.execute-api.ap-southeast-1.amazonaws.com/production/auth",
     }),
   ],
 };
