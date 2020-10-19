@@ -72,10 +72,10 @@ export const verifyAccess = () => async (dispatch, getState) => {
       dispatch(setAccessToken(access));
       dispatch(setRefreshToken(localRefreshToken));
     } else {
-      dispatch(set("error", res.statusText));
+      dispatch(set("error", res.status));
     }
   } else {
-    dispatch(set("error", res));
+    dispatch(set("error", res.status));
   }
 };
 
