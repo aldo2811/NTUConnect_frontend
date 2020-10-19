@@ -12,10 +12,10 @@ import * as forumActions from "../../actions/forums.action";
 
 const SideBarMenu = ({ allForumsJoined, getAllForums }) => {
   const menu = [
-    { name: "Home", url: "/" },
-    { name: "Courses", url: "/courses" },
+    { name: "Home", url: "/", level: 0 },
+    { name: "Courses", url: "/courses", level: 0 },
     ...allForumsJoined.map((forum) => {
-      return { name: forum.courseCode, url: `/courses/${forum.id}` };
+      return { name: forum.courseCode, url: `/courses/${forum.id}`, level: 1 };
     }),
   ];
 
@@ -50,6 +50,7 @@ const SideBarMenu = ({ allForumsJoined, getAllForums }) => {
             key={m.name}
             name={m.name}
             url={m.url}
+            level={m.level}
             onClick={() => onItemClick(m.url)}
             active={m.url === selected}
           />
