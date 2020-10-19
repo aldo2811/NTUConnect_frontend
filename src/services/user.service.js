@@ -3,11 +3,10 @@ import axios from "axios";
 const baseUrl = process.env.AUTH_URL;
 const apiUrl = process.env.API_URL;
 
-const login = async (username, email, password) => {
+const login = async (username, password) => {
   try {
     return await axios.post(`${baseUrl}/login/`, {
       username,
-      email,
       password,
     });
   } catch (e) {

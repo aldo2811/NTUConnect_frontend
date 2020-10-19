@@ -21,15 +21,10 @@ const Login = ({ accessToken, login, reset, verifyAccess }) => {
   }, []);
 
   const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const onUsernameChange = (e) => {
     setUsername(e.target.value);
-  };
-
-  const onEmailChange = (e) => {
-    setEmail(e.target.value);
   };
 
   const onPasswordChange = (e) => {
@@ -38,8 +33,8 @@ const Login = ({ accessToken, login, reset, verifyAccess }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (username && email && password) {
-      login(username, email, password);
+    if (username && password) {
+      login(username, password);
     }
   };
 
@@ -58,14 +53,6 @@ const Login = ({ accessToken, login, reset, verifyAccess }) => {
           value={username}
           placeholder="Username"
           onChange={onUsernameChange}
-        />
-        <TextBox
-          className={styles.textbox}
-          fullwidth
-          type="email"
-          value={email}
-          placeholder="Email"
-          onChange={onEmailChange}
         />
         <TextBox
           className={styles.textbox}

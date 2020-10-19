@@ -18,8 +18,8 @@ const getToken = (getState) => {
   return `Bearer ${accessToken}`;
 };
 
-export const login = (username, email, password) => async (dispatch) => {
-  const res = await userService.login(username, email, password);
+export const login = (username, password) => async (dispatch) => {
+  const res = await userService.login(username, password);
   if (res.data) {
     const { accessToken, user } = res.data;
     dispatch(setAccessToken(accessToken));
