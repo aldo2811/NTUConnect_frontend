@@ -32,11 +32,9 @@ const UserBar = ({ username, score, datePosted }) => {
 
   return (
     <div className={styles.user_bar}>
-      <div>
-        <b>
-          {username} <span className={styles.detail}> • {score} points</span>
-        </b>
-      </div>
+      <b>
+        {username} <span className={styles.detail}> • {score} points</span>
+      </b>
       <div className={styles.detail}>posted on {parseDate(datePosted)}</div>
     </div>
   );
