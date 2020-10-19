@@ -59,13 +59,15 @@ export const verifyAccess = () => async (dispatch, getState) => {
   const localRefreshToken = storage.get("refresh_token");
   const localAccessToken = storage.get("access_token");
   const res = await userService.verify(localAccessToken);
+  console.log("res", res);
+  console.log("res.response", res.response);
 
   if (res.status === 200) {
     if (!userState.get("accessToken"))
       dispatch(setAccessToken(localAccessToken));
     if (!userState.get("refreshToken"))
       dispatch(setRefreshToken(localRefreshToken));
-  } else if (res.status >= 400 && res.status < 500) {
+  } else if (res.status >= 400 && res.status < 500 && localRefreshToken) {
     const refreshRes = await userService.refresh(localRefreshToken);
     if (refreshRes.status === 200) {
       const { access } = refreshRes.data;

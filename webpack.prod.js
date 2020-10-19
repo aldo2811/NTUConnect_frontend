@@ -49,7 +49,7 @@ module.exports = {
     }),
     new webpack.EnvironmentPlugin({
       NODE_ENV: "production",
-      DEBUG: false,
+      DEBUG: true,
       API_URL:
         "https://xoel2szaa2.execute-api.ap-southeast-1.amazonaws.com/production/api",
       AUTH_URL:
