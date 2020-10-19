@@ -24,6 +24,7 @@ const setUserType = (type) => {
 };
 
 export const login = (username, password) => async (dispatch) => {
+  dispatch(setUserType(null));
   const res = await userService.login(username, password);
   if (res.data) {
     const { accessToken, user } = res.data;
@@ -37,6 +38,7 @@ export const login = (username, password) => async (dispatch) => {
 
 export const logout = () => (dispatch) => {
   dispatch(setAccessToken(null));
+  dispatch(setUserType(null));
 };
 
 export const register = (username, email, password1, password2) => async (
@@ -59,7 +61,8 @@ export const verifyAccess = () => async (dispatch, getState) => {
 
   const localAccessToken = storage.get("access_token");
   const res = await userService.verify(localAccessToken);
-
+  console.log(res.response);
+  console.log(res);
   if (res.status === 200) {
     if (!userState.get("accessToken"))
       dispatch(setAccessToken(localAccessToken));
@@ -89,8 +92,6 @@ export const getCurrentUser = () => async (dispatch, getState) => {
     const res = await userService.currentUser(accessToken);
     if (res.data) {
       dispatch(setUserType(res.data[0].type));
-    } else {
-      dispatch(setError(res.response.status));
     }
   }
 };

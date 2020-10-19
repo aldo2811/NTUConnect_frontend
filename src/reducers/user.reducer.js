@@ -7,7 +7,7 @@ const initialState = fromJS({
   type: "",
   accessToken: "",
   loading: true,
-  verifyError: null,
+  verifyError: "",
 });
 
 export default function reducer(state = initialState, action) {
