@@ -30,7 +30,8 @@ export const login = (username, password) => async (dispatch) => {
     dispatch(setAccessToken(accessToken));
     dispatch(set("user", user));
   } else {
-    dispatch(setError(res.response.data.nonFieldErrors[0]));
+    const { data } = res.response;
+    dispatch(setError(data[Object.keys(data)[0]]));
   }
 };
 
@@ -48,7 +49,8 @@ export const register = (username, email, password1, password2) => async (
     dispatch(setAccessToken(accessToken));
     dispatch(set("user", user));
   } else {
-    dispatch(setError(res.response.data.nonFieldErrors[0]));
+    const { data } = res.response;
+    dispatch(setError(data[Object.keys(data)[0]]));
   }
 };
 
