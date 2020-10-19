@@ -5,7 +5,6 @@ import { Redirect } from "react-router-dom";
 import {
   selectUserAccessTokenJS,
   selectUserErrorJS,
-  selectUserRefreshTokenJS,
 } from "../../selectors/user.selector";
 
 import * as actions from "../../actions/user.action";
@@ -17,8 +16,7 @@ const getDisplayName = (WrappedComponent) => {
 const WithAuth = (WrappedComponent) => {
   const WithAuthRedirect = ({
     accessToken,
-    refreshToken,
-    error,
+    verifyError,
     verifyAccess,
     ...rest
   }) => {
@@ -26,19 +24,17 @@ const WithAuth = (WrappedComponent) => {
     useEffect(() => {
       verifyAccess().then(() => setTimeout(() => setFinish(true), 500));
     }, []);
-    if (finish) {
-      if (error) return <Redirect to="/login" push />;
-      return <WrappedComponent {...rest} />;
-    }
+
+    if (verifyError) return <Redirect to="/login" push />;
+    if (finish) return <WrappedComponent {...rest} />;
 
     return null;
   };
 
   const mapStateToProps = (state) => {
     const accessToken = selectUserAccessTokenJS(state);
-    const refreshToken = selectUserRefreshTokenJS(state);
-    const error = selectUserErrorJS(state);
-    return { accessToken, refreshToken, error };
+    const verifyError = selectUserErrorJS(state);
+    return { accessToken, verifyError };
   };
 
   const mapDispatchToProps = {

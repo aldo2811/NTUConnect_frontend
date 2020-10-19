@@ -39,17 +39,6 @@ const verify = async (accessToken) => {
   }
 };
 
-const refresh = async (refreshToken) => {
-  try {
-    const res = await axios.post(`${baseUrl}/token/refresh/`, {
-      refresh: refreshToken,
-    });
-    return res;
-  } catch (e) {
-    return e;
-  }
-};
-
 const list = async (accessToken) => {
   try {
     const res = await axios.get(`${apiUrl}/users/`, {
@@ -61,4 +50,4 @@ const list = async (accessToken) => {
   }
 };
 
-export default { login, register, verify, refresh, list };
+export default { login, register, verify, list };
