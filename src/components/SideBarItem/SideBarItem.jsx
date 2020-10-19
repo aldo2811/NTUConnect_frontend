@@ -4,7 +4,12 @@ import cx from "classnames";
 
 import styles from "./styles.scss";
 
-const SideBarItem = ({ name, url, onClick, className, active }) => {
+const SideBarItem = ({ name, url, level, onClick, className, active }) => {
+  const levelStyle = {
+    "font-weight": level === 0 ? "bold" : "normal",
+    transform: `translateX(${level * 10}px)`,
+  };
+
   const classnames = cx(
     {
       [styles.sidebar_item]: true,
@@ -16,7 +21,7 @@ const SideBarItem = ({ name, url, onClick, className, active }) => {
   return (
     <Link to={url}>
       <div className={classnames} onClick={onClick}>
-        {name}
+        <p style={levelStyle}>{name}</p>
       </div>
     </Link>
   );
