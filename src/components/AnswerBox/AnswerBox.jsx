@@ -13,6 +13,7 @@ import Button from "../Button";
 const AnswerBox = ({
   id,
   username,
+  score,
   datePosted,
   content,
   upvote,
@@ -47,7 +48,7 @@ const AnswerBox = ({
         </div>
       )}
 
-      <UserBar username={username} datePosted={datePosted} />
+      <UserBar username={username} score={score} datePosted={datePosted} />
       <p>{content}</p>
       <InteractionBar>
         <VoteBar

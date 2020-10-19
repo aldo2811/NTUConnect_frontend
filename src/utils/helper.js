@@ -1,7 +1,11 @@
-export const getUsernameById = (users, userId) => {
+export const getUserNameScoreById = (users, userId) => {
   const user = users.find((u) => u.id === userId);
-  if (user) return user.username;
-  return "Anonymous";
+
+  if (user) {
+    const { username, score } = user;
+    return { username, score };
+  }
+  return { username: "", score: 0 };
 };
 
 export const getCourseCodeById = (forums, forumId) => {

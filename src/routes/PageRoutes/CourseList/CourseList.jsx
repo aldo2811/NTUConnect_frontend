@@ -22,7 +22,7 @@ import {
 import * as forumActions from "../../../actions/forums.action";
 import * as userActions from "../../../actions/user.action";
 
-import { getUsernameById } from "../../../utils/helper";
+import { getUserNameScoreById } from "../../../utils/helper";
 
 const CourseList = ({
   allForums,
@@ -71,8 +71,8 @@ const CourseList = ({
           return (
             <ForumBox
               key={forum.id}
-              username={getUsernameById(allUsers, forum.creator)}
               onJoinClick={onJoinClick}
+              {...getUserNameScoreById(allUsers, forum.creator)}
               {...forum}
             />
           );

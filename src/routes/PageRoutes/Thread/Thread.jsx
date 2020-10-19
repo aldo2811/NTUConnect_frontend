@@ -26,7 +26,7 @@ import * as messageActions from "../../../actions/messages.action";
 import * as userActions from "../../../actions/user.action";
 import * as forumActions from "../../../actions/forums.action";
 
-import { getCourseCodeById, getUsernameById } from "../../../utils/helper";
+import { getCourseCodeById, getUserNameScoreById } from "../../../utils/helper";
 
 const Thread = ({
   thread,
@@ -73,8 +73,8 @@ const Thread = ({
   return (
     <div className={appStyles.content_section}>
       <QuestionBox
-        username={getUsernameById(allUsers, thread.creator)}
         courseCode={getCourseCodeById(allForums, thread.forum)}
+        {...getUserNameScoreById(allUsers, thread.creator)}
         {...thread}
       />
       <AnswerInput onSubmitClick={onSubmitClick} />
@@ -82,11 +82,11 @@ const Thread = ({
         return (
           <AnswerBox
             key={answer.id}
-            username={getUsernameById(allUsers, answer.creator)}
             onVote={onVote}
             userType={userType}
             threadSolved={thread.solved}
             onMarkSolved={onMarkSolved}
+            {...getUserNameScoreById(allUsers, answer.creator)}
             {...answer}
           />
         );
