@@ -4,7 +4,6 @@ import { SET, RESET } from "../actions/user.action";
 const initialState = fromJS({
   users: [],
   user: {},
-  refreshToken: "",
   accessToken: "",
   loading: true,
   verifyError: null,
