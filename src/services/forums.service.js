@@ -9,7 +9,7 @@ const list = async (accessToken) => {
     });
     return res;
   } catch (e) {
-    return e.response;
+    return e;
   }
 };
 
@@ -24,7 +24,7 @@ const join = async (forumId, accessToken) => {
     );
     return res;
   } catch (e) {
-    return e.response;
+    return e;
   }
 };
 
@@ -35,7 +35,7 @@ const detail = async (forumId, accessToken) => {
     });
     return res;
   } catch (e) {
-    return e.response;
+    return e;
   }
 };
 

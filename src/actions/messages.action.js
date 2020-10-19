@@ -24,7 +24,7 @@ export const getAll = (threadId) => async (dispatch, getState) => {
     dispatch(set("thread", { ...rest }));
     dispatch(set("messages", messages));
   } else {
-    dispatch(set("error", res));
+    dispatch(set("error", res.response));
   }
   dispatch(set("loading", false));
 };
@@ -45,7 +45,7 @@ export const createThread = (title, description, forumId) => async (
     dispatch(set("messages", []));
     dispatch(set("thread", res.data));
   } else {
-    dispatch(set("error", res));
+    dispatch(set("error", res.response));
   }
   dispatch(set("loading", false));
 };
@@ -59,7 +59,7 @@ export const createMessage = (content, threadId) => async (
   if (res.data) {
     dispatch(update("messages", res.data));
   } else {
-    dispatch(set("error", res));
+    dispatch(set("error", res.response));
   }
 };
 
@@ -70,6 +70,6 @@ export const upvoteMessage = (action, messageId) => async (
   const accessToken = getToken(getState);
   const res = await messageService.upvote(action, messageId, accessToken);
   if (!res.data) {
-    dispatch(set("error", res));
+    dispatch(set("error", res.response));
   }
 };

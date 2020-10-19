@@ -11,7 +11,7 @@ const login = async (username, email, password) => {
       password,
     });
   } catch (e) {
-    return e.response;
+    return e;
   }
 };
 
@@ -24,7 +24,7 @@ const register = async (username, email, password1, password2) => {
       password2,
     });
   } catch (e) {
-    return e.response;
+    return e;
   }
 };
 
@@ -35,7 +35,7 @@ const verify = async (accessToken) => {
     });
     return res;
   } catch (e) {
-    return e.response;
+    return e;
   }
 };
 
@@ -46,7 +46,7 @@ const refresh = async (refreshToken) => {
     });
     return res;
   } catch (e) {
-    return e.response;
+    return e;
   }
 };
 
@@ -57,7 +57,7 @@ const list = async (accessToken) => {
     });
     return res;
   } catch (e) {
-    return e.response;
+    return e;
   }
 };
 

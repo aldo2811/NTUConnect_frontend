@@ -9,7 +9,7 @@ const list = async (accessToken) => {
     });
     return res;
   } catch (e) {
-    return e.response;
+    return e;
   }
 };
 
@@ -26,7 +26,7 @@ const create = async (title, description, forumId, accessToken) => {
     );
     return res;
   } catch (e) {
-    return e.response;
+    return e;
   }
 };
 
