@@ -26,7 +26,7 @@ const WithAuth = (WrappedComponent) => {
     const [finish, setFinish] = useState(false);
     useEffect(() => {
       verifyAccess().then(() => {
-        if (!userType) getCurrentUser();
+        if (verifyError && userType) getCurrentUser();
       });
       setTimeout(() => setFinish(true), 500);
     }, []);
