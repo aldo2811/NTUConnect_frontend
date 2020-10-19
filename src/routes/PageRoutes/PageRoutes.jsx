@@ -11,6 +11,7 @@ import AskQuestionPage from "./AskQuestionPage/AskQuestionPage";
 import CoursePage from "./CoursePage";
 import WithAuth from "../RedirectHOC/withAuth";
 import Thread from "./Thread";
+import CreateForumPage from "./CreateForumPage/CreateForumPage";
 
 const PageRoutes = ({ match: { url } }) => {
   const menu = [
@@ -32,6 +33,10 @@ const PageRoutes = ({ match: { url } }) => {
             <Route
               path={`${url}thread/:threadId`}
               component={WithAuth(Thread)}
+            />
+            <Route
+              path={`${url}courses/new`}
+              component={WithAuth(CreateForumPage)}
             />
             <Route
               path={`${url}courses/:courseId/new`}

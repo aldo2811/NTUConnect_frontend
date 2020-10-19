@@ -39,4 +39,17 @@ const detail = async (forumId, accessToken) => {
   }
 };
 
-export default { list, join, detail };
+const create = async (courseTitle, courseCode, accessToken) => {
+  try {
+    const res = await axios.post(
+      `${baseUrl}/forums/create/`,
+      { courseTitle, courseCode },
+      { headers: { Authorization: accessToken } }
+    );
+    return res;
+  } catch (e) {
+    return e;
+  }
+};
+
+export default { list, join, detail, create };

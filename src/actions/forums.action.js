@@ -34,3 +34,16 @@ export const joinForum = (forumId) => async (dispatch, getState) => {
     dispatch(setError(res.response.status));
   }
 };
+
+export const createForum = (courseTitle, courseCode) => async (
+  dispatch,
+  getState
+) => {
+  const accessToken = getToken(getState);
+  const res = await forumService.create(courseTitle, courseCode, accessToken);
+  if (res.data) {
+    dispatch(getAll());
+  } else {
+    dispatch(setError(res.response.status));
+  }
+};
