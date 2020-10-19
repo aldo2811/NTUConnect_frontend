@@ -3,7 +3,6 @@ import { createSelector } from "reselect";
 const selectMessages = (state) => state.messages.get("messages");
 const selectMessagesThread = (state) => state.messages.get("thread");
 const selectMessagesLoading = (state) => state.messages.get("loading");
-const selectMessagesError = (state) => state.messages.get("error");
 
 export const selectMessagesJS = createSelector(
   selectMessages,
@@ -23,9 +22,4 @@ export const selectMessagesThreadIdJS = createSelector(
 export const selectMessagesLoadingJS = createSelector(
   selectMessagesLoading,
   (loading) => loading
-);
-
-export const selectMessagesErrorJS = createSelector(
-  selectMessagesError,
-  (error) => error
 );

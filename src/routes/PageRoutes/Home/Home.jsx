@@ -6,7 +6,6 @@ import ThreadBox from "../../../components/ThreadBox";
 import appStyles from "../../../stylesheets/app.scss";
 
 import {
-  selectThreadsErrorJS,
   selectThreadsJS,
   selectThreadsLoadingJS,
 } from "../../../selectors/threads.selector";
@@ -70,7 +69,6 @@ const mapStateToProps = (state) => {
   const allThreads = selectThreadsJS(state);
   const allUsers = selectAllUsersJS(state);
   const allForums = selectAllForumsJS(state);
-  const error = selectThreadsErrorJS(state);
   const threadLoading = selectThreadsLoadingJS(state);
   const forumLoading = selectForumsLoadingJS(state);
   const userLoading = selectUserLoadingJS(state);
@@ -79,7 +77,6 @@ const mapStateToProps = (state) => {
     allThreads,
     allUsers,
     allForums,
-    error,
     threadLoading,
     forumLoading,
     userLoading,

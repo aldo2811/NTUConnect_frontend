@@ -9,7 +9,7 @@ const list = async (threadId, accessToken) => {
     });
     return res;
   } catch (e) {
-    return e.response;
+    return e;
   }
 };
 
@@ -22,7 +22,7 @@ const create = async (content, threadId, accessToken) => {
     );
     return res;
   } catch (e) {
-    return e.response;
+    return e;
   }
 };
 
@@ -35,7 +35,7 @@ const upvote = async (action, messageId, accessToken) => {
     );
     return res;
   } catch (e) {
-    return e.response;
+    return e;
   }
 };
 

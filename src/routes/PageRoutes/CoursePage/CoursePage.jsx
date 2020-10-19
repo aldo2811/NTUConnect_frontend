@@ -11,7 +11,6 @@ import appStyles from "../../../stylesheets/app.scss";
 
 import {
   selectThreadsJS,
-  selectThreadsErrorJS,
   selectThreadsForumJS,
   selectThreadsLoadingJS,
 } from "../../../selectors/threads.selector";
@@ -84,8 +83,7 @@ const mapStateToProps = (state) => {
   const allUsers = selectAllUsersJS(state);
   const threadLoading = selectThreadsLoadingJS(state);
   const userLoading = selectUserLoadingJS(state);
-  const error = selectThreadsErrorJS(state);
-  return { forum, threads, allUsers, threadLoading, userLoading, error };
+  return { forum, threads, allUsers, threadLoading, userLoading };
 };
 
 const mapDispatchToProps = {

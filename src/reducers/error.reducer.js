@@ -1,13 +1,9 @@
 import { fromJS } from "immutable";
-import { SET, RESET } from "../actions/threads.action";
+import { SET, RESET } from "../actions/error.action";
 
-const initialState = fromJS({
-  forum: {},
-  threads: [],
-  loading: true,
-});
+const initialState = fromJS({ error: null });
 
-export default function reducer(state = initialState, action) {
+export default function errorReducer(state = initialState, action) {
   switch (action.type) {
     case SET:
       return state.set(action.key, fromJS(action.value));

@@ -1,6 +1,8 @@
 import messageService from "../services/messages.service";
 import threadService from "../services/threads.service";
 
+import { setError } from "./error.action";
+
 export const SET = "MESSAGES_SET";
 export const RESET = "MESSAGES_RESET";
 export const UPDATE = "MESSAGES_UPDATE";
@@ -24,7 +26,7 @@ export const getAll = (threadId) => async (dispatch, getState) => {
     dispatch(set("thread", { ...rest }));
     dispatch(set("messages", messages));
   } else {
-    dispatch(set("error", res.response));
+    dispatch(setError(res.response.status));
   }
   dispatch(set("loading", false));
 };
@@ -45,7 +47,7 @@ export const createThread = (title, description, forumId) => async (
     dispatch(set("messages", []));
     dispatch(set("thread", res.data));
   } else {
-    dispatch(set("error", res.response));
+    dispatch(setError(res.response.data[0]));
   }
   dispatch(set("loading", false));
 };
@@ -56,10 +58,11 @@ export const createMessage = (content, threadId) => async (
 ) => {
   const accessToken = getToken(getState);
   const res = await messageService.create(content, threadId, accessToken);
+
   if (res.data) {
     dispatch(update("messages", res.data));
   } else {
-    dispatch(set("error", res.response));
+    dispatch(setError(res.response.data.content[0]));
   }
 };
 
@@ -70,6 +73,6 @@ export const upvoteMessage = (action, messageId) => async (
   const accessToken = getToken(getState);
   const res = await messageService.upvote(action, messageId, accessToken);
   if (!res.data) {
-    dispatch(set("error", res.response));
+    dispatch(setError(res.response.status));
   }
 };

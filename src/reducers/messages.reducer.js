@@ -5,7 +5,6 @@ const initialState = fromJS({
   thread: {},
   messages: [],
   loading: true,
-  error: "",
 });
 
 export default function reducer(state = initialState, action) {

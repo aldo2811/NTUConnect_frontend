@@ -7,7 +7,6 @@ import Button from "../../components/Button";
 
 import {
   selectUserJS,
-  selectUserErrorJS,
   selectUserAccessTokenJS,
 } from "../../selectors/user.selector";
 
@@ -105,12 +104,10 @@ const Register = ({ accessToken, register, reset, verifyAccess }) => {
 const mapStateToProps = (state) => {
   const user = selectUserJS(state);
   const accessToken = selectUserAccessTokenJS(state);
-  const error = selectUserErrorJS(state);
 
   return {
     user,
     accessToken,
-    error,
   };
 };
 

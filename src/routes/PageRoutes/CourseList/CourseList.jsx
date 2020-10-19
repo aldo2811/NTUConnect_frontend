@@ -7,7 +7,6 @@ import appStyles from "../../../stylesheets/app.scss";
 
 import {
   selectAllForumsJS,
-  selectForumsErrorJS,
   selectForumsLoadingJS,
 } from "../../../selectors/forums.selector";
 import {
@@ -69,8 +68,7 @@ const mapStateToProps = (state) => {
   const allUsers = selectAllUsersJS(state);
   const forumLoading = selectForumsLoadingJS(state);
   const userLoading = selectUserLoadingJS(state);
-  const error = selectForumsErrorJS(state);
-  return { allForums, allUsers, forumLoading, userLoading, error };
+  return { allForums, allUsers, forumLoading, userLoading };
 };
 
 const mapDispatchToProps = {

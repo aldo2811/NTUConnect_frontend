@@ -1,6 +1,8 @@
 import threadService from "../services/threads.service";
 import forumService from "../services/forums.service";
 
+import { setError } from "./error.action";
+
 export const SET = "THREADS_SET";
 export const RESET = "THREADS_RESET";
 
@@ -20,7 +22,7 @@ export const getAll = () => async (dispatch, getState) => {
     dispatch(set("forum", {}));
     dispatch(set("threads", res.data));
   } else {
-    dispatch(set("error", res.response));
+    dispatch(setError(res.response.status));
   }
   dispatch(set("loading", false));
 };
@@ -34,7 +36,7 @@ export const getThreadsOfForum = (forumId) => async (dispatch, getState) => {
     dispatch(set("forum", { ...rest }));
     dispatch(set("threads", threads));
   } else {
-    dispatch(set("errors", res.response));
+    dispatch(setError(res.response.status));
   }
   dispatch(set("loading", false));
 };
