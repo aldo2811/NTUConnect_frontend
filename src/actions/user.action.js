@@ -67,17 +67,17 @@ export const verifyAccess = () => async (dispatch, getState) => {
       dispatch(setAccessToken(localAccessToken));
     if (!userState.get("refreshToken"))
       dispatch(setRefreshToken(localRefreshToken));
-  } else if (res.status >= 400 && res.status < 500 && localRefreshToken) {
+  } else if (res.status >= 400 && res.status < 500) {
     const refreshRes = await userService.refresh(localRefreshToken);
     if (refreshRes.status === 200) {
       const { access } = refreshRes.data;
       dispatch(setAccessToken(access));
       dispatch(setRefreshToken(localRefreshToken));
     } else {
-      dispatch(set("error", res.statusText));
+      dispatch(set("error", res.status));
     }
   } else {
-    dispatch(set("error", res));
+    dispatch(set("error", res.status));
   }
 };
 
