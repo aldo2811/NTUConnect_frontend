@@ -59,8 +59,6 @@ export const verifyAccess = () => async (dispatch, getState) => {
   const localRefreshToken = storage.get("refresh_token");
   const localAccessToken = storage.get("access_token");
   const res = await userService.verify(localAccessToken);
-  console.log("res", res);
-  console.log("res.response", res.response);
 
   if (res.status === 200) {
     if (!userState.get("accessToken"))

@@ -26,9 +26,7 @@ const WithAuth = (WrappedComponent) => {
     useEffect(() => {
       verifyAccess().then(() => setTimeout(() => setFinish(true), 500));
     }, []);
-    console.log("er", error);
     if (error) {
-      console.log("redirecting");
       return <Redirect to="/login" push />;
     }
     if (finish) return <WrappedComponent {...rest} />;
