@@ -18,7 +18,7 @@ export const getAll = () => async (dispatch, getState) => {
   if (res.data) {
     dispatch(set("forums", res.data));
   } else {
-    dispatch(set("error", res));
+    dispatch(set("error", res.response));
   }
   dispatch(set("loading", false));
 };
@@ -29,6 +29,6 @@ export const joinForum = (forumId) => async (dispatch, getState) => {
   if (res.data) {
     dispatch(getAll());
   } else {
-    dispatch(set("error", res));
+    dispatch(set("error", res.response));
   }
 };

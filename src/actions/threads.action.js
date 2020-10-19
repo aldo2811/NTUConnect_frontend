@@ -20,7 +20,7 @@ export const getAll = () => async (dispatch, getState) => {
     dispatch(set("forum", {}));
     dispatch(set("threads", res.data));
   } else {
-    dispatch(set("error", res));
+    dispatch(set("error", res.response));
   }
   dispatch(set("loading", false));
 };
@@ -34,7 +34,7 @@ export const getThreadsOfForum = (forumId) => async (dispatch, getState) => {
     dispatch(set("forum", { ...rest }));
     dispatch(set("threads", threads));
   } else {
-    dispatch(set("errors", res));
+    dispatch(set("errors", res.response));
   }
   dispatch(set("loading", false));
 };

@@ -30,7 +30,7 @@ export const login = (username, email, password) => async (dispatch) => {
     dispatch(setAccessToken(accessToken));
     dispatch(set("user", user));
   } else {
-    dispatch(set("error", res));
+    dispatch(set("error", res.response.data.nonFieldErrors[0]));
   }
 };
 
@@ -43,13 +43,14 @@ export const register = (username, email, password1, password2) => async (
   dispatch
 ) => {
   const res = await userService.register(username, email, password1, password2);
+  console.log(res.response.data.nonFieldErrors[0]);
   if (res.data) {
     const { accessToken, refreshToken, user } = res.data;
     dispatch(setRefreshToken(refreshToken));
     dispatch(setAccessToken(accessToken));
     dispatch(set("user", user));
   } else {
-    dispatch(set("error", res));
+    dispatch(set("error", res.response.data.nonFieldErrors[0]));
   }
 };
 
@@ -59,20 +60,22 @@ export const verifyAccess = () => async (dispatch, getState) => {
   const localRefreshToken = storage.get("refresh_token");
   const localAccessToken = storage.get("access_token");
   const res = await userService.verify(localAccessToken);
+  console.log(res);
 
   if (res.status === 200) {
     if (!userState.get("accessToken"))
       dispatch(setAccessToken(localAccessToken));
     if (!userState.get("refreshToken"))
       dispatch(setRefreshToken(localRefreshToken));
-  } else if (res.status >= 400 && res.status < 500) {
+  } else if (res.response.status >= 400 && res.response.status < 500) {
     const refreshRes = await userService.refresh(localRefreshToken);
     if (refreshRes.status === 200) {
       const { access } = refreshRes.data;
+      dispatch(set("error", ""));
       dispatch(setAccessToken(access));
       dispatch(setRefreshToken(localRefreshToken));
     } else {
-      dispatch(set("error", res.status));
+      dispatch(set("error", res.response.status));
     }
   } else {
     dispatch(set("error", res.status));
@@ -86,7 +89,7 @@ export const getAll = () => async (dispatch, getState) => {
   if (res.data) {
     dispatch(set("users", res.data));
   } else {
-    dispatch(set("error", res));
+    dispatch(set("error", res.response));
   }
   dispatch(set("loading", false));
 };
