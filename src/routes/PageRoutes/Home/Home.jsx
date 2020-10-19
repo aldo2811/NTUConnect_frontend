@@ -22,7 +22,7 @@ import * as threadActions from "../../../actions/threads.action";
 import * as userActions from "../../../actions/user.action";
 import * as forumActions from "../../../actions/forums.action";
 
-import { getCourseCodeById, getUsernameById } from "../../../utils/helper";
+import { getCourseCodeById, getUserNameScoreById } from "../../../utils/helper";
 
 const Home = ({
   allThreads,
@@ -55,8 +55,8 @@ const Home = ({
         return (
           <ThreadBox
             key={thread.id}
-            username={getUsernameById(allUsers, thread.creator)}
             courseCode={getCourseCodeById(allForums, thread.forum)}
+            {...getUserNameScoreById(allUsers, thread.creator)}
             {...thread}
           />
         );

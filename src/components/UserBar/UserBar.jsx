@@ -2,7 +2,7 @@ import React from "react";
 
 import styles from "./styles.scss";
 
-const UserBar = ({ username, datePosted }) => {
+const UserBar = ({ username, score, datePosted }) => {
   const monthMap = {
     "01": "Jan",
     "02": "Feb",
@@ -33,11 +33,11 @@ const UserBar = ({ username, datePosted }) => {
   return (
     <div className={styles.user_bar}>
       <div>
-        <b>{username}</b>
+        <b>
+          {username} <span className={styles.detail}> • {score} points</span>
+        </b>
       </div>
-      <div className={styles.date_posted}>
-        posted on {parseDate(datePosted)}
-      </div>
+      <div className={styles.detail}>posted on {parseDate(datePosted)}</div>
     </div>
   );
 };
