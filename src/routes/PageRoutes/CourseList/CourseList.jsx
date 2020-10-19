@@ -33,13 +33,10 @@ const CourseList = ({
   getAllForums,
   getAllUsers,
   joinForum,
-  resetForum,
 }) => {
   useEffect(() => {
     getAllUsers();
     getAllForums();
-
-    return () => resetForum();
   }, []);
 
   const currentUrl = useLocation().pathname;
@@ -94,7 +91,6 @@ const mapDispatchToProps = {
   getAllForums: forumActions.getAll,
   getAllUsers: userActions.getAll,
   joinForum: forumActions.joinForum,
-  resetForum: forumActions.reset,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CourseList);
