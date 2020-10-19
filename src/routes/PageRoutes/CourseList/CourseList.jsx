@@ -68,6 +68,7 @@ const CourseList = ({
           return (
             <ForumBox
               key={forum.id}
+              userType={userType}
               onJoinClick={onJoinClick}
               {...getUserNameScoreById(allUsers, forum.creator)}
               {...forum}
