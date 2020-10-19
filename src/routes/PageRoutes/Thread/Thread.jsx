@@ -8,7 +8,6 @@ import AnswerBox from "../../../components/AnswerBox";
 import appStyles from "../../../stylesheets/app.scss";
 
 import {
-  selectMessagesErrorJS,
   selectMessagesJS,
   selectMessagesLoadingJS,
   selectMessagesThreadJS,
@@ -94,7 +93,6 @@ const mapStateToProps = (state) => {
   const messageLoading = selectMessagesLoadingJS(state);
   const userLoading = selectUserLoadingJS(state);
   const forumLoading = selectForumsLoadingJS(state);
-  const error = selectMessagesErrorJS(state);
 
   return {
     thread,
@@ -104,7 +102,6 @@ const mapStateToProps = (state) => {
     messageLoading,
     userLoading,
     forumLoading,
-    error,
   };
 };
 

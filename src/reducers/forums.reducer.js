@@ -4,7 +4,6 @@ import { SET, RESET } from "../actions/forums.action";
 const initialState = fromJS({
   forums: [],
   loading: true,
-  error: null,
 });
 
 export default function reducer(state = initialState, action) {
