@@ -65,7 +65,7 @@ const Thread = ({
   };
 
   const onMarkSolved = (isCorrect, messageId) => {
-    markSolvedMessage(isCorrect, messageId);
+    markSolvedMessage(isCorrect, messageId, threadId);
   };
 
   if (messageLoading || userLoading || forumLoading) return null;
