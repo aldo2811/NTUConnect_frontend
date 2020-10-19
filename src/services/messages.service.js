@@ -39,4 +39,17 @@ const upvote = async (action, messageId, accessToken) => {
   }
 };
 
-export default { list, create, upvote };
+const markSolved = async (isCorrect, messageId, accessToken) => {
+  try {
+    const res = await axios.put(
+      `${baseUrl}/messages/${messageId}/mark-solved/`,
+      { isCorrect },
+      { headers: { Authorization: accessToken } }
+    );
+    return res;
+  } catch (e) {
+    return e;
+  }
+};
+
+export default { list, create, upvote, markSolved };

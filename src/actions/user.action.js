@@ -18,6 +18,11 @@ const getToken = (getState) => {
   return `Bearer ${accessToken}`;
 };
 
+const setUserType = (type) => {
+  storage.save("user_type", type);
+  return set("userType", type);
+};
+
 export const login = (username, password) => async (dispatch) => {
   const res = await userService.login(username, password);
   if (res.data) {
@@ -71,4 +76,19 @@ export const getAll = () => async (dispatch, getState) => {
     dispatch(setError(res.response.status));
   }
   dispatch(set("loading", false));
+};
+
+export const getCurrentUser = () => async (dispatch, getState) => {
+  const accessToken = getToken(getState);
+  const localUserType = storage.get("user_type");
+
+  if (localUserType) dispatch(setUserType(localUserType));
+  else {
+    const res = await userService.currentUser(accessToken);
+    if (res.data) {
+      dispatch(setUserType(res.data[0].type));
+    } else {
+      dispatch(setError(res.response.status));
+    }
+  }
 };

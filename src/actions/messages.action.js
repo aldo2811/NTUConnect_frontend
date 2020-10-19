@@ -76,3 +76,16 @@ export const upvoteMessage = (action, messageId) => async (
     dispatch(setError(res.response.status));
   }
 };
+
+export const markSolvedMessage = (isCorrect, messageId) => async (
+  dispatch,
+  getState
+) => {
+  const accessToken = getToken(getState);
+  const res = await messageService.markSolved(
+    isCorrect,
+    messageId,
+    accessToken
+  );
+  console.log(res);
+};

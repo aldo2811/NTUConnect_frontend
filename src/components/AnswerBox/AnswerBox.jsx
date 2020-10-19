@@ -8,6 +8,7 @@ import RoundedIcon from "../RoundedIcon";
 
 import styles from "./styles.scss";
 import appStyles from "../../stylesheets/app.scss";
+import Button from "../Button";
 
 const AnswerBox = ({
   id,
@@ -17,7 +18,10 @@ const AnswerBox = ({
   upvote,
   isCorrect,
   status,
+  threadSolved,
   onVote,
+  userType,
+  onMarkSolved,
 }) => {
   if (!id) return null;
 
@@ -28,12 +32,18 @@ const AnswerBox = ({
         [appStyles.box_container]: true,
       })}
     >
-      {isCorrect && (
+      {threadSolved && isCorrect && (
         <div className={styles.verified_container}>
           <RoundedIcon
             className={styles.verified_icon}
             text="Verified Answer"
           />
+        </div>
+      )}
+
+      {!threadSolved && userType === "IN" && (
+        <div className={styles.verified_container}>
+          <Button onClick={() => onMarkSolved(true, id)}>Mark as Answer</Button>
         </div>
       )}
 
