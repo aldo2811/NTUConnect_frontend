@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
+import cx from "classnames";
 
 import styles from "./styles.scss";
 import TextBox from "../TextBox";
@@ -19,8 +20,11 @@ const TopBar = ({ logout }) => {
       <div className={styles.content}>
         <h2>NTUConnect</h2>
         <TextBox className={styles.search_bar} placeholder="Search" fullwidth />
-        <p>Profile</p>
-        <p className={styles.logout} onClick={onLogoutClick}>
+        <p className={styles.text}>Profile</p>
+        <p
+          className={cx({ [styles.logout]: true, [styles.text]: true })}
+          onClick={onLogoutClick}
+        >
           Logout
         </p>
       </div>
