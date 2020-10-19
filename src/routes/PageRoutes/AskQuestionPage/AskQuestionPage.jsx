@@ -7,11 +7,6 @@ import QuestionInput from "../../../components/QuestionInput";
 import styles from "./styles.scss";
 import appStyles from "../../../stylesheets/app.scss";
 
-import {
-  selectMessagesLoadingJS,
-  selectMessagesThreadIdJS,
-} from "../../../selectors/messages.selector";
-
 import * as messageActions from "../../../actions/messages.action";
 
 const AskQuestionPage = ({
@@ -34,14 +29,8 @@ const AskQuestionPage = ({
   );
 };
 
-const mapStateToProps = (state) => {
-  const threadId = selectMessagesThreadIdJS(state);
-  const messageLoading = selectMessagesLoadingJS(state);
-  return { threadId, messageLoading };
-};
-
 const mapDispatchToProps = {
   createThread: messageActions.createThread,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(AskQuestionPage);
+export default connect(null, mapDispatchToProps)(AskQuestionPage);
