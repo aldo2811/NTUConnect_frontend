@@ -13,6 +13,7 @@ const ForumBox = ({
   courseTitle,
   courseCode,
   username,
+  userType,
   isJoined,
   onJoinClick,
 }) => {
@@ -32,7 +33,7 @@ const ForumBox = ({
         [styles.container]: true,
       })}
     >
-      {isJoined && (
+      {userType === "ST" && isJoined && (
         <RoundedIcon
           className={cx({
             [styles.icon_joined]: true,
@@ -42,7 +43,7 @@ const ForumBox = ({
           text="Joined"
         />
       )}
-      {!isJoined && (
+      {userType === "ST" && !isJoined && (
         <Button
           className={cx({
             [styles.button_join]: true,
