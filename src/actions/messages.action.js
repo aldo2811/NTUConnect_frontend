@@ -77,7 +77,7 @@ export const upvoteMessage = (action, messageId) => async (
   }
 };
 
-export const markSolvedMessage = (isCorrect, messageId) => async (
+export const markSolvedMessage = (isCorrect, messageId, threadId) => async (
   dispatch,
   getState
 ) => {
@@ -87,5 +87,9 @@ export const markSolvedMessage = (isCorrect, messageId) => async (
     messageId,
     accessToken
   );
-  console.log(res);
+  if (res.data) {
+    dispatch(getAll(threadId));
+  } else {
+    dispatch(setError(res.response.status));
+  }
 };
