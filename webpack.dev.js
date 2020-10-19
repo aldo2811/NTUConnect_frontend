@@ -39,13 +39,13 @@ module.exports = {
     proxy: {
       "/api": {
         target:
-          "https://xoel2szaa2.execute-api.ap-southeast-1.amazonaws.com/production/",
+          "https://rd1q7s8kc8.execute-api.ap-southeast-1.amazonaws.com/dev/",
         changeOrigin: true,
         secure: false,
       },
       "/auth": {
         target:
-          "https://xoel2szaa2.execute-api.ap-southeast-1.amazonaws.com/production/",
+          "https://rd1q7s8kc8.execute-api.ap-southeast-1.amazonaws.com/dev/",
         changeOrigin: true,
         secure: false,
       },
