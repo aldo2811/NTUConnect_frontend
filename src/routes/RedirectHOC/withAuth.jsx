@@ -5,6 +5,7 @@ import { Redirect } from "react-router-dom";
 import {
   selectUserAccessTokenJS,
   selectUserErrorJS,
+  selectUserTypeJS,
 } from "../../selectors/user.selector";
 
 import * as actions from "../../actions/user.action";
@@ -17,12 +18,17 @@ const WithAuth = (WrappedComponent) => {
   const WithAuthRedirect = ({
     accessToken,
     verifyError,
+    userType,
     verifyAccess,
+    getCurrentUser,
     ...rest
   }) => {
     const [finish, setFinish] = useState(false);
     useEffect(() => {
-      verifyAccess().then(() => setTimeout(() => setFinish(true), 500));
+      verifyAccess().then(() => {
+        if (!userType) getCurrentUser();
+      });
+      setTimeout(() => setFinish(true), 500);
     }, []);
 
     if (verifyError) return <Redirect to="/login" push />;
@@ -34,10 +40,12 @@ const WithAuth = (WrappedComponent) => {
   const mapStateToProps = (state) => {
     const accessToken = selectUserAccessTokenJS(state);
     const verifyError = selectUserErrorJS(state);
-    return { accessToken, verifyError };
+    const userType = selectUserTypeJS(state);
+    return { accessToken, verifyError, userType };
   };
 
   const mapDispatchToProps = {
+    getCurrentUser: actions.getCurrentUser,
     verifyAccess: actions.verifyAccess,
   };
 

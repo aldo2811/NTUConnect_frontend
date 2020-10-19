@@ -49,4 +49,15 @@ const list = async (accessToken) => {
   }
 };
 
-export default { login, register, verify, list };
+const currentUser = async (accessToken) => {
+  try {
+    const res = await axios.get(`${apiUrl}/users/logged-in/`, {
+      headers: { Authorization: accessToken },
+    });
+    return res;
+  } catch (e) {
+    return e;
+  }
+};
+
+export default { login, register, verify, list, currentUser };

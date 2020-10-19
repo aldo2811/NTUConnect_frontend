@@ -2,6 +2,7 @@ import { createSelector } from "reselect";
 
 const selectAllUsers = (state) => state.user.get("users");
 const selectUser = (state) => state.user.get("user");
+const selectUserType = (state) => state.user.get("userType");
 const selectUserAccessToken = (state) => state.user.get("accessToken");
 const selectUserLoading = (state) => state.user.get("loading");
 const selectUserError = (state) => state.user.get("verifyError");
@@ -15,6 +16,8 @@ export const selectUserJS = createSelector(
   selectUser,
   (user) => user && user.toJS()
 );
+
+export const selectUserTypeJS = createSelector(selectUserType, (type) => type);
 
 export const selectUserAccessTokenJS = createSelector(
   selectUserAccessToken,

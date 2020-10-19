@@ -15,6 +15,7 @@ import {
 import {
   selectAllUsersJS,
   selectUserLoadingJS,
+  selectUserTypeJS,
 } from "../../../selectors/user.selector";
 import {
   selectAllForumsJS,
@@ -35,11 +36,13 @@ const Thread = ({
   messageLoading,
   userLoading,
   forumLoading,
+  userType,
   getAllMessage,
   getAllUser,
   getAllForums,
   createMessage,
   upvoteMessage,
+  markSolvedMessage,
   resetMessage,
   match: {
     params: { threadId },
@@ -61,6 +64,10 @@ const Thread = ({
     upvoteMessage(action, messageId);
   };
 
+  const onMarkSolved = (isCorrect, messageId) => {
+    markSolvedMessage(isCorrect, messageId);
+  };
+
   if (messageLoading || userLoading || forumLoading) return null;
 
   return (
@@ -77,6 +84,9 @@ const Thread = ({
             key={answer.id}
             username={getUsernameById(allUsers, answer.creator)}
             onVote={onVote}
+            userType={userType}
+            threadSolved={thread.solved}
+            onMarkSolved={onMarkSolved}
             {...answer}
           />
         );
@@ -93,6 +103,7 @@ const mapStateToProps = (state) => {
   const messageLoading = selectMessagesLoadingJS(state);
   const userLoading = selectUserLoadingJS(state);
   const forumLoading = selectForumsLoadingJS(state);
+  const userType = selectUserTypeJS(state);
 
   return {
     thread,
@@ -102,6 +113,7 @@ const mapStateToProps = (state) => {
     messageLoading,
     userLoading,
     forumLoading,
+    userType,
   };
 };
 
@@ -111,6 +123,7 @@ const mapDispatchToProps = {
   getAllForums: forumActions.getAll,
   createMessage: messageActions.createMessage,
   upvoteMessage: messageActions.upvoteMessage,
+  markSolvedMessage: messageActions.markSolvedMessage,
   resetMessage: messageActions.reset,
 };
 
