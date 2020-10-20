@@ -1,7 +1,7 @@
 import messageService from "../services/messages.service";
 import threadService from "../services/threads.service";
 
-import { setError } from "./error.action";
+import { handleError } from "./error.action";
 
 export const SET = "MESSAGES_SET";
 export const RESET = "MESSAGES_RESET";
@@ -26,7 +26,7 @@ export const getAll = (threadId) => async (dispatch, getState) => {
     dispatch(set("thread", { ...rest }));
     dispatch(set("messages", messages));
   } else {
-    dispatch(setError(res.response.status));
+    dispatch(handleError(res));
   }
   dispatch(set("loading", false));
 };
@@ -47,7 +47,7 @@ export const createThread = (title, description, forumId) => async (
     dispatch(set("messages", []));
     dispatch(set("thread", res.data));
   } else {
-    dispatch(setError(res.response.data[0]));
+    dispatch(handleError(res));
   }
   dispatch(set("loading", false));
 };
@@ -62,7 +62,7 @@ export const createMessage = (content, threadId) => async (
   if (res.data) {
     dispatch(update("messages", res.data));
   } else {
-    dispatch(setError(res.response.data.content[0]));
+    dispatch(handleError(res));
   }
 };
 
@@ -73,7 +73,7 @@ export const upvoteMessage = (action, messageId) => async (
   const accessToken = getToken(getState);
   const res = await messageService.upvote(action, messageId, accessToken);
   if (!res.data) {
-    dispatch(setError(res.response.status));
+    dispatch(handleError(res));
   }
 };
 
@@ -90,6 +90,6 @@ export const markSolvedMessage = (isCorrect, messageId, threadId) => async (
   if (res.data) {
     dispatch(getAll(threadId));
   } else {
-    dispatch(setError(res.response.status));
+    dispatch(handleError(res));
   }
 };

@@ -11,3 +11,16 @@ export const setError = (error) => (dispatch) => {
 export const resetError = () => (dispatch) => {
   dispatch(reset());
 };
+
+export const handleError = (res) => (dispatch) => {
+  console.log(res.response || res);
+  if (res.errorMessage) {
+    dispatch(setError(res.errorMessage));
+  } else if (res.response.data.errorMessage) {
+    dispatch(setError(res.response.data.errorMessage));
+  } else if (res.response.statusText) {
+    dispatch(setError(res.response.statusText));
+  } else {
+    dispatch(setError(res.response.status));
+  }
+};

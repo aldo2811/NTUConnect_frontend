@@ -1,6 +1,6 @@
 import userService from "../services/user.service";
 import * as storage from "./storage";
-import { setError } from "./error.action";
+import { handleError } from "./error.action";
 
 export const SET = "USER_SET";
 export const RESET = "USER_RESET";
@@ -31,8 +31,7 @@ export const login = (username, password) => async (dispatch) => {
     dispatch(setAccessToken(accessToken));
     dispatch(set("user", user));
   } else {
-    const { data } = res.response;
-    dispatch(setError(data[Object.keys(data)[0]]));
+    dispatch(handleError(res));
   }
 };
 
@@ -51,8 +50,7 @@ export const register = (username, email, password1, password2) => async (
     dispatch(setAccessToken(accessToken));
     dispatch(set("user", user));
   } else {
-    const { data } = res.response;
-    dispatch(setError(data[Object.keys(data)[0]]));
+    dispatch(handleError(res));
   }
 };
 
@@ -76,7 +74,7 @@ export const getAll = () => async (dispatch, getState) => {
   if (res.data) {
     dispatch(set("users", res.data));
   } else {
-    dispatch(setError(res.response.status));
+    dispatch(handleError(res));
   }
   dispatch(set("loading", false));
 };

@@ -1,6 +1,6 @@
 import forumService from "../services/forums.service";
 
-import { setError } from "./error.action";
+import { handleError } from "./error.action";
 
 export const SET = "FORUMS_SET";
 export const RESET = "FORUMS_RESET";
@@ -20,7 +20,7 @@ export const getAll = () => async (dispatch, getState) => {
   if (res.data) {
     dispatch(set("forums", res.data));
   } else {
-    dispatch(setError(res.response.status));
+    dispatch(handleError(res));
   }
   dispatch(set("loading", false));
 };
@@ -31,7 +31,7 @@ export const joinForum = (forumId) => async (dispatch, getState) => {
   if (res.data) {
     dispatch(getAll());
   } else {
-    dispatch(setError(res.response.status));
+    dispatch(handleError(res));
   }
 };
 
@@ -44,6 +44,6 @@ export const createForum = (courseTitle, courseCode) => async (
   if (res.data) {
     dispatch(getAll());
   } else {
-    dispatch(setError(res.response.status));
+    dispatch(handleError(res));
   }
 };
