@@ -6,7 +6,7 @@ import styles from "./styles.scss";
 
 const SideBarItem = ({ name, url, level, onClick, className, active }) => {
   const levelStyle = {
-    "font-weight": level === 0 ? "bold" : "normal",
+    fontWeight: level === 0 ? "bold" : "normal",
     transform: `translateX(${level * 10}px)`,
   };
 
