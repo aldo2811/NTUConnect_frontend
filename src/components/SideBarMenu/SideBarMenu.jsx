@@ -6,11 +6,28 @@ import SideBarItem from "../SideBarItem";
 
 import styles from "./styles.scss";
 
-import { selectAllForumsJoinedJS } from "../../selectors/forums.selector";
+import {
+  selectAllForumsJoinedJS,
+  selectForumsLoadingJS,
+} from "../../selectors/forums.selector";
 
 import * as forumActions from "../../actions/forums.action";
+import * as userActions from "../../actions/user.action";
 
-const SideBarMenu = ({ allForumsJoined, getAllForums }) => {
+const SideBarMenu = ({
+  allForumsJoined,
+  forumLoading,
+  getAllForums,
+  resetForums,
+  getCurrentUser,
+}) => {
+  useEffect(() => {
+    getCurrentUser();
+    getAllForums();
+
+    return () => resetForums();
+  }, []);
+
   const menu = [
     { name: "Home", url: "/", level: 0 },
     { name: "Courses", url: "/courses", level: 0 },
@@ -32,15 +49,13 @@ const SideBarMenu = ({ allForumsJoined, getAllForums }) => {
     currentMenu = "/";
   }
 
-  useEffect(() => {
-    if (!allForumsJoined) getAllForums();
-  }, []);
-
   const [selected, setSelected] = useState(currentMenu);
 
   const onItemClick = (selectedUrl) => {
     setSelected(selectedUrl);
   };
+
+  if (forumLoading) return null;
 
   return (
     <div className={styles.sidebar_container}>
@@ -62,11 +77,14 @@ const SideBarMenu = ({ allForumsJoined, getAllForums }) => {
 
 const mapStateToProps = (state) => {
   const allForumsJoined = selectAllForumsJoinedJS(state);
-  return { allForumsJoined };
+  const forumLoading = selectForumsLoadingJS(state);
+  return { allForumsJoined, forumLoading };
 };
 
 const mapDispatchToProps = {
   getAllForums: forumActions.getAll,
+  resetForums: forumActions.reset,
+  getCurrentUser: userActions.getCurrentUser,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SideBarMenu);

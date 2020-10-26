@@ -13,29 +13,18 @@ import {
   selectAllForumsJS,
   selectForumsLoadingJS,
 } from "../../../selectors/forums.selector";
-import {
-  selectAllUsersJS,
-  selectUserLoadingJS,
-  selectUserTypeJS,
-} from "../../../selectors/user.selector";
+import { selectUserTypeJS } from "../../../selectors/user.selector";
 
 import * as forumActions from "../../../actions/forums.action";
-import * as userActions from "../../../actions/user.action";
-
-import { getUserNameScoreById } from "../../../utils/helper";
 
 const CourseList = ({
   allForums,
-  allUsers,
   forumLoading,
-  userLoading,
   userType,
   getAllForums,
-  getAllUsers,
   joinForum,
 }) => {
   useEffect(() => {
-    getAllUsers();
     getAllForums();
   }, []);
 
@@ -45,7 +34,7 @@ const CourseList = ({
     joinForum(forumId);
   };
 
-  if (forumLoading || userLoading) return null;
+  if (forumLoading) return null;
 
   return (
     <div
@@ -70,7 +59,6 @@ const CourseList = ({
               key={forum.id}
               userType={userType}
               onJoinClick={onJoinClick}
-              {...getUserNameScoreById(allUsers, forum.creator)}
               {...forum}
             />
           );
@@ -81,16 +69,13 @@ const CourseList = ({
 
 const mapStateToProps = (state) => {
   const allForums = selectAllForumsJS(state);
-  const allUsers = selectAllUsersJS(state);
   const forumLoading = selectForumsLoadingJS(state);
-  const userLoading = selectUserLoadingJS(state);
   const userType = selectUserTypeJS(state);
-  return { allForums, allUsers, forumLoading, userLoading, userType };
+  return { allForums, forumLoading, userType };
 };
 
 const mapDispatchToProps = {
   getAllForums: forumActions.getAll,
-  getAllUsers: userActions.getAll,
   joinForum: forumActions.joinForum,
 };
 

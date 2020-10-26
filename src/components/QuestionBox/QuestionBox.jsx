@@ -8,12 +8,11 @@ import appStyles from "../../stylesheets/app.scss";
 
 const QuestionBox = ({
   id,
-  username,
-  score,
+  creator: { username, score },
   datePosted,
   title,
   description,
-  courseCode,
+  forum: { courseCode },
 }) => {
   if (!id) return null;
 

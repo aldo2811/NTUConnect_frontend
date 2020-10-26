@@ -12,34 +12,16 @@ import {
   selectMessagesLoadingJS,
   selectMessagesThreadJS,
 } from "../../../selectors/messages.selector";
-import {
-  selectAllUsersJS,
-  selectUserLoadingJS,
-  selectUserTypeJS,
-} from "../../../selectors/user.selector";
-import {
-  selectAllForumsJS,
-  selectForumsLoadingJS,
-} from "../../../selectors/forums.selector";
+import { selectUserTypeJS } from "../../../selectors/user.selector";
 
 import * as messageActions from "../../../actions/messages.action";
-import * as userActions from "../../../actions/user.action";
-import * as forumActions from "../../../actions/forums.action";
-
-import { getCourseCodeById, getUserNameScoreById } from "../../../utils/helper";
 
 const Thread = ({
   thread,
   allMessages,
-  allUsers,
-  allForums,
   messageLoading,
-  userLoading,
-  forumLoading,
   userType,
   getAllMessage,
-  getAllUser,
-  getAllForums,
   createMessage,
   upvoteMessage,
   markSolvedMessage,
@@ -49,8 +31,6 @@ const Thread = ({
   },
 }) => {
   useEffect(() => {
-    getAllUser();
-    getAllForums();
     getAllMessage(threadId);
 
     return () => resetMessage();
@@ -68,15 +48,11 @@ const Thread = ({
     markSolvedMessage(isCorrect, messageId, threadId);
   };
 
-  if (messageLoading || userLoading || forumLoading) return null;
+  if (messageLoading) return null;
 
   return (
     <div className={appStyles.content_section}>
-      <QuestionBox
-        courseCode={getCourseCodeById(allForums, thread.forum)}
-        {...getUserNameScoreById(allUsers, thread.creator)}
-        {...thread}
-      />
+      <QuestionBox {...thread} />
       <AnswerInput onSubmitClick={onSubmitClick} />
       {allMessages.map((answer) => {
         return (
@@ -84,9 +60,7 @@ const Thread = ({
             key={answer.id}
             onVote={onVote}
             userType={userType}
-            threadSolved={thread.solved}
             onMarkSolved={onMarkSolved}
-            {...getUserNameScoreById(allUsers, answer.creator)}
             {...answer}
           />
         );
@@ -98,29 +72,19 @@ const Thread = ({
 const mapStateToProps = (state) => {
   const thread = selectMessagesThreadJS(state);
   const allMessages = selectMessagesJS(state);
-  const allUsers = selectAllUsersJS(state);
-  const allForums = selectAllForumsJS(state);
   const messageLoading = selectMessagesLoadingJS(state);
-  const userLoading = selectUserLoadingJS(state);
-  const forumLoading = selectForumsLoadingJS(state);
   const userType = selectUserTypeJS(state);
 
   return {
     thread,
     allMessages,
-    allUsers,
-    allForums,
     messageLoading,
-    userLoading,
-    forumLoading,
     userType,
   };
 };
 
 const mapDispatchToProps = {
   getAllMessage: messageActions.getAll,
-  getAllUser: userActions.getAll,
-  getAllForums: forumActions.getAll,
   createMessage: messageActions.createMessage,
   upvoteMessage: messageActions.upvoteMessage,
   markSolvedMessage: messageActions.markSolvedMessage,

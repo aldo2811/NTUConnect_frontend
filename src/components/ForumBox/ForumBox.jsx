@@ -12,7 +12,7 @@ const ForumBox = ({
   id,
   courseTitle,
   courseCode,
-  username,
+  creator: { username },
   userType,
   isJoined,
   onJoinClick,

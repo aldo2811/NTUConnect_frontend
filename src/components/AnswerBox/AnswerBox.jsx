@@ -12,14 +12,12 @@ import Button from "../Button";
 
 const AnswerBox = ({
   id,
-  username,
-  score,
+  creator: { username, score },
   datePosted,
   content,
   upvote,
   isCorrect,
   status,
-  threadSolved,
   onVote,
   userType,
   onMarkSolved,
@@ -33,7 +31,7 @@ const AnswerBox = ({
         [appStyles.box_container]: true,
       })}
     >
-      {threadSolved && isCorrect && (
+      {isCorrect && (
         <div className={styles.verified_container}>
           <RoundedIcon
             className={styles.verified_icon}
@@ -42,7 +40,7 @@ const AnswerBox = ({
         </div>
       )}
 
-      {!threadSolved && userType === "IN" && (
+      {!isCorrect && userType === "IN" && (
         <div className={styles.verified_container}>
           <Button onClick={() => onMarkSolved(true, id)}>Mark as Answer</Button>
         </div>
