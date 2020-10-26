@@ -19,10 +19,8 @@ const SideBarMenu = ({
   forumLoading,
   getAllForums,
   resetForums,
-  getCurrentUser,
 }) => {
   useEffect(() => {
-    getCurrentUser();
     getAllForums();
 
     return () => resetForums();
