@@ -11,11 +11,10 @@ import UnansweredIcon from "../InteractionBar/UnansweredIcon";
 
 const ThreadBox = ({
   id,
-  username,
-  score,
+  creator: { username, score },
   datePosted,
   title,
-  courseCode,
+  forum: { courseCode },
   solved,
 }) => {
   if (!id) return null;

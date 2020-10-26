@@ -14,31 +14,20 @@ import {
   selectThreadsForumJS,
   selectThreadsLoadingJS,
 } from "../../../selectors/threads.selector";
-import {
-  selectAllUsersJS,
-  selectUserLoadingJS,
-} from "../../../selectors/user.selector";
 
 import * as threadActions from "../../../actions/threads.action";
-import * as userActions from "../../../actions/user.action";
-
-import { getUserNameScoreById } from "../../../utils/helper";
 
 const CoursePage = ({
   forum,
   threads,
-  allUsers,
   threadLoading,
-  userLoading,
   getThreadsOfForum,
-  getAllUsers,
   resetThread,
   match: {
     params: { courseId },
   },
 }) => {
   useEffect(() => {
-    getAllUsers();
     getThreadsOfForum(courseId);
 
     return () => resetThread();
@@ -47,7 +36,7 @@ const CoursePage = ({
   const currentUrl = useLocation().pathname;
   const { courseCode, courseTitle } = forum;
 
-  if (threadLoading || userLoading) return null;
+  if (threadLoading) return null;
 
   return (
     <div
@@ -64,14 +53,7 @@ const CoursePage = ({
       <h1 className={appStyles.heading}>{courseCode} Discussions</h1>
       <p className={appStyles.subheading}>{courseTitle}</p>
       {threads.map((thread) => {
-        return (
-          <ThreadBox
-            key={thread.id}
-            courseCode={courseCode}
-            {...getUserNameScoreById(allUsers, thread.creator)}
-            {...thread}
-          />
-        );
+        return <ThreadBox key={thread.id} {...thread} />;
       })}
     </div>
   );
@@ -80,15 +62,12 @@ const CoursePage = ({
 const mapStateToProps = (state) => {
   const forum = selectThreadsForumJS(state);
   const threads = selectThreadsJS(state);
-  const allUsers = selectAllUsersJS(state);
   const threadLoading = selectThreadsLoadingJS(state);
-  const userLoading = selectUserLoadingJS(state);
-  return { forum, threads, allUsers, threadLoading, userLoading };
+  return { forum, threads, threadLoading };
 };
 
 const mapDispatchToProps = {
   getThreadsOfForum: threadActions.getThreadsOfForum,
-  getAllUsers: userActions.getAll,
   resetThread: threadActions.reset,
 };
 
