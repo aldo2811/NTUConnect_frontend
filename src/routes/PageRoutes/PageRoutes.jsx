@@ -14,12 +14,11 @@ import Thread from "./Thread";
 import CreateForumPage from "./CreateForumPage/CreateForumPage";
 
 const PageRoutes = ({ match: { url } }) => {
-  const AuthSideBarMenu = WithAuth(SideBarMenu);
   return (
     <>
       <TopBar />
       <div className={styles.container}>
-        <AuthSideBarMenu />
+        <SideBarMenu />
         <div className={styles.content}>
           <Switch>
             <Route
