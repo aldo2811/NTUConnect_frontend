@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
 import { Switch, Route } from "react-router-dom";
 
 import SideBarMenu from "../../components/SideBarMenu";
@@ -9,40 +10,55 @@ import styles from "./styles.scss";
 import CourseList from "./CourseList";
 import AskQuestionPage from "./AskQuestionPage/AskQuestionPage";
 import CoursePage from "./CoursePage";
-import WithAuth from "../RedirectHOC/withAuth";
 import Thread from "./Thread";
 import CreateForumPage from "./CreateForumPage/CreateForumPage";
+import {
+  selectAllForumsJoinedJS,
+  selectForumsLoadingJS,
+} from "../../selectors/forums.selector";
+import * as forumActions from "../../actions/forums.action";
+import * as userActions from "../../actions/user.action";
 
-const PageRoutes = ({ match: { url } }) => {
+const PageRoutes = ({
+  match: { url },
+  allForumsJoined,
+  forumLoading,
+  getAllForums,
+  resetForums,
+}) => {
+  useEffect(() => {
+    getAllForums();
+
+    return () => resetForums();
+  }, []);
+
+  const menu = [
+    { name: "Home", url: "/", level: 0 },
+    { name: "Courses", url: "/courses", level: 0 },
+    ...allForumsJoined.map((forum) => {
+      return { name: forum.courseCode, url: `/courses/${forum.id}`, level: 1 };
+    }),
+  ];
+
+  if (forumLoading) return null;
+
   return (
     <>
       <TopBar />
       <div className={styles.container}>
-        <SideBarMenu />
+        <SideBarMenu menu={menu} />
         <div className={styles.content}>
           <Switch>
-            <Route
-              path={`${url}thread/new`}
-              component={WithAuth(AskQuestionPage)}
-            />
-            <Route
-              path={`${url}thread/:threadId`}
-              component={WithAuth(Thread)}
-            />
-            <Route
-              path={`${url}courses/new`}
-              component={WithAuth(CreateForumPage)}
-            />
+            <Route path={`${url}thread/new`} component={AskQuestionPage} />
+            <Route path={`${url}thread/:threadId`} component={Thread} />
+            <Route path={`${url}courses/new`} component={CreateForumPage} />
             <Route
               path={`${url}courses/:courseId/new`}
-              component={WithAuth(AskQuestionPage)}
+              component={AskQuestionPage}
             />
-            <Route
-              path={`${url}courses/:courseId`}
-              component={WithAuth(CoursePage)}
-            />
-            <Route path={`${url}courses`} component={WithAuth(CourseList)} />
-            <Route path={url} component={WithAuth(Home)} />
+            <Route path={`${url}courses/:courseId`} component={CoursePage} />
+            <Route path={`${url}courses`} component={CourseList} />
+            <Route path={url} component={Home} />
           </Switch>
         </div>
       </div>
@@ -50,4 +66,16 @@ const PageRoutes = ({ match: { url } }) => {
   );
 };
 
-export default PageRoutes;
+const mapStateToProps = (state) => {
+  const allForumsJoined = selectAllForumsJoinedJS(state);
+  const forumLoading = selectForumsLoadingJS(state);
+  return { allForumsJoined, forumLoading };
+};
+
+const mapDispatchToProps = {
+  getAllForums: forumActions.getAll,
+  resetForums: forumActions.reset,
+  getCurrentUser: userActions.getCurrentUser,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(PageRoutes);

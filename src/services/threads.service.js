@@ -13,6 +13,18 @@ const list = async (accessToken) => {
   }
 };
 
+const search = async (keyword, accessToken) => {
+  try {
+    const res = await axios.get(
+      `${baseUrl}/threads/search/?search=${keyword}`,
+      { headers: { Authorization: accessToken } }
+    );
+    return res;
+  } catch (e) {
+    return e;
+  }
+};
+
 const create = async (title, description, forumId, accessToken) => {
   try {
     const res = await axios.post(
@@ -30,4 +42,4 @@ const create = async (title, description, forumId, accessToken) => {
   }
 };
 
-export default { list, create };
+export default { list, search, create };

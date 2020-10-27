@@ -5,10 +5,11 @@ const apiUrl = process.env.API_URL;
 
 const login = async (username, password) => {
   try {
-    return await axios.post(`${baseUrl}/login/`, {
+    const res = await axios.post(`${baseUrl}/login/`, {
       username,
       password,
     });
+    return res;
   } catch (e) {
     return e;
   }

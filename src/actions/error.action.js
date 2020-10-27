@@ -13,7 +13,6 @@ export const resetError = () => (dispatch) => {
 };
 
 export const handleError = (res) => (dispatch) => {
-  console.log(res.response || res);
   if (res.errorMessage) {
     dispatch(setError(res.errorMessage));
   } else if (res.response.data.errorMessage) {

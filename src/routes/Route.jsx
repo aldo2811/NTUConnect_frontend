@@ -6,6 +6,7 @@ import PageRoutes from "./PageRoutes";
 import Login from "./Login";
 import Register from "./Register";
 import ErrorBoundary from "./ErrorBoundary/ErrorBoundary";
+import WithAuth from "./RedirectHOC/withAuth";
 
 const App = () => {
   return (
@@ -14,7 +15,7 @@ const App = () => {
         <Switch>
           <Route exact path="/register" component={Register} />
           <Route exact path="/login" component={Login} />
-          <Route path="/" component={PageRoutes} />
+          <Route path="/" component={WithAuth(PageRoutes)} />
         </Switch>
       </ErrorBoundary>
     </Router>

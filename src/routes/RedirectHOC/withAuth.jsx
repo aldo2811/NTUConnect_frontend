@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { Redirect, useLocation } from "react-router-dom";
 
 import {
   selectUserAccessTokenJS,
@@ -23,6 +23,7 @@ const WithAuth = (WrappedComponent) => {
     getCurrentUser,
     ...rest
   }) => {
+    const url = useLocation().pathname;
     const [finish, setFinish] = useState(false);
     useEffect(() => {
       verifyAccess()
@@ -32,7 +33,7 @@ const WithAuth = (WrappedComponent) => {
           }, 500);
         })
         .then(() => setFinish(true));
-    }, []);
+    }, [url]);
 
     if (verifyError) return <Redirect to="/login" push />;
     if (finish) return <WrappedComponent {...rest} />;
