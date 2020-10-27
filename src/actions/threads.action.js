@@ -27,6 +27,19 @@ export const getAll = () => async (dispatch, getState) => {
   dispatch(set("loading", false));
 };
 
+export const searchThreads = (keyword) => async (dispatch, getState) => {
+  const accessToken = getToken(getState);
+  dispatch(set("loading", true));
+  const res = await threadService.search(keyword, accessToken);
+  if (res.data) {
+    dispatch(set("forum", {}));
+    dispatch(set("threads", res.data));
+  } else {
+    dispatch(handleError(res));
+  }
+  dispatch(set("loading", false));
+};
+
 export const getThreadsOfForum = (forumId) => async (dispatch, getState) => {
   const accessToken = getToken(getState);
   dispatch(set("loading", true));

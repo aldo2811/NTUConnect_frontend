@@ -31,7 +31,7 @@ const CoursePage = ({
     getThreadsOfForum(courseId);
 
     return () => resetThread();
-  }, []);
+  }, [courseId]);
 
   const currentUrl = useLocation().pathname;
   const { courseCode, courseTitle } = forum;

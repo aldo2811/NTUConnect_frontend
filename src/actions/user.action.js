@@ -19,7 +19,7 @@ const getToken = (getState) => {
 };
 
 export const login = (username, password) => async (dispatch) => {
-  dispatch(set("user_type", null));
+  dispatch(set("type", null));
   const res = await userService.login(username, password);
   if (res.data) {
     const { accessToken, user } = res.data;
@@ -32,7 +32,7 @@ export const login = (username, password) => async (dispatch) => {
 
 export const logout = () => (dispatch) => {
   dispatch(setAccessToken(null));
-  dispatch(set("user_type", null));
+  dispatch(reset());
 };
 
 export const register = (username, email, password1, password2) => async (
@@ -49,16 +49,17 @@ export const register = (username, email, password1, password2) => async (
   }
 };
 
-export const verifyAccess = () => async (dispatch, getState) => {
-  const userState = getState().user;
-
+export const verifyAccess = () => async (dispatch) => {
   const localAccessToken = storage.get("access_token");
-  const res = await userService.verify(localAccessToken);
-  if (res.status === 200) {
-    if (!userState.get("accessToken"))
+  if (localAccessToken) {
+    const res = await userService.verify(localAccessToken);
+    if (res.status === 200) {
       dispatch(setAccessToken(localAccessToken));
+    } else {
+      dispatch(set("verifyError", res.response.statusText));
+    }
   } else {
-    dispatch(set("verifyError", res.response.status));
+    dispatch(set("verifyError", "Invalid access token"));
   }
 };
 
@@ -78,6 +79,6 @@ export const getCurrentUser = () => async (dispatch, getState) => {
   const accessToken = getToken(getState);
   const res = await userService.currentUser(accessToken);
   if (res.data) {
-    dispatch(set("user_type", res.data[0].type));
+    dispatch(set("type", res.data.type));
   }
 };

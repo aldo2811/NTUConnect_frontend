@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import cx from "classnames";
@@ -17,17 +17,7 @@ import { selectUserTypeJS } from "../../../selectors/user.selector";
 
 import * as forumActions from "../../../actions/forums.action";
 
-const CourseList = ({
-  allForums,
-  forumLoading,
-  userType,
-  getAllForums,
-  joinForum,
-}) => {
-  useEffect(() => {
-    getAllForums();
-  }, []);
-
+const CourseList = ({ allForums, forumLoading, userType, joinForum }) => {
   const currentUrl = useLocation().pathname;
 
   const onJoinClick = (forumId) => {
@@ -75,7 +65,6 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = {
-  getAllForums: forumActions.getAll,
   joinForum: forumActions.joinForum,
 };
 
