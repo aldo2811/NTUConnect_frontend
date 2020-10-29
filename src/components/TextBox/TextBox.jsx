@@ -27,7 +27,6 @@ const TextBox = ({
       <textarea
         className={classname}
         onChange={onChange}
-        onKeyDown={onKeyDown}
         value={value}
         {...rest}
       />
