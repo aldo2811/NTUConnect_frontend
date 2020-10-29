@@ -18,6 +18,7 @@ import {
 } from "../../selectors/forums.selector";
 import * as forumActions from "../../actions/forums.action";
 import * as userActions from "../../actions/user.action";
+import SearchPage from "./SearchPage";
 
 const PageRoutes = ({
   match: { url },
@@ -51,6 +52,7 @@ const PageRoutes = ({
           <Switch>
             <Route path={`${url}thread/new`} component={AskQuestionPage} />
             <Route path={`${url}thread/:threadId`} component={Thread} />
+            <Route path={`${url}search`} component={SearchPage} />
             <Route path={`${url}courses/new`} component={CreateForumPage} />
             <Route
               path={`${url}courses/:courseId/new`}
