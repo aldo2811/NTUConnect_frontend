@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import cx from "classnames";
@@ -8,7 +8,19 @@ import TextBox from "../TextBox";
 import * as actions from "../../actions/user.action";
 
 const TopBar = ({ logout }) => {
+  const [keyword, setKeyword] = useState("");
+
   const history = useHistory();
+
+  const onKeywordChange = (e) => {
+    setKeyword(e.target.value);
+  };
+
+  const onEnterPress = (e) => {
+    if (e.key === "Enter" && keyword) {
+      history.push(`/search?q=${keyword}`);
+    }
+  };
 
   const onLogoutClick = () => {
     logout();
@@ -19,7 +31,14 @@ const TopBar = ({ logout }) => {
     <div className={styles.topbar}>
       <div className={styles.content}>
         <h2>NTUConnect</h2>
-        <TextBox className={styles.search_bar} placeholder="Search" fullwidth />
+        <TextBox
+          className={styles.search_bar}
+          placeholder="Search"
+          value={keyword}
+          onChange={onKeywordChange}
+          onKeyDown={onEnterPress}
+          fullwidth
+        />
         <p className={styles.text}>Profile</p>
         <p
           className={cx({ [styles.logout]: true, [styles.text]: true })}

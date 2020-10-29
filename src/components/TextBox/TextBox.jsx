@@ -7,6 +7,7 @@ const TextBox = ({
   type = "text",
   value,
   onChange,
+  onKeyDown,
   className,
   fullwidth,
   multiline,
@@ -26,6 +27,7 @@ const TextBox = ({
       <textarea
         className={classname}
         onChange={onChange}
+        onKeyDown={onKeyDown}
         value={value}
         {...rest}
       />
@@ -38,6 +40,7 @@ const TextBox = ({
       type={type}
       value={value}
       onChange={onChange}
+      onKeyDown={onKeyDown}
       {...rest}
     />
   );
