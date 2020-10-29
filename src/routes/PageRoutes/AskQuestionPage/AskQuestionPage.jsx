@@ -17,8 +17,10 @@ const AskQuestionPage = ({
 }) => {
   const history = useHistory();
   const onSubmitClick = (title, description) => {
-    createThread(title, description, courseId);
-    history.push(`/courses/${courseId}`);
+    if (title && description) {
+      createThread(title, description, courseId);
+      history.push(`/courses/${courseId}`);
+    }
   };
 
   return (

@@ -37,7 +37,7 @@ const Thread = ({
   }, []);
 
   const onSubmitClick = (content) => {
-    createMessage(content, threadId);
+    if (content) createMessage(content, threadId);
   };
 
   const onVote = (action, messageId) => {

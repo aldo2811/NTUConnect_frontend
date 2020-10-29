@@ -13,8 +13,10 @@ const CreateForumPage = ({ createForum }) => {
   const history = useHistory();
 
   const onSubmitClick = (courseTitle, courseCode) => {
-    createForum(courseTitle, courseCode);
-    history.push(`/courses`);
+    if (courseTitle && courseCode) {
+      createForum(courseTitle, courseCode);
+      history.push(`/courses`);
+    }
   };
 
   return (
