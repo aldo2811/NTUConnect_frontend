@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 
 import UserBar from "../UserBar";
 import InteractionBar from "../InteractionBar";
@@ -20,7 +20,17 @@ const QuestionBox = ({
     <div className={appStyles.box_container}>
       <UserBar username={username} score={score} datePosted={datePosted} />
       <h1>{title}</h1>
-      <p>{description}</p>
+      <p>
+        {description.split("\n").map((item, key) => {
+          return (
+            // eslint-disable-next-line react/no-array-index-key
+            <Fragment key={key}>
+              {item}
+              <br />
+            </Fragment>
+          );
+        })}
+      </p>
       <InteractionBar>
         <CourseCodeIcon courseCode={courseCode} />
       </InteractionBar>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import cx from "classnames";
 
 import UserBar from "../UserBar";
@@ -47,7 +47,17 @@ const AnswerBox = ({
       )}
 
       <UserBar username={username} score={score} datePosted={datePosted} />
-      <p>{content}</p>
+      <p>
+        {content.split("\n").map((item, key) => {
+          return (
+            // eslint-disable-next-line react/no-array-index-key
+            <Fragment key={key}>
+              {item}
+              <br />
+            </Fragment>
+          );
+        })}
+      </p>
       <InteractionBar>
         <VoteBar
           id={id}
