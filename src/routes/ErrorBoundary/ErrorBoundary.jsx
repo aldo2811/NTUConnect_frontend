@@ -14,9 +14,9 @@ const ErrorBoundary = ({ error, resetError, children }) => {
 
   return (
     <>
-      {error && (
+      {error.message && (
         <Modal title="Error" onClose={onCloseModal}>
-          {error}
+          {error.message}
         </Modal>
       )}
       {children}

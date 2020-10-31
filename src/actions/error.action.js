@@ -4,8 +4,8 @@ export const RESET = "ERROR_RESET";
 export const set = (key, value) => ({ type: SET, key, value });
 export const reset = () => ({ type: RESET });
 
-export const setError = (error) => (dispatch) => {
-  dispatch(set("error", error));
+export const setError = (status, message) => (dispatch) => {
+  dispatch(set("error", { status, message }));
 };
 
 export const resetError = () => (dispatch) => {
@@ -13,13 +13,14 @@ export const resetError = () => (dispatch) => {
 };
 
 export const handleError = (res) => (dispatch) => {
-  if (res.errorMessage) {
-    dispatch(setError(res.errorMessage));
-  } else if (res.response.data.errorMessage) {
-    dispatch(setError(res.response.data.errorMessage));
-  } else if (res.response.statusText) {
-    dispatch(setError(res.response.statusText));
+  const error = res.response;
+  const { status } = error;
+
+  if (error.data.errorMessage) {
+    dispatch(setError(status, error.data.errorMessage));
+  } else if (error.statusText) {
+    dispatch(setError(status, error.statusText));
   } else {
-    dispatch(setError(res.response.status));
+    dispatch(setError(status, status));
   }
 };
