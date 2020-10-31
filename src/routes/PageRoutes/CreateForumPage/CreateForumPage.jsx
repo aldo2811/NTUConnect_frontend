@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 
@@ -8,8 +8,13 @@ import styles from "./styles.scss";
 import ForumInput from "../../../components/ForumInput";
 
 import * as forumActions from "../../../actions/forums.action";
+import * as sidebarActions from "../../../actions/sidebar.action";
 
-const CreateForumPage = ({ createForum }) => {
+const CreateForumPage = ({ createForum, setSidebar }) => {
+  useEffect(() => {
+    setSidebar(`courses`);
+  }, []);
+
   const history = useHistory();
 
   const onSubmitClick = (courseTitle, courseCode) => {
@@ -29,6 +34,7 @@ const CreateForumPage = ({ createForum }) => {
 
 const mapDispatchToProps = {
   createForum: forumActions.createForum,
+  setSidebar: sidebarActions.setSelected,
 };
 
 export default connect(null, mapDispatchToProps)(CreateForumPage);

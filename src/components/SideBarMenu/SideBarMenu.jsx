@@ -1,28 +1,17 @@
-import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
+import React from "react";
+import { connect } from "react-redux";
 
 import SideBarItem from "../SideBarItem";
 
 import styles from "./styles.scss";
 
-const SideBarMenu = ({ menu }) => {
-  const currentUrl = useLocation().pathname;
-  const urlInMenu = menu.find((m) => m.url === currentUrl);
-  const parentPath = `/${currentUrl.split("/").slice(1, -1).join("/")}`;
-  let currentMenu;
+import { selectSidebarSelectedJS } from "../../selectors/sidebar.selector";
 
-  if (urlInMenu) {
-    currentMenu = currentUrl;
-  } else if (menu.find((m) => m.url === parentPath)) {
-    currentMenu = parentPath;
-  } else {
-    currentMenu = "/";
-  }
+import * as sidebarActions from "../../actions/sidebar.action";
 
-  const [selected, setSelected] = useState(currentMenu);
-
-  const onItemClick = (selectedUrl) => {
-    setSelected(selectedUrl);
+const SideBarMenu = ({ menu, selected, setSelected }) => {
+  const onItemClick = (id) => {
+    setSelected(id);
   };
 
   return (
@@ -31,8 +20,8 @@ const SideBarMenu = ({ menu }) => {
         return (
           <SideBarItem
             key={m.name}
-            onClick={() => onItemClick(m.url)}
-            active={m.url === selected}
+            onClick={() => onItemClick(m.id)}
+            active={m.id === selected}
             {...m}
           />
         );
@@ -41,4 +30,13 @@ const SideBarMenu = ({ menu }) => {
   );
 };
 
-export default SideBarMenu;
+const mapStateToProps = (state) => {
+  const selected = selectSidebarSelectedJS(state);
+  return { selected };
+};
+
+const mapDispatchToProps = {
+  setSelected: sidebarActions.setSelected,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SideBarMenu);

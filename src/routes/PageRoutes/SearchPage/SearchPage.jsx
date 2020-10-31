@@ -13,12 +13,14 @@ import {
 } from "../../../selectors/threads.selector";
 
 import * as threadActions from "../../../actions/threads.action";
+import * as sidebarActions from "../../../actions/sidebar.action";
 
 const SearchPage = ({
   allThreads,
   threadLoading,
   searchThreads,
   resetThread,
+  setSidebar,
 }) => {
   const searchQuery = useLocation().search;
   const parsedSearch = queryString.parse(searchQuery);
@@ -27,6 +29,7 @@ const SearchPage = ({
 
   useEffect(() => {
     searchThreads(encodedKeyword);
+    setSidebar("home");
 
     return () => resetThread();
   }, [searchQuery]);
@@ -58,6 +61,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
   searchThreads: threadActions.searchThreads,
   resetThread: threadActions.reset,
+  setSidebar: sidebarActions.setSelected,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchPage);

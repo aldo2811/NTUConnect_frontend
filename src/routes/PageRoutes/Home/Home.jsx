@@ -11,11 +11,18 @@ import {
 } from "../../../selectors/threads.selector";
 
 import * as threadActions from "../../../actions/threads.action";
+import * as sidebarActions from "../../../actions/sidebar.action";
 
-const Home = ({ allThreads, threadLoading, getAllThreads, resetThread }) => {
+const Home = ({
+  allThreads,
+  threadLoading,
+  getAllThreads,
+  resetThread,
+  setSidebar,
+}) => {
   useEffect(() => {
+    setSidebar("home");
     getAllThreads();
-
     return () => resetThread();
   }, []);
 
@@ -46,6 +53,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
   getAllThreads: threadActions.getAll,
   resetThread: threadActions.reset,
+  setSidebar: sidebarActions.setSelected,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

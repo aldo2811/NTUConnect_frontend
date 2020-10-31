@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 
@@ -8,13 +8,18 @@ import styles from "./styles.scss";
 import appStyles from "../../../stylesheets/app.scss";
 
 import * as messageActions from "../../../actions/messages.action";
+import * as sidebarActions from "../../../actions/sidebar.action";
 
 const AskQuestionPage = ({
   createThread,
+  setSidebar,
   match: {
     params: { courseId },
   },
 }) => {
+  useEffect(() => {
+    setSidebar(`courses/${courseId}`);
+  });
   const history = useHistory();
   const onSubmitClick = (title, description) => {
     if (title && description) {
@@ -33,6 +38,7 @@ const AskQuestionPage = ({
 
 const mapDispatchToProps = {
   createThread: messageActions.createThread,
+  setSidebar: sidebarActions.setSelected,
 };
 
 export default connect(null, mapDispatchToProps)(AskQuestionPage);
