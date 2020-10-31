@@ -16,6 +16,7 @@ import {
 } from "../../../selectors/threads.selector";
 
 import * as threadActions from "../../../actions/threads.action";
+import * as sidebarActions from "../../../actions/sidebar.action";
 
 const CoursePage = ({
   forum,
@@ -23,12 +24,14 @@ const CoursePage = ({
   threadLoading,
   getThreadsOfForum,
   resetThread,
+  setSidebar,
   match: {
     params: { courseId },
   },
 }) => {
   useEffect(() => {
     getThreadsOfForum(courseId);
+    setSidebar(`courses/${courseId}`);
 
     return () => resetThread();
   }, [courseId]);
@@ -69,6 +72,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
   getThreadsOfForum: threadActions.getThreadsOfForum,
   resetThread: threadActions.reset,
+  setSidebar: sidebarActions.setSelected,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CoursePage);

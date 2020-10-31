@@ -2,6 +2,11 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
 
+import ProfileBox from "../../../components/ProfileBox";
+import ThreadBox from "../../../components/ThreadBox";
+import ProfileAnswerBox from "../../../components/ProfileAnswerBox";
+import Tabs from "../../../components/Tabs";
+
 import styles from "./styles.scss";
 import appStyles from "../../../stylesheets/app.scss";
 
@@ -11,16 +16,14 @@ import {
 } from "../../../selectors/user.selector";
 
 import * as userActions from "../../../actions/user.action";
-import ProfileBox from "../../../components/ProfileBox";
-import ThreadBox from "../../../components/ThreadBox";
-import ProfileAnswerBox from "../../../components/ProfileAnswerBox";
-import Tabs from "../../../components/Tabs";
+import * as sidebarActions from "../../../actions/sidebar.action";
 
-const ProfilePage = ({ profile, userLoading, getDetail }) => {
+const ProfilePage = ({ profile, userLoading, getDetail, setSidebar }) => {
   const { id } = useParams();
 
   useEffect(() => {
     getDetail(id);
+    setSidebar("profile");
   }, [id]);
 
   const [tab, setTab] = useState("Threads");
@@ -62,6 +65,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
   getDetail: userActions.getDetail,
   resetUser: userActions.reset,
+  setSidebar: sidebarActions.setSelected,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfilePage);

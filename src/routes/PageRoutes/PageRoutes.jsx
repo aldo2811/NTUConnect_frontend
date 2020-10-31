@@ -20,11 +20,13 @@ import * as forumActions from "../../actions/forums.action";
 import * as userActions from "../../actions/user.action";
 import SearchPage from "./SearchPage";
 import ProfilePage from "./ProfilePage/ProfilePage";
+import { selectUserJS } from "../../selectors/user.selector";
 
 const PageRoutes = ({
   match: { url },
   allForumsJoined,
   forumLoading,
+  currentUser,
   getAllForums,
   resetForums,
 }) => {
@@ -35,10 +37,21 @@ const PageRoutes = ({
   }, []);
 
   const menu = [
-    { name: "Home", url: "/", level: 0 },
-    { name: "Courses", url: "/courses", level: 0 },
+    { name: "Home", id: "home", url: "/", level: 0 },
+    {
+      name: "Profile",
+      id: "profile",
+      url: `/user/${currentUser.id}`,
+      level: 0,
+    },
+    { name: "Courses", id: "courses", url: "/courses", level: 0 },
     ...allForumsJoined.map((forum) => {
-      return { name: forum.courseCode, url: `/courses/${forum.id}`, level: 1 };
+      return {
+        name: forum.courseCode,
+        id: `courses/${forum.id}`,
+        url: `/courses/${forum.id}`,
+        level: 1,
+      };
     }),
   ];
 
@@ -51,10 +64,12 @@ const PageRoutes = ({
         <SideBarMenu menu={menu} />
         <div className={styles.content}>
           <Switch>
-            <Route path={`${url}thread/new`} component={AskQuestionPage} />
-            <Route path={`${url}thread/:threadId`} component={Thread} />
             <Route path={`${url}search`} component={SearchPage} />
             <Route path={`${url}courses/new`} component={CreateForumPage} />
+            <Route
+              path={`${url}courses/:courseId/thread/:threadId`}
+              component={Thread}
+            />
             <Route
               path={`${url}courses/:courseId/new`}
               component={AskQuestionPage}
@@ -73,7 +88,8 @@ const PageRoutes = ({
 const mapStateToProps = (state) => {
   const allForumsJoined = selectAllForumsJoinedJS(state);
   const forumLoading = selectForumsLoadingJS(state);
-  return { allForumsJoined, forumLoading };
+  const currentUser = selectUserJS(state);
+  return { allForumsJoined, forumLoading, currentUser };
 };
 
 const mapDispatchToProps = {

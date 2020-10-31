@@ -15,6 +15,7 @@ import {
 import { selectUserTypeJS } from "../../../selectors/user.selector";
 
 import * as messageActions from "../../../actions/messages.action";
+import * as sidebarActions from "../../../actions/sidebar.action";
 
 const Thread = ({
   thread,
@@ -26,12 +27,14 @@ const Thread = ({
   upvoteMessage,
   markSolvedMessage,
   resetMessage,
+  setSidebar,
   match: {
-    params: { threadId },
+    params: { courseId, threadId },
   },
 }) => {
   useEffect(() => {
     getAllMessage(threadId);
+    setSidebar(`courses/${courseId}`);
 
     return () => resetMessage();
   }, []);
@@ -89,6 +92,7 @@ const mapDispatchToProps = {
   upvoteMessage: messageActions.upvoteMessage,
   markSolvedMessage: messageActions.markSolvedMessage,
   resetMessage: messageActions.reset,
+  setSidebar: sidebarActions.setSelected,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Thread);

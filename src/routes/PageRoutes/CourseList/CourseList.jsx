@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import cx from "classnames";
@@ -16,8 +16,19 @@ import {
 import { selectUserTypeJS } from "../../../selectors/user.selector";
 
 import * as forumActions from "../../../actions/forums.action";
+import * as sidebarActions from "../../../actions/sidebar.action";
 
-const CourseList = ({ allForums, forumLoading, userType, joinForum }) => {
+const CourseList = ({
+  allForums,
+  forumLoading,
+  userType,
+  joinForum,
+  setSidebar,
+}) => {
+  useEffect(() => {
+    setSidebar("courses");
+  }, []);
+
   const currentUrl = useLocation().pathname;
 
   const onJoinClick = (forumId) => {
@@ -66,6 +77,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
   joinForum: forumActions.joinForum,
+  setSidebar: sidebarActions.setSelected,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CourseList);
