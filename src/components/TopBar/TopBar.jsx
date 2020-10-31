@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { useHistory } from "react-router-dom";
-import cx from "classnames";
+import { useHistory, Link } from "react-router-dom";
 
 import styles from "./styles.scss";
 import TextBox from "../TextBox";
 import * as actions from "../../actions/user.action";
+import { selectUserJS } from "../../selectors/user.selector";
 
-const TopBar = ({ logout }) => {
+const TopBar = ({ currentUser, logout }) => {
   const [keyword, setKeyword] = useState("");
 
   const history = useHistory();
@@ -39,19 +39,32 @@ const TopBar = ({ logout }) => {
           onKeyDown={onEnterPress}
           fullwidth
         />
-        <p className={styles.text}>Profile</p>
-        <p
-          className={cx({ [styles.logout]: true, [styles.text]: true })}
-          onClick={onLogoutClick}
-        >
-          Logout
+        <p>
+          <Link
+            to={{
+              pathname: `/user/${currentUser.username}`,
+              state: { id: currentUser.id },
+            }}
+          >
+            <b>Profile</b>
+          </Link>
+        </p>
+        <p onClick={onLogoutClick}>
+          <Link to="/login">
+            <b>Logout</b>
+          </Link>
         </p>
       </div>
     </div>
   );
 };
 
+const mapStateToProps = (state) => {
+  const currentUser = selectUserJS(state);
+  return { currentUser };
+};
+
 const mapDispatchToProps = {
   logout: actions.logout,
 };
-export default connect(null, mapDispatchToProps)(TopBar);
+export default connect(mapStateToProps, mapDispatchToProps)(TopBar);

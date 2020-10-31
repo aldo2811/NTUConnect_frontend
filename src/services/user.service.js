@@ -61,4 +61,15 @@ const currentUser = async (accessToken) => {
   }
 };
 
-export default { login, register, verify, list, currentUser };
+const detail = async (id, accessToken) => {
+  try {
+    const res = await axios.get(`${apiUrl}/users/${id}/profile/`, {
+      headers: { Authorization: accessToken },
+    });
+    return res;
+  } catch (e) {
+    return e;
+  }
+};
+
+export default { login, register, verify, list, currentUser, detail };
