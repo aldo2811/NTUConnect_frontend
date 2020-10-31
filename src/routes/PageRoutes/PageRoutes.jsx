@@ -19,6 +19,7 @@ import {
 import * as forumActions from "../../actions/forums.action";
 import * as userActions from "../../actions/user.action";
 import SearchPage from "./SearchPage";
+import ProfilePage from "./ProfilePage/ProfilePage";
 
 const PageRoutes = ({
   match: { url },
@@ -60,6 +61,7 @@ const PageRoutes = ({
             />
             <Route path={`${url}courses/:courseId`} component={CoursePage} />
             <Route path={`${url}courses`} component={CourseList} />
+            <Route path={`${url}user/:username`} component={ProfilePage} />
             <Route path={url} component={Home} />
           </Switch>
         </div>

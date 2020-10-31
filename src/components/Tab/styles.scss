@@ -1,0 +1,27 @@
+@import "base.scss";
+
+.tab {
+  position: relative;
+  cursor: pointer;
+  padding: 10px 20px;
+  font-size: 1.2em;
+
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: $color-stroke;
+    opacity: 0;
+
+    &:hover {
+      opacity: 0.2;
+    }
+  }
+}
+
+.tab_active {
+  border-bottom: 2px solid $color-primary;
+  color: $color-primary;
+}

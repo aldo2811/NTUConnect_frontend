@@ -1,0 +1,29 @@
+@import "base.scss";
+
+.container {
+  display: flex;
+  position: relative;
+
+  .details {
+    flex-grow: 1;
+    padding-right: 20px;
+
+    >:not(:nth-last-child(1)) {
+      margin-bottom: 10px;
+    }
+
+    .score {
+      color: $color-grey;
+    }
+  }
+
+  .type_container {
+    position: relative;
+
+    .container {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+  }
+}

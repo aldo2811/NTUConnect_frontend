@@ -1,6 +1,6 @@
 import userService from "../services/user.service";
 import * as storage from "./storage";
-import { handleError } from "./error.action";
+import { handleError, setError } from "./error.action";
 
 export const SET = "USER_SET";
 export const RESET = "USER_RESET";
@@ -79,6 +79,20 @@ export const getCurrentUser = () => async (dispatch, getState) => {
   const accessToken = getToken(getState);
   const res = await userService.currentUser(accessToken);
   if (res.data) {
-    dispatch(set("type", res.data.type));
+    dispatch(set("type", res.data[0].type));
+    dispatch(set("user", res.data[0]));
   }
+};
+
+export const getDetail = (id) => async (dispatch, getState) => {
+  const accessToken = getToken(getState);
+  dispatch(set("loading", true));
+  const res = await userService.detail(id, accessToken);
+
+  if (res.data) {
+    dispatch(set("profile", res.data));
+  } else {
+    dispatch(setError(res.response));
+  }
+  dispatch(set("loading", false));
 };
