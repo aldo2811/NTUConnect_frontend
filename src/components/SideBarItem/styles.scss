@@ -8,3 +8,9 @@
 .active {
   background-color: $color-stroke;
 }
+
+.inactive {
+  &:hover {
+    background-color: $color-grey-light;
+  }
+}
