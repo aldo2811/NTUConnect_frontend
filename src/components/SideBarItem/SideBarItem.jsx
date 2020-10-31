@@ -14,6 +14,7 @@ const SideBarItem = ({ name, url, level, onClick, className, active }) => {
     {
       [styles.sidebar_item]: true,
       [styles.active]: active,
+      [styles.inactive]: !active,
     },
     className
   );
