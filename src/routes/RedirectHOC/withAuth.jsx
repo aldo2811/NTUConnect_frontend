@@ -7,6 +7,7 @@ import {
   selectUserErrorJS,
   selectUserTypeJS,
 } from "../../selectors/user.selector";
+import { selectErrorJS } from "../../selectors/error.selector";
 
 import * as actions from "../../actions/user.action";
 
@@ -21,6 +22,7 @@ const WithAuth = (WrappedComponent) => {
     userType,
     verifyAccess,
     getCurrentUser,
+    error,
     ...rest
   }) => {
     const url = useLocation().pathname;
@@ -35,7 +37,8 @@ const WithAuth = (WrappedComponent) => {
         .then(() => setFinish(true));
     }, [url]);
 
-    if (verifyError) return <Redirect to="/login" push />;
+    if (verifyError || error.status === 401)
+      return <Redirect to="/login" push />;
     if (finish) return <WrappedComponent {...rest} />;
 
     return null;
@@ -45,7 +48,8 @@ const WithAuth = (WrappedComponent) => {
     const accessToken = selectUserAccessTokenJS(state);
     const verifyError = selectUserErrorJS(state);
     const userType = selectUserTypeJS(state);
-    return { accessToken, verifyError, userType };
+    const error = selectErrorJS(state);
+    return { accessToken, verifyError, userType, error };
   };
 
   const mapDispatchToProps = {

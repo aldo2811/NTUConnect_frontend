@@ -1,7 +1,7 @@
 import { fromJS } from "immutable";
 import { SET, RESET } from "../actions/error.action";
 
-const initialState = fromJS({ error: null });
+const initialState = fromJS({ error: {} });
 
 export default function errorReducer(state = initialState, action) {
   switch (action.type) {

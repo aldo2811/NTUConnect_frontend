@@ -2,5 +2,16 @@ import { createSelector } from "reselect";
 
 const selectError = (state) => state.error.get("error");
 
-// eslint-disable-next-line import/prefer-default-export
-export const selectErrorJS = createSelector(selectError, (error) => error);
+export const selectErrorJS = createSelector(selectError, (error) =>
+  error.toJS()
+);
+
+export const selectErrorMessageJS = createSelector(
+  selectErrorJS,
+  (error) => error.message
+);
+
+export const selectErrorStatusJS = createSelector(
+  selectErrorJS,
+  (error) => error.status
+);
