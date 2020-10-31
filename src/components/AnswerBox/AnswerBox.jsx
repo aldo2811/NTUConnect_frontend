@@ -12,7 +12,7 @@ import Button from "../Button";
 
 const AnswerBox = ({
   id,
-  creator: { username, score },
+  creator,
   datePosted,
   content,
   upvote,
@@ -46,7 +46,7 @@ const AnswerBox = ({
         </div>
       )}
 
-      <UserBar username={username} score={score} datePosted={datePosted} />
+      <UserBar datePosted={datePosted} {...creator} />
       <p>
         {content.split("\n").map((item, key) => {
           return (

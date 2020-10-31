@@ -61,7 +61,7 @@ const PageRoutes = ({
             />
             <Route path={`${url}courses/:courseId`} component={CoursePage} />
             <Route path={`${url}courses`} component={CourseList} />
-            <Route path={`${url}user/:username`} component={ProfilePage} />
+            <Route path={`${url}user/:id`} component={ProfilePage} />
             <Route path={url} component={Home} />
           </Switch>
         </div>
