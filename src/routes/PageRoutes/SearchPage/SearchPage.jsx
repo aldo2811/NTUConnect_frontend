@@ -23,9 +23,10 @@ const SearchPage = ({
   const searchQuery = useLocation().search;
   const parsedSearch = queryString.parse(searchQuery);
   const keyword = parsedSearch.q;
+  const encodedKeyword = encodeURIComponent(keyword);
 
   useEffect(() => {
-    searchThreads(keyword);
+    searchThreads(encodedKeyword);
 
     return () => resetThread();
   }, [searchQuery]);
