@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import styles from "./styles.scss";
 import appStyles from "../../../stylesheets/app.scss";
@@ -17,8 +17,7 @@ import ProfileAnswerBox from "../../../components/ProfileAnswerBox";
 import Tabs from "../../../components/Tabs";
 
 const ProfilePage = ({ profile, userLoading, getDetail }) => {
-  const { id } = useLocation().state;
-  const { username } = useParams();
+  const { id } = useParams();
 
   useEffect(() => {
     getDetail(id);
@@ -32,7 +31,7 @@ const ProfilePage = ({ profile, userLoading, getDetail }) => {
 
   if (userLoading) return null;
 
-  const { messages, threads, score, type } = profile;
+  const { username, messages, threads, score, type } = profile;
   return (
     <div className={appStyles.content_section}>
       <ProfileBox username={username} score={score} type={type} />

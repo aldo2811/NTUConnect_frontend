@@ -11,7 +11,7 @@ import UnansweredIcon from "../InteractionBar/UnansweredIcon";
 
 const ThreadBox = ({
   id,
-  creator: { username, score },
+  creator,
   datePosted,
   title,
   forum: { courseCode },
@@ -21,7 +21,7 @@ const ThreadBox = ({
 
   return (
     <div className={appStyles.box_container}>
-      <UserBar username={username} score={score} datePosted={datePosted} />
+      <UserBar datePosted={datePosted} {...creator} />
       <h1>
         <Link to={`/thread/${id}`}>{title}</Link>
       </h1>

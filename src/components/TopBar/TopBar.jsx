@@ -42,8 +42,7 @@ const TopBar = ({ currentUser, logout }) => {
         <p>
           <Link
             to={{
-              pathname: `/user/${currentUser.username}`,
-              state: { id: currentUser.id },
+              pathname: `/user/${currentUser.id}`,
             }}
           >
             <b>Profile</b>
