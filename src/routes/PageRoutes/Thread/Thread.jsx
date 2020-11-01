@@ -69,6 +69,7 @@ const Thread = ({
               key={answer.id}
               onVote={onVote}
               userType={userType}
+              solved={thread.solved}
               onMarkSolved={onMarkSolved}
               onReplySubmit={onReplySubmit(answer.id)}
               {...answer}
