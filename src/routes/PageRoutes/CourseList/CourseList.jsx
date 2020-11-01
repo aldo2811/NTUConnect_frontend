@@ -28,7 +28,6 @@ const CourseList = ({
   useEffect(() => {
     setSidebar("courses");
   }, []);
-
   const currentUrl = useLocation().pathname;
 
   const onJoinClick = (forumId) => {

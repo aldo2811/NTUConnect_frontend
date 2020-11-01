@@ -3,7 +3,7 @@ import { createSelector } from "reselect";
 const selectAllUsers = (state) => state.user.get("users");
 const selectUser = (state) => state.user.get("user");
 const selectUserProfile = (state) => state.user.get("profile");
-const selectUserType = (state) => state.user.get("userType");
+const selectUserType = (state) => state.user.get("type");
 const selectUserAccessToken = (state) => state.user.get("accessToken");
 const selectUserLoading = (state) => state.user.get("loading");
 const selectUserError = (state) => state.user.get("verifyError");
