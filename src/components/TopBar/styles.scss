@@ -8,7 +8,12 @@
   width: 100%;
   height: 60px;
   background-color: $color-primary;
+  color: $color-white;
   z-index: 100;
+
+  a {
+    color: $color-white;
+  }
 
   .content {
     display: flex;
