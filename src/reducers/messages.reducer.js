@@ -13,7 +13,7 @@ export default function reducer(state = initialState, action) {
       return state.set(action.key, fromJS(action.value));
     case UPDATE:
       return state.update(action.key, (list) =>
-        list.push(fromJS(action.value))
+        list.push(fromJS({ ...action.value, replies: [] }))
       );
     case UPDATE_REPLIES:
       return state.updateIn(
