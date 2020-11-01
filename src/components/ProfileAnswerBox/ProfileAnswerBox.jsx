@@ -19,7 +19,7 @@ const ProfileAnswerBox = ({
 
   return (
     <div className={styles.container}>
-      <Link to={`/thread/${thread.id}`}>
+      <Link to={`/courses/${thread.forum}/thread/${thread.id}`}>
         <div className={appStyles.box_container}>
           {isCorrect && (
             <div className={styles.verified_container}>
