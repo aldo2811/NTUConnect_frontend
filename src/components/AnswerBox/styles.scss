@@ -13,4 +13,22 @@
       background-color: $color-white;
     }
   }
+
+  .reply_toggle {
+    cursor: pointer;
+    color: $color-blue;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .reply_input {
+    height: 60px;
+    margin-bottom: 20px;
+  }
+
+  .replies_container {
+    border-top: 1px solid $color-stroke;
+  }
 }

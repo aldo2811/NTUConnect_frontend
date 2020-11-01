@@ -1,0 +1,10 @@
+@import "base.scss";
+
+.container {
+  border-bottom: 1px solid $color-stroke;
+  padding: 15px 0 15px 20px;
+
+  .detail {
+    color: $color-grey;
+  }
+}
