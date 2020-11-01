@@ -26,6 +26,19 @@ const create = async (content, threadId, accessToken) => {
   }
 };
 
+const reply = async (content, threadId, messageId, accessToken) => {
+  try {
+    const res = await axios.post(
+      `${baseUrl}/messages/create/`,
+      { content, thread: threadId, reply: messageId },
+      { headers: { Authorization: accessToken } }
+    );
+    return res;
+  } catch (e) {
+    return e;
+  }
+};
+
 const upvote = async (action, messageId, accessToken) => {
   try {
     const res = await axios.put(
@@ -52,4 +65,4 @@ const markSolved = async (isCorrect, messageId, accessToken) => {
   }
 };
 
-export default { list, create, upvote, markSolved };
+export default { list, create, reply, upvote, markSolved };

@@ -1,14 +1,16 @@
-import React, { Fragment } from "react";
+import React, { useState, Fragment } from "react";
 import cx from "classnames";
 
 import UserBar from "../UserBar";
 import InteractionBar from "../InteractionBar";
 import VoteBar from "../InteractionBar/VoteBar";
 import RoundedIcon from "../RoundedIcon";
+import Button from "../Button";
+import ReplyInput from "../ReplyInput";
+import ReplyBox from "../ReplyBox";
 
 import styles from "./styles.scss";
 import appStyles from "../../stylesheets/app.scss";
-import Button from "../Button";
 
 const AnswerBox = ({
   id,
@@ -18,11 +20,16 @@ const AnswerBox = ({
   upvote,
   isCorrect,
   status,
+  replies,
   onVote,
   userType,
   onMarkSolved,
+  onReplySubmit,
 }) => {
   if (!id) return null;
+
+  const [replyInputToggle, setReplyInputToggle] = useState(false);
+  const [showRepliesToggle, setShowRepliesToggle] = useState(false);
 
   return (
     <div
@@ -65,7 +72,43 @@ const AnswerBox = ({
           userVote={status[0].value}
           onVote={onVote}
         />
+        {replies && (
+          <p
+            className={styles.reply_toggle}
+            onClick={() => setShowRepliesToggle(!showRepliesToggle)}
+          >
+            {showRepliesToggle ? "Hide Replies" : "Show Replies"}
+          </p>
+        )}
+
+        <p
+          className={styles.reply_toggle}
+          onClick={() => setReplyInputToggle(!replyInputToggle)}
+        >
+          {replyInputToggle ? "Close Reply Input" : "Add a Reply"}
+        </p>
       </InteractionBar>
+      {replyInputToggle && (
+        <ReplyInput
+          className={styles.reply_input}
+          onSubmitClick={onReplySubmit(id)}
+        />
+      )}
+      {replies && showRepliesToggle && (
+        <div className={styles.replies_container}>
+          {replies.map((reply) => {
+            return (
+              <ReplyBox
+                key={reply.id}
+                onVote={onVote}
+                onMarkSolved={onMarkSolved}
+                userType={userType}
+                {...reply}
+              />
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 };

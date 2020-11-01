@@ -24,6 +24,7 @@ const Thread = ({
   userType,
   getAllMessage,
   createMessage,
+  replyMessage,
   upvoteMessage,
   markSolvedMessage,
   resetMessage,
@@ -43,6 +44,10 @@ const Thread = ({
     if (content) createMessage(content, threadId);
   };
 
+  const onReplySubmit = (messageId) => (content) => {
+    replyMessage(content, threadId, messageId);
+  };
+
   const onVote = (action, messageId) => {
     upvoteMessage(action, messageId);
   };
@@ -57,17 +62,19 @@ const Thread = ({
     <div className={appStyles.content_section}>
       <QuestionBox {...thread} />
       <AnswerInput onSubmitClick={onSubmitClick} />
-      {allMessages.map((answer) => {
-        return (
-          <AnswerBox
-            key={answer.id}
-            onVote={onVote}
-            userType={userType}
-            onMarkSolved={onMarkSolved}
-            {...answer}
-          />
-        );
-      })}
+      {allMessages &&
+        allMessages.map((answer) => {
+          return (
+            <AnswerBox
+              key={answer.id}
+              onVote={onVote}
+              userType={userType}
+              onMarkSolved={onMarkSolved}
+              onReplySubmit={onReplySubmit}
+              {...answer}
+            />
+          );
+        })}
     </div>
   );
 };
@@ -89,6 +96,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
   getAllMessage: messageActions.getAll,
   createMessage: messageActions.createMessage,
+  replyMessage: messageActions.replyMessage,
   upvoteMessage: messageActions.upvoteMessage,
   markSolvedMessage: messageActions.markSolvedMessage,
   resetMessage: messageActions.reset,
