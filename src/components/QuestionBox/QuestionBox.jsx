@@ -21,15 +21,16 @@ const QuestionBox = ({
       <UserBar datePosted={datePosted} {...creator} />
       <h1>{title}</h1>
       <p>
-        {description.split("\n").map((item, key) => {
-          return (
-            // eslint-disable-next-line react/no-array-index-key
-            <Fragment key={key}>
-              {item}
-              <br />
-            </Fragment>
-          );
-        })}
+        {description &&
+          description.split("\n").map((item, key) => {
+            return (
+              // eslint-disable-next-line react/no-array-index-key
+              <Fragment key={key}>
+                {item}
+                <br />
+              </Fragment>
+            );
+          })}
       </p>
       <InteractionBar>
         <CourseCodeIcon courseCode={courseCode} />

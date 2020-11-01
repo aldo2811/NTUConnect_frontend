@@ -37,15 +37,16 @@ const ProfileAnswerBox = ({
               {upvote} votes • posted on {parseDate(datePosted)}
             </p>
             <p className={styles.details}>
-              {content.split("\n").map((item, key) => {
-                return (
-                  // eslint-disable-next-line react/no-array-index-key
-                  <Fragment key={key}>
-                    {item}
-                    <br />
-                  </Fragment>
-                );
-              })}
+              {content &&
+                content.split("\n").map((item, key) => {
+                  return (
+                    // eslint-disable-next-line react/no-array-index-key
+                    <Fragment key={key}>
+                      {item}
+                      <br />
+                    </Fragment>
+                  );
+                })}
             </p>
           </div>
         </div>

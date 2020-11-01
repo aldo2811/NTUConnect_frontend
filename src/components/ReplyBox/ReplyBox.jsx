@@ -10,15 +10,16 @@ const ReplyBox = ({ id, creator, datePosted, content }) => {
   return (
     <div className={styles.container}>
       <p>
-        {content.split("\n").map((item, key) => {
-          return (
-            // eslint-disable-next-line react/no-array-index-key
-            <Fragment key={key}>
-              {item}
-              <br />
-            </Fragment>
-          );
-        })}
+        {content &&
+          content.split("\n").map((item, key) => {
+            return (
+              // eslint-disable-next-line react/no-array-index-key
+              <Fragment key={key}>
+                {item}
+                <br />
+              </Fragment>
+            );
+          })}
       </p>
       <div>
         — by <Link to={`/user/${id}`}>{creator.username}</Link>{" "}

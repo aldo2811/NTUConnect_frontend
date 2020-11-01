@@ -56,10 +56,10 @@ export const verifyAccess = () => async (dispatch) => {
     if (res.status === 200) {
       dispatch(setAccessToken(localAccessToken));
     } else {
-      dispatch(set("verifyError", res.response.statusText));
+      dispatch(set("verifyError", res.response.data.detail));
     }
   } else {
-    dispatch(set("verifyError", "Invalid access token"));
+    dispatch(set("verifyError", "Token is invalid or expired"));
   }
 };
 
