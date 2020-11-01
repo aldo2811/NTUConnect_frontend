@@ -5,16 +5,8 @@ import { handleError } from "./error.action";
 
 export const SET = "MESSAGES_SET";
 export const RESET = "MESSAGES_RESET";
-export const UPDATE = "MESSAGES_UPDATE";
-export const UPDATE_REPLIES = "REPLIES_UPDATE";
 
 export const set = (key, value) => ({ type: SET, key, value });
-export const update = (key, value) => ({ type: UPDATE, key, value });
-export const updateReplies = (key, value) => ({
-  type: UPDATE_REPLIES,
-  key,
-  value,
-});
 export const reset = () => ({ type: RESET });
 
 const getToken = (getState) => {
@@ -66,7 +58,7 @@ export const createMessage = (content, threadId) => async (
   const res = await messageService.create(content, threadId, accessToken);
 
   if (res.data) {
-    dispatch(update("messages", res.data));
+    dispatch(getAll(threadId));
   } else {
     dispatch(handleError(res));
   }
@@ -85,10 +77,11 @@ export const replyMessage = (content, threadId, messageId) => async (
   );
 
   if (res.data) {
-    dispatch(updateReplies("messages", res.data));
+    dispatch(getAll(threadId));
   } else {
     dispatch(handleError(res));
   }
+  dispatch(getAll(threadId));
 };
 
 export const upvoteMessage = (action, messageId) => async (
