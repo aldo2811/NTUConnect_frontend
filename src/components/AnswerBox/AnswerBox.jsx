@@ -23,6 +23,7 @@ const AnswerBox = ({
   replies,
   onVote,
   userType,
+  solved,
   onMarkSolved,
   onReplySubmit,
 }) => {
@@ -53,7 +54,7 @@ const AnswerBox = ({
         </div>
       )}
 
-      {!isCorrect && userType === "IN" && (
+      {!solved && !isCorrect && userType === "IN" && (
         <div className={styles.verified_container}>
           <Button onClick={() => onMarkSolved(true, id)}>Mark as Answer</Button>
         </div>
