@@ -56,15 +56,16 @@ const AnswerBox = ({
 
       <UserBar datePosted={datePosted} {...creator} />
       <p>
-        {content.split("\n").map((item, key) => {
-          return (
-            // eslint-disable-next-line react/no-array-index-key
-            <Fragment key={key}>
-              {item}
-              <br />
-            </Fragment>
-          );
-        })}
+        {content &&
+          content.split("\n").map((item, key) => {
+            return (
+              // eslint-disable-next-line react/no-array-index-key
+              <Fragment key={key}>
+                {item}
+                <br />
+              </Fragment>
+            );
+          })}
       </p>
       <InteractionBar>
         <VoteBar
