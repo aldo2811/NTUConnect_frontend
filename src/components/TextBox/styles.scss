@@ -4,7 +4,8 @@
   box-sizing: border-box;
   border-radius: 3px;
   border: 2px solid $color-stroke;
-  font-size: 1.5em;
+  font-size: 1em;
+  padding: 10px;
 
   &:focus {
     border-color: $color-grey-dark;
