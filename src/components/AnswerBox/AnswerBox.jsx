@@ -31,6 +31,12 @@ const AnswerBox = ({
   const [replyInputToggle, setReplyInputToggle] = useState(false);
   const [showRepliesToggle, setShowRepliesToggle] = useState(false);
 
+  const onReply = (reply) => {
+    setShowRepliesToggle(true);
+    setReplyInputToggle(false);
+    return onReplySubmit(reply);
+  };
+
   return (
     <div
       className={cx({
@@ -72,7 +78,7 @@ const AnswerBox = ({
           userVote={status[0].value}
           onVote={onVote}
         />
-        {replies && (
+        {replies.length > 0 && (
           <p
             className={styles.reply_toggle}
             onClick={() => setShowRepliesToggle(!showRepliesToggle)}
@@ -89,12 +95,9 @@ const AnswerBox = ({
         </p>
       </InteractionBar>
       {replyInputToggle && (
-        <ReplyInput
-          className={styles.reply_input}
-          onSubmitClick={onReplySubmit(id)}
-        />
+        <ReplyInput className={styles.reply_input} onSubmitClick={onReply} />
       )}
-      {replies && showRepliesToggle && (
+      {replies.length > 0 && showRepliesToggle && (
         <div className={styles.replies_container}>
           {replies.map((reply) => {
             return (

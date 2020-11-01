@@ -70,7 +70,7 @@ const Thread = ({
               onVote={onVote}
               userType={userType}
               onMarkSolved={onMarkSolved}
-              onReplySubmit={onReplySubmit}
+              onReplySubmit={onReplySubmit(answer.id)}
               {...answer}
             />
           );
