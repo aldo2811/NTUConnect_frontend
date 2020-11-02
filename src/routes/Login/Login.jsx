@@ -75,7 +75,7 @@ const Login = ({ accessToken, login, reset, verifyAccess }) => {
           size="large"
           onClick={handleSubmit}
         >
-          Submit
+          Login
         </Button>
         <Link to="/register">
           <p>Register for an account instead</p>
