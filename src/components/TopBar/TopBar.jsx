@@ -10,6 +10,8 @@ import { selectUserJS } from "../../selectors/user.selector";
 
 import * as actions from "../../actions/user.action";
 
+import logo from "../../../assets/logo.png";
+
 const TopBar = ({ currentUser, logout }) => {
   const [keyword, setKeyword] = useState("");
 
@@ -33,9 +35,9 @@ const TopBar = ({ currentUser, logout }) => {
   return (
     <div className={styles.topbar}>
       <div className={styles.content}>
-        <h2>
-          <Link to="/">NTUConnect</Link>
-        </h2>
+        <Link to="/">
+          <img className={styles.logo} src={logo} alt="logo" />
+        </Link>
         <TextBox
           className={styles.search_bar}
           placeholder="Search"
