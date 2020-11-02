@@ -2,6 +2,7 @@ import messageService from "../services/messages.service";
 import threadService from "../services/threads.service";
 
 import { handleError } from "./error.action";
+import { getThreadsOfForum } from "./threads.action";
 
 export const SET = "MESSAGES_SET";
 export const RESET = "MESSAGES_RESET";
@@ -42,8 +43,7 @@ export const createThread = (title, description, forumId) => async (
     accessToken
   );
   if (res.data) {
-    dispatch(set("messages", []));
-    dispatch(set("thread", res.data));
+    dispatch(getThreadsOfForum(forumId));
   } else {
     dispatch(handleError(res));
   }
