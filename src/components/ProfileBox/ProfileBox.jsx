@@ -5,6 +5,8 @@ import appStyles from "../../stylesheets/app.scss";
 import styles from "./styles.scss";
 import RoundedIcon from "../RoundedIcon";
 
+import avatar from "../../../assets/avatar.png";
+
 const ProfileBox = ({ username, score, type }) => {
   const userType = type === "IN" ? "Instructor" : "Student";
   return (
@@ -14,6 +16,7 @@ const ProfileBox = ({ username, score, type }) => {
         [styles.container]: true,
       })}
     >
+      <img className={styles.avatar} src={avatar} alt="avatar" />
       <div className={styles.details}>
         <h1>{username}</h1>
         <h1 className={styles.score}>{score} points</h1>
