@@ -2,10 +2,13 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
 
-import styles from "./styles.scss";
 import TextBox from "../TextBox";
-import * as actions from "../../actions/user.action";
+
+import styles from "./styles.scss";
+
 import { selectUserJS } from "../../selectors/user.selector";
+
+import * as actions from "../../actions/user.action";
 
 const TopBar = ({ currentUser, logout }) => {
   const [keyword, setKeyword] = useState("");
@@ -30,7 +33,9 @@ const TopBar = ({ currentUser, logout }) => {
   return (
     <div className={styles.topbar}>
       <div className={styles.content}>
-        <h2>NTUConnect</h2>
+        <h2>
+          <Link to="/">NTUConnect</Link>
+        </h2>
         <TextBox
           className={styles.search_bar}
           placeholder="Search"
@@ -40,11 +45,7 @@ const TopBar = ({ currentUser, logout }) => {
           fullwidth
         />
         <p>
-          <Link
-            to={{
-              pathname: `/user/${currentUser.id}`,
-            }}
-          >
+          <Link to={`/user/${currentUser.id}`}>
             <b>Profile</b>
           </Link>
         </p>
