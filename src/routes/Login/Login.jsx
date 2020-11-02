@@ -38,6 +38,12 @@ const Login = ({ accessToken, login, reset, verifyAccess }) => {
     }
   };
 
+  const onEnterPress = (e) => {
+    if (e.key === "Enter") {
+      handleSubmit(e);
+    }
+  };
+
   if (accessToken) {
     return <Redirect to="/" push />;
   }
@@ -53,6 +59,7 @@ const Login = ({ accessToken, login, reset, verifyAccess }) => {
           value={username}
           placeholder="Username"
           onChange={onUsernameChange}
+          onKeyDown={onEnterPress}
         />
         <TextBox
           className={styles.textbox}
@@ -61,6 +68,7 @@ const Login = ({ accessToken, login, reset, verifyAccess }) => {
           value={password}
           placeholder="Password"
           onChange={onPasswordChange}
+          onKeyDown={onEnterPress}
         />
         <Button
           className={styles.button_submit}

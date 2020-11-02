@@ -46,6 +46,12 @@ const Register = ({ accessToken, register, reset, verifyAccess }) => {
     register(username, email, password1, password2);
   };
 
+  const onEnterPress = (e) => {
+    if (e.key === "Enter") {
+      handleSubmit(e);
+    }
+  };
+
   if (accessToken) {
     return <Redirect to="/" push />;
   }
@@ -61,6 +67,7 @@ const Register = ({ accessToken, register, reset, verifyAccess }) => {
           value={username}
           placeholder="Username"
           onChange={onUsernameChange}
+          onKeyDown={onEnterPress}
         />
         <TextBox
           className={styles.textbox}
@@ -69,6 +76,7 @@ const Register = ({ accessToken, register, reset, verifyAccess }) => {
           value={email}
           placeholder="Email"
           onChange={onEmailChange}
+          onKeyDown={onEnterPress}
         />
         <TextBox
           className={styles.textbox}
@@ -77,6 +85,7 @@ const Register = ({ accessToken, register, reset, verifyAccess }) => {
           value={password1}
           placeholder="Password"
           onChange={onPassword1Change}
+          onKeyDown={onEnterPress}
         />
         <TextBox
           className={styles.textbox}
@@ -85,6 +94,7 @@ const Register = ({ accessToken, register, reset, verifyAccess }) => {
           value={password2}
           placeholder="Retype Password"
           onChange={onPassword2Change}
+          onKeyDown={onEnterPress}
         />
         <Button
           className={styles.button_submit}
