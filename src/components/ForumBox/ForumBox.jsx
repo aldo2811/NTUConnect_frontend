@@ -63,7 +63,7 @@ const ForumBox = ({
         )}
         {!isJoined && `${courseCode}: ${courseTitle}`}
       </h2>
-      <p>Course Instructor: {username}</p>
+      <p>Instructor: {username}</p>
     </div>
   );
 };

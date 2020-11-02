@@ -50,8 +50,8 @@ const CourseList = ({
           </Button>
         </Link>
       )}
-      <h1 className={appStyles.heading}>All Courses</h1>
-      <p className={appStyles.subheading}>All courses available</p>
+      <h1 className={appStyles.heading}>All Forums</h1>
+      <p className={appStyles.subheading}>All forums available</p>
       {allForums &&
         allForums.map((forum) => {
           return (

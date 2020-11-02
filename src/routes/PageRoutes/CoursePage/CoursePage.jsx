@@ -53,7 +53,7 @@ const CoursePage = ({
           Ask Question
         </Button>
       </Link>
-      <h1 className={appStyles.heading}>{courseCode} Discussions</h1>
+      <h1 className={appStyles.heading}>{courseCode} Threads</h1>
       <p className={appStyles.subheading}>{courseTitle}</p>
       {threads.map((thread) => {
         return <ThreadBox key={thread.id} {...thread} />;

@@ -44,7 +44,7 @@ const PageRoutes = ({
       url: `/user/${currentUser.id}`,
       level: 0,
     },
-    { name: "Courses", id: "courses", url: "/courses", level: 0 },
+    { name: "Forums", id: "courses", url: "/courses", level: 0 },
     ...allForumsJoined.map((forum) => {
       return {
         name: forum.courseCode,
