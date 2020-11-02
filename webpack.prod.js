@@ -51,9 +51,9 @@ module.exports = {
       NODE_ENV: "production",
       DEBUG: true,
       API_URL:
-        "https://rd1q7s8kc8.execute-api.ap-southeast-1.amazonaws.com/dev/api",
+        "https://xoel2szaa2.execute-api.ap-southeast-1.amazonaws.com/production/api",
       AUTH_URL:
-        "https://rd1q7s8kc8.execute-api.ap-southeast-1.amazonaws.com/dev/auth",
+        "https://xoel2szaa2.execute-api.ap-southeast-1.amazonaws.com/production/auth",
     }),
   ],
 };
