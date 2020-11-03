@@ -41,7 +41,7 @@ const Thread = ({
   }, []);
 
   const onSubmitClick = (content) => {
-    if (content) createMessage(content, threadId);
+    createMessage(content, threadId);
   };
 
   const onReplySubmit = (messageId) => (content) => {

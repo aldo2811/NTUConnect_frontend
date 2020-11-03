@@ -1,16 +1,24 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
+
+import ForumInput from "../../../components/ForumInput";
 
 import appStyles from "../../../stylesheets/app.scss";
 import styles from "./styles.scss";
 
-import ForumInput from "../../../components/ForumInput";
+import { selectErrorJS } from "../../../selectors/error.selector";
 
 import * as forumActions from "../../../actions/forums.action";
 import * as sidebarActions from "../../../actions/sidebar.action";
 
-const CreateForumPage = ({ createForum, setSidebar }) => {
+const CreateForumPage = ({ error, createForum, setSidebar }) => {
+  const errorRef = useRef(error);
+
+  useEffect(() => {
+    errorRef.current = error;
+  });
+
   useEffect(() => {
     setSidebar(`courses`);
   }, []);
@@ -18,10 +26,12 @@ const CreateForumPage = ({ createForum, setSidebar }) => {
   const history = useHistory();
 
   const onSubmitClick = (courseTitle, courseCode) => {
-    if (courseTitle && courseCode) {
-      createForum(courseTitle, courseCode);
-      history.push(`/courses`);
-    }
+    createForum(courseTitle, courseCode).then(() => {
+      setTimeout(() => {
+        if (Object.keys(errorRef.current).length === 0)
+          history.push(`/courses`);
+      }, 100);
+    });
   };
 
   return (
@@ -32,9 +42,15 @@ const CreateForumPage = ({ createForum, setSidebar }) => {
   );
 };
 
+const mapStateToProps = (state) => {
+  const error = selectErrorJS(state);
+
+  return { error };
+};
+
 const mapDispatchToProps = {
   createForum: forumActions.createForum,
   setSidebar: sidebarActions.setSelected,
 };
 
-export default connect(null, mapDispatchToProps)(CreateForumPage);
+export default connect(mapStateToProps, mapDispatchToProps)(CreateForumPage);
