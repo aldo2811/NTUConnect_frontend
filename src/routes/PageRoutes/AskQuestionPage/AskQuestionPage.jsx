@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 
@@ -7,25 +7,38 @@ import QuestionInput from "../../../components/QuestionInput";
 import styles from "./styles.scss";
 import appStyles from "../../../stylesheets/app.scss";
 
+import { selectErrorJS } from "../../../selectors/error.selector";
+
 import * as messageActions from "../../../actions/messages.action";
 import * as sidebarActions from "../../../actions/sidebar.action";
 
 const AskQuestionPage = ({
+  error,
   createThread,
   setSidebar,
   match: {
     params: { courseId },
   },
 }) => {
+  const errorRef = useRef(error);
+
+  useEffect(() => {
+    errorRef.current = error;
+  });
+
   useEffect(() => {
     setSidebar(`courses/${courseId}`);
   });
+
   const history = useHistory();
+
   const onSubmitClick = (title, description) => {
-    if (title && description) {
-      createThread(title, description, courseId);
-      history.push(`/courses/${courseId}`);
-    }
+    createThread(title, description, courseId).then(() => {
+      setTimeout(() => {
+        if (Object.keys(errorRef.current).length === 0)
+          history.push(`/courses/${courseId}`);
+      }, 100);
+    });
   };
 
   return (
@@ -36,9 +49,14 @@ const AskQuestionPage = ({
   );
 };
 
+const mapStateToProps = (state) => {
+  const error = selectErrorJS(state);
+  return { error };
+};
+
 const mapDispatchToProps = {
   createThread: messageActions.createThread,
   setSidebar: sidebarActions.setSelected,
 };
 
-export default connect(null, mapDispatchToProps)(AskQuestionPage);
+export default connect(mapStateToProps, mapDispatchToProps)(AskQuestionPage);
