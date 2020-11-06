@@ -5,6 +5,7 @@ const initialState = fromJS({
   thread: {},
   messages: [],
   loading: true,
+  redirect: false,
 });
 
 export default function reducer(state = initialState, action) {

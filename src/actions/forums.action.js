@@ -1,6 +1,7 @@
 import forumService from "../services/forums.service";
 
 import { handleError } from "./error.action";
+import { setRedirect } from "./redirect.action";
 
 export const SET = "FORUMS_SET";
 export const RESET = "FORUMS_RESET";
@@ -42,6 +43,7 @@ export const createForum = (courseTitle, courseCode) => async (
   const accessToken = getToken(getState);
   const res = await forumService.create(courseTitle, courseCode, accessToken);
   if (res.data) {
+    dispatch(setRedirect());
     dispatch(getAll());
   } else {
     dispatch(handleError(res));

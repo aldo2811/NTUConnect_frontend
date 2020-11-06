@@ -2,6 +2,7 @@ import messageService from "../services/messages.service";
 import threadService from "../services/threads.service";
 
 import { handleError } from "./error.action";
+import { setRedirect } from "./redirect.action";
 
 export const SET = "MESSAGES_SET";
 export const RESET = "MESSAGES_RESET";
@@ -40,7 +41,9 @@ export const createThread = (title, description, forumId) => async (
     forumId,
     accessToken
   );
-  if (!res.data) {
+  if (res.data) {
+    dispatch(setRedirect());
+  } else {
     dispatch(handleError(res));
   }
 };
