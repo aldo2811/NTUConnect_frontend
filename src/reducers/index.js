@@ -6,6 +6,7 @@ import threads from "./threads.reducer";
 import messages from "./messages.reducer";
 import error from "./error.reducer";
 import sidebar from "./sidebar.reducer";
+import redirect from "./redirect.reducer";
 
 export default combineReducers({
   user,
@@ -14,4 +15,5 @@ export default combineReducers({
   messages,
   error,
   sidebar,
+  redirect,
 });

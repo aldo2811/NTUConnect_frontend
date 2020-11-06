@@ -1,20 +1,24 @@
 import React, { useEffect, useRef } from "react";
 import { connect } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 
 import QuestionInput from "../../../components/QuestionInput";
 
 import styles from "./styles.scss";
 import appStyles from "../../../stylesheets/app.scss";
 
+import { selectRedirectJS } from "../../../selectors/redirect.selector";
 import { selectErrorJS } from "../../../selectors/error.selector";
 
 import * as messageActions from "../../../actions/messages.action";
+import * as redirectActions from "../../../actions/redirect.action";
 import * as sidebarActions from "../../../actions/sidebar.action";
 
 const AskQuestionPage = ({
+  redirect,
   error,
   createThread,
+  resetRedirect,
   setSidebar,
   match: {
     params: { courseId },
@@ -28,18 +32,17 @@ const AskQuestionPage = ({
 
   useEffect(() => {
     setSidebar(`courses/${courseId}`);
+
+    return () => resetRedirect();
   });
 
-  const history = useHistory();
-
   const onSubmitClick = (title, description) => {
-    createThread(title, description, courseId).then(() => {
-      setTimeout(() => {
-        if (Object.keys(errorRef.current).length === 0)
-          history.push(`/courses/${courseId}`);
-      }, 100);
-    });
+    createThread(title, description, courseId);
   };
+
+  if (redirect) {
+    return <Redirect to={`/courses/${courseId}`} />;
+  }
 
   return (
     <div className={appStyles.content_section}>
@@ -50,12 +53,14 @@ const AskQuestionPage = ({
 };
 
 const mapStateToProps = (state) => {
+  const redirect = selectRedirectJS(state);
   const error = selectErrorJS(state);
-  return { error };
+  return { redirect, error };
 };
 
 const mapDispatchToProps = {
   createThread: messageActions.createThread,
+  resetRedirect: redirectActions.reset,
   setSidebar: sidebarActions.setSelected,
 };
 

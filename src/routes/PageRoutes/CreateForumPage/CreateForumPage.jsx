@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { connect } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 
 import ForumInput from "../../../components/ForumInput";
 
@@ -8,11 +8,19 @@ import appStyles from "../../../stylesheets/app.scss";
 import styles from "./styles.scss";
 
 import { selectErrorJS } from "../../../selectors/error.selector";
+import { selectRedirectJS } from "../../../selectors/redirect.selector";
 
 import * as forumActions from "../../../actions/forums.action";
+import * as redirectActions from "../../../actions/redirect.action";
 import * as sidebarActions from "../../../actions/sidebar.action";
 
-const CreateForumPage = ({ error, createForum, setSidebar }) => {
+const CreateForumPage = ({
+  redirect,
+  error,
+  createForum,
+  resetRedirect,
+  setSidebar,
+}) => {
   const errorRef = useRef(error);
 
   useEffect(() => {
@@ -21,18 +29,15 @@ const CreateForumPage = ({ error, createForum, setSidebar }) => {
 
   useEffect(() => {
     setSidebar(`courses`);
+
+    return () => resetRedirect();
   }, []);
 
-  const history = useHistory();
-
   const onSubmitClick = (courseTitle, courseCode) => {
-    createForum(courseTitle, courseCode).then(() => {
-      setTimeout(() => {
-        if (Object.keys(errorRef.current).length === 0)
-          history.push(`/courses`);
-      }, 100);
-    });
+    createForum(courseTitle, courseCode);
   };
+
+  if (redirect) return <Redirect to="/courses" />;
 
   return (
     <div className={appStyles.content_section}>
@@ -43,13 +48,15 @@ const CreateForumPage = ({ error, createForum, setSidebar }) => {
 };
 
 const mapStateToProps = (state) => {
+  const redirect = selectRedirectJS(state);
   const error = selectErrorJS(state);
 
-  return { error };
+  return { redirect, error };
 };
 
 const mapDispatchToProps = {
   createForum: forumActions.createForum,
+  resetRedirect: redirectActions.reset,
   setSidebar: sidebarActions.setSelected,
 };
 

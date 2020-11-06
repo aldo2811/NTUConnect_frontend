@@ -27,7 +27,7 @@ const Thread = ({
   replyMessage,
   upvoteMessage,
   markSolvedMessage,
-  resetMessage,
+  resetMessages,
   setSidebar,
   match: {
     params: { courseId, threadId },
@@ -37,7 +37,7 @@ const Thread = ({
     getAllMessage(threadId);
     setSidebar(`courses/${courseId}`);
 
-    return () => resetMessage();
+    return () => resetMessages();
   }, []);
 
   const onSubmitClick = (content) => {
@@ -100,7 +100,7 @@ const mapDispatchToProps = {
   replyMessage: messageActions.replyMessage,
   upvoteMessage: messageActions.upvoteMessage,
   markSolvedMessage: messageActions.markSolvedMessage,
-  resetMessage: messageActions.reset,
+  resetMessages: messageActions.reset,
   setSidebar: sidebarActions.setSelected,
 };
 
