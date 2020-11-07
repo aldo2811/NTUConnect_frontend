@@ -17,7 +17,7 @@ import { selectUserTypeJS } from "../../../selectors/user.selector";
 import * as messageActions from "../../../actions/messages.action";
 import * as sidebarActions from "../../../actions/sidebar.action";
 
-const Thread = ({
+const ThreadPage = ({
   thread,
   allMessages,
   messageLoading,
@@ -104,4 +104,4 @@ const mapDispatchToProps = {
   setSidebar: sidebarActions.setSelected,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Thread);
+export default connect(mapStateToProps, mapDispatchToProps)(ThreadPage);

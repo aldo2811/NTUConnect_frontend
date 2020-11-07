@@ -18,7 +18,7 @@ import { selectUserTypeJS } from "../../../selectors/user.selector";
 import * as forumActions from "../../../actions/forums.action";
 import * as sidebarActions from "../../../actions/sidebar.action";
 
-const CourseList = ({
+const ForumListPage = ({
   allForums,
   forumLoading,
   userType,
@@ -77,4 +77,4 @@ const mapDispatchToProps = {
   setSidebar: sidebarActions.setSelected,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CourseList);
+export default connect(mapStateToProps, mapDispatchToProps)(ForumListPage);

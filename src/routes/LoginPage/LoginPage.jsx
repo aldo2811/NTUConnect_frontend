@@ -6,18 +6,19 @@ import TextBox from "../../components/TextBox";
 import Button from "../../components/Button";
 
 import {
+  selectUserJS,
   selectUserAccessTokenJS,
   selectUserLoadingJS,
 } from "../../selectors/user.selector";
 
 import * as actions from "../../actions/user.action";
 
-import styles from "../Login/styles.scss";
+import styles from "./styles.scss";
 
-const Register = ({
+const LoginPage = ({
   accessToken,
   loading,
-  register,
+  login,
   reset,
   verifyAccess,
   cancelLoading,
@@ -26,31 +27,23 @@ const Register = ({
     verifyAccess();
     reset();
     cancelLoading();
+
+    return () => reset();
   }, []);
 
   const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password1, setPassword1] = useState("");
-  const [password2, setPassword2] = useState("");
+  const [password, setPassword] = useState("");
 
   const onUsernameChange = (e) => {
     setUsername(e.target.value);
   };
 
-  const onEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const onPassword1Change = (e) => {
-    setPassword1(e.target.value);
-  };
-
-  const onPassword2Change = (e) => {
-    setPassword2(e.target.value);
+  const onPasswordChange = (e) => {
+    setPassword(e.target.value);
   };
 
   const handleSubmit = () => {
-    if (!loading) register(username, email, password1, password2);
+    if (!loading) login(username, password);
   };
 
   const onEnterPress = (e) => {
@@ -59,14 +52,14 @@ const Register = ({
     }
   };
 
-  if (accessToken) {
+  if (accessToken && !loading) {
     return <Redirect to="/" push />;
   }
 
   return (
     <div className={styles.container}>
       <div className={styles.login_box}>
-        <h1 className={styles.title}>Register</h1>
+        <h1 className={styles.title}>Login</h1>
         <TextBox
           className={styles.textbox}
           fullwidth
@@ -79,28 +72,10 @@ const Register = ({
         <TextBox
           className={styles.textbox}
           fullwidth
-          type="email"
-          value={email}
-          placeholder="Email"
-          onChange={onEmailChange}
-          onKeyDown={onEnterPress}
-        />
-        <TextBox
-          className={styles.textbox}
-          fullwidth
           type="password"
-          value={password1}
+          value={password}
           placeholder="Password"
-          onChange={onPassword1Change}
-          onKeyDown={onEnterPress}
-        />
-        <TextBox
-          className={styles.textbox}
-          fullwidth
-          type="password"
-          value={password2}
-          placeholder="Retype Password"
-          onChange={onPassword2Change}
+          onChange={onPasswordChange}
           onKeyDown={onEnterPress}
         />
         <Button
@@ -108,10 +83,10 @@ const Register = ({
           size="large"
           onClick={handleSubmit}
         >
-          Register
+          Login
         </Button>
-        <Link to="/login">
-          <p>Login to an existing account instead</p>
+        <Link to="/register">
+          <p>Register for an account instead</p>
         </Link>
       </div>
     </div>
@@ -119,19 +94,21 @@ const Register = ({
 };
 
 const mapStateToProps = (state) => {
-  const accessToken = selectUserAccessTokenJS(state);
+  const user = selectUserJS(state);
   const loading = selectUserLoadingJS(state);
+  const accessToken = selectUserAccessTokenJS(state);
   return {
-    accessToken,
+    user,
     loading,
+    accessToken,
   };
 };
 
 const mapDispatchToProps = {
   verifyAccess: actions.verifyAccess,
-  register: actions.register,
+  login: actions.login,
   reset: actions.reset,
   cancelLoading: actions.cancelLoading,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Register);
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);

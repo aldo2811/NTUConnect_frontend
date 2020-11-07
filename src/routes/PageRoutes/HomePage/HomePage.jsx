@@ -13,7 +13,7 @@ import {
 import * as threadActions from "../../../actions/threads.action";
 import * as sidebarActions from "../../../actions/sidebar.action";
 
-const Home = ({
+const HomePage = ({
   allThreads,
   threadLoading,
   getAllThreads,
@@ -56,4 +56,4 @@ const mapDispatchToProps = {
   setSidebar: sidebarActions.setSelected,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

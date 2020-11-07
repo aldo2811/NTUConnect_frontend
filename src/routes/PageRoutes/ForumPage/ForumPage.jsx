@@ -18,7 +18,7 @@ import {
 import * as threadActions from "../../../actions/threads.action";
 import * as sidebarActions from "../../../actions/sidebar.action";
 
-const CoursePage = ({
+const ForumPage = ({
   forum,
   threads,
   threadLoading,
@@ -75,4 +75,4 @@ const mapDispatchToProps = {
   setSidebar: sidebarActions.setSelected,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CoursePage);
+export default connect(mapStateToProps, mapDispatchToProps)(ForumPage);

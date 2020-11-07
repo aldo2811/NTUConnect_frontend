@@ -4,23 +4,25 @@ import { Switch, Route } from "react-router-dom";
 
 import SideBarMenu from "../../components/SideBarMenu";
 import TopBar from "../../components/TopBar";
-import Home from "./Home";
+import HomePage from "./HomePage";
+import ForumListPage from "./ForumListPage";
+import AskQuestionPage from "./AskQuestionPage/AskQuestionPage";
+import ForumPage from "./ForumPage";
+import ThreadPage from "./ThreadPage";
+import CreateForumPage from "./CreateForumPage/CreateForumPage";
+import SearchPage from "./SearchPage";
+import ProfilePage from "./ProfilePage/ProfilePage";
 
 import styles from "./styles.scss";
-import CourseList from "./CourseList";
-import AskQuestionPage from "./AskQuestionPage/AskQuestionPage";
-import CoursePage from "./CoursePage";
-import Thread from "./Thread";
-import CreateForumPage from "./CreateForumPage/CreateForumPage";
+
 import {
   selectAllForumsJoinedJS,
   selectForumsLoadingJS,
 } from "../../selectors/forums.selector";
+import { selectUserJS } from "../../selectors/user.selector";
+
 import * as forumActions from "../../actions/forums.action";
 import * as userActions from "../../actions/user.action";
-import SearchPage from "./SearchPage";
-import ProfilePage from "./ProfilePage/ProfilePage";
-import { selectUserJS } from "../../selectors/user.selector";
 
 const PageRoutes = ({
   match: { url },
@@ -68,16 +70,16 @@ const PageRoutes = ({
             <Route path={`${url}courses/new`} component={CreateForumPage} />
             <Route
               path={`${url}courses/:courseId/thread/:threadId`}
-              component={Thread}
+              component={ThreadPage}
             />
             <Route
               path={`${url}courses/:courseId/new`}
               component={AskQuestionPage}
             />
-            <Route path={`${url}courses/:courseId`} component={CoursePage} />
-            <Route path={`${url}courses`} component={CourseList} />
+            <Route path={`${url}courses/:courseId`} component={ForumPage} />
+            <Route path={`${url}courses`} component={ForumListPage} />
             <Route path={`${url}user/:id`} component={ProfilePage} />
-            <Route path={url} component={Home} />
+            <Route path={url} component={HomePage} />
           </Switch>
         </div>
       </div>
