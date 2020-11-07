@@ -14,6 +14,10 @@ const getToken = (getState) => {
   return `Bearer ${accessToken}`;
 };
 
+export const cancelLoading = () => (dispatch) => {
+  dispatch(set("loading", false));
+};
+
 export const getAll = () => async (dispatch, getState) => {
   const accessToken = getToken(getState);
   dispatch(set("loading", true));
@@ -28,12 +32,14 @@ export const getAll = () => async (dispatch, getState) => {
 
 export const joinForum = (forumId) => async (dispatch, getState) => {
   const accessToken = getToken(getState);
+  dispatch(set("loading", true));
   const res = await forumService.join(forumId, accessToken);
   if (res.data) {
     dispatch(getAll());
   } else {
     dispatch(handleError(res));
   }
+  dispatch(set("loading", false));
 };
 
 export const createForum = (courseTitle, courseCode) => async (
@@ -41,6 +47,7 @@ export const createForum = (courseTitle, courseCode) => async (
   getState
 ) => {
   const accessToken = getToken(getState);
+  dispatch(set("loading", true));
   const res = await forumService.create(courseTitle, courseCode, accessToken);
   if (res.data) {
     dispatch(setRedirect());
@@ -48,4 +55,5 @@ export const createForum = (courseTitle, courseCode) => async (
   } else {
     dispatch(handleError(res));
   }
+  dispatch(set("loading", false));
 };

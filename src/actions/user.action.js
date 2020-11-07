@@ -18,8 +18,13 @@ const getToken = (getState) => {
   return `Bearer ${accessToken}`;
 };
 
+export const cancelLoading = () => (dispatch) => {
+  dispatch(set("loading", false));
+};
+
 export const login = (username, password) => async (dispatch) => {
   dispatch(set("type", null));
+  dispatch(set("loading", true));
   const res = await userService.login(username, password);
   if (res.data) {
     const { accessToken, user } = res.data;
@@ -28,6 +33,7 @@ export const login = (username, password) => async (dispatch) => {
   } else {
     dispatch(handleError(res));
   }
+  dispatch(set("loading", false));
 };
 
 export const logout = () => (dispatch) => {
@@ -38,8 +44,9 @@ export const logout = () => (dispatch) => {
 export const register = (username, email, password1, password2) => async (
   dispatch
 ) => {
+  dispatch(set("type", null));
+  dispatch(set("loading", true));
   const res = await userService.register(username, email, password1, password2);
-
   if (res.data) {
     const { accessToken, user } = res.data;
     dispatch(setAccessToken(accessToken));
@@ -47,6 +54,7 @@ export const register = (username, email, password1, password2) => async (
   } else {
     dispatch(handleError(res));
   }
+  dispatch(set("loading", false));
 };
 
 export const verifyAccess = () => async (dispatch) => {

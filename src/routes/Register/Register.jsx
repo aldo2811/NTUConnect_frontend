@@ -6,18 +6,26 @@ import TextBox from "../../components/TextBox";
 import Button from "../../components/Button";
 
 import {
-  selectUserJS,
   selectUserAccessTokenJS,
+  selectUserLoadingJS,
 } from "../../selectors/user.selector";
 
 import * as actions from "../../actions/user.action";
 
 import styles from "../Login/styles.scss";
 
-const Register = ({ accessToken, register, reset, verifyAccess }) => {
+const Register = ({
+  accessToken,
+  loading,
+  register,
+  reset,
+  verifyAccess,
+  cancelLoading,
+}) => {
   useEffect(() => {
-    reset();
     verifyAccess();
+    reset();
+    cancelLoading();
   }, []);
 
   const [username, setUsername] = useState("");
@@ -41,9 +49,8 @@ const Register = ({ accessToken, register, reset, verifyAccess }) => {
     setPassword2(e.target.value);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    register(username, email, password1, password2);
+  const handleSubmit = () => {
+    if (!loading) register(username, email, password1, password2);
   };
 
   const onEnterPress = (e) => {
@@ -112,12 +119,11 @@ const Register = ({ accessToken, register, reset, verifyAccess }) => {
 };
 
 const mapStateToProps = (state) => {
-  const user = selectUserJS(state);
   const accessToken = selectUserAccessTokenJS(state);
-
+  const loading = selectUserLoadingJS(state);
   return {
-    user,
     accessToken,
+    loading,
   };
 };
 
@@ -125,6 +131,7 @@ const mapDispatchToProps = {
   verifyAccess: actions.verifyAccess,
   register: actions.register,
   reset: actions.reset,
+  cancelLoading: actions.cancelLoading,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Register);
