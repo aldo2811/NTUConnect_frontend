@@ -3,8 +3,8 @@ import { hot } from "react-hot-loader/root";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import PageRoutes from "./PageRoutes";
-import Login from "./Login";
-import Register from "./Register";
+import LoginPage from "./LoginPage";
+import RegisterPage from "./RegisterPage";
 import ErrorBoundary from "./ErrorBoundary/ErrorBoundary";
 import WithAuth from "./RedirectHOC/withAuth";
 
@@ -13,8 +13,8 @@ const App = () => {
     <Router>
       <ErrorBoundary>
         <Switch>
-          <Route exact path="/register" component={Register} />
-          <Route exact path="/login" component={Login} />
+          <Route exact path="/register" component={RegisterPage} />
+          <Route exact path="/login" component={LoginPage} />
           <Route path="/" component={WithAuth(PageRoutes)} />
         </Switch>
       </ErrorBoundary>
