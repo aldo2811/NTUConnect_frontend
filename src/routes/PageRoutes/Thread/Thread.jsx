@@ -41,11 +41,11 @@ const Thread = ({
   }, []);
 
   const onSubmitClick = (content) => {
-    createMessage(content, threadId);
+    if (!messageLoading) createMessage(content, threadId);
   };
 
   const onReplySubmit = (messageId) => (content) => {
-    replyMessage(content, threadId, messageId);
+    if (!messageLoading) replyMessage(content, threadId, messageId);
   };
 
   const onVote = (action, messageId) => {
@@ -53,7 +53,7 @@ const Thread = ({
   };
 
   const onMarkSolved = (isCorrect, messageId) => {
-    markSolvedMessage(isCorrect, messageId, threadId);
+    if (!messageLoading) markSolvedMessage(isCorrect, messageId, threadId);
   };
 
   if (messageLoading) return null;

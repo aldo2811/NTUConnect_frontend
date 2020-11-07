@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 
@@ -8,7 +8,7 @@ import styles from "./styles.scss";
 import appStyles from "../../../stylesheets/app.scss";
 
 import { selectRedirectJS } from "../../../selectors/redirect.selector";
-import { selectErrorJS } from "../../../selectors/error.selector";
+import { selectMessagesLoadingJS } from "../../../selectors/messages.selector";
 
 import * as messageActions from "../../../actions/messages.action";
 import * as redirectActions from "../../../actions/redirect.action";
@@ -16,28 +16,28 @@ import * as sidebarActions from "../../../actions/sidebar.action";
 
 const AskQuestionPage = ({
   redirect,
-  error,
+  loading,
   createThread,
+  cancelLoading,
+  resetMessages,
   resetRedirect,
   setSidebar,
   match: {
     params: { courseId },
   },
 }) => {
-  const errorRef = useRef(error);
-
-  useEffect(() => {
-    errorRef.current = error;
-  });
-
   useEffect(() => {
     setSidebar(`courses/${courseId}`);
+    cancelLoading();
 
-    return () => resetRedirect();
-  });
+    return () => {
+      resetMessages();
+      resetRedirect();
+    };
+  }, []);
 
   const onSubmitClick = (title, description) => {
-    createThread(title, description, courseId);
+    if (!loading) createThread(title, description, courseId);
   };
 
   if (redirect) {
@@ -54,12 +54,14 @@ const AskQuestionPage = ({
 
 const mapStateToProps = (state) => {
   const redirect = selectRedirectJS(state);
-  const error = selectErrorJS(state);
-  return { redirect, error };
+  const loading = selectMessagesLoadingJS(state);
+  return { redirect, loading };
 };
 
 const mapDispatchToProps = {
   createThread: messageActions.createThread,
+  cancelLoading: messageActions.cancelLoading,
+  resetMessages: messageActions.reset,
   resetRedirect: redirectActions.reset,
   setSidebar: sidebarActions.setSelected,
 };

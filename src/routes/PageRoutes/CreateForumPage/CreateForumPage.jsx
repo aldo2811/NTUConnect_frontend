@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 
@@ -7,8 +7,8 @@ import ForumInput from "../../../components/ForumInput";
 import appStyles from "../../../stylesheets/app.scss";
 import styles from "./styles.scss";
 
-import { selectErrorJS } from "../../../selectors/error.selector";
 import { selectRedirectJS } from "../../../selectors/redirect.selector";
+import { selectForumsLoadingJS } from "../../../selectors/forums.selector";
 
 import * as forumActions from "../../../actions/forums.action";
 import * as redirectActions from "../../../actions/redirect.action";
@@ -16,25 +16,23 @@ import * as sidebarActions from "../../../actions/sidebar.action";
 
 const CreateForumPage = ({
   redirect,
-  error,
+  loading,
   createForum,
+  cancelLoading,
   resetRedirect,
   setSidebar,
 }) => {
-  const errorRef = useRef(error);
-
-  useEffect(() => {
-    errorRef.current = error;
-  });
-
   useEffect(() => {
     setSidebar(`courses`);
+    cancelLoading();
 
-    return () => resetRedirect();
+    return () => {
+      resetRedirect();
+    };
   }, []);
 
   const onSubmitClick = (courseTitle, courseCode) => {
-    createForum(courseTitle, courseCode);
+    if (!loading) createForum(courseTitle, courseCode);
   };
 
   if (redirect) return <Redirect to="/courses" />;
@@ -49,13 +47,14 @@ const CreateForumPage = ({
 
 const mapStateToProps = (state) => {
   const redirect = selectRedirectJS(state);
-  const error = selectErrorJS(state);
+  const loading = selectForumsLoadingJS(state);
 
-  return { redirect, error };
+  return { redirect, loading };
 };
 
 const mapDispatchToProps = {
   createForum: forumActions.createForum,
+  cancelLoading: forumActions.cancelLoading,
   resetRedirect: redirectActions.reset,
   setSidebar: sidebarActions.setSelected,
 };

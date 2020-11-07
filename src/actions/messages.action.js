@@ -15,6 +15,10 @@ const getToken = (getState) => {
   return `Bearer ${accessToken}`;
 };
 
+export const cancelLoading = () => (dispatch) => {
+  dispatch(set("loading", false));
+};
+
 export const getAll = (threadId) => async (dispatch, getState) => {
   const accessToken = getToken(getState);
   dispatch(set("loading", true));
@@ -35,6 +39,7 @@ export const createThread = (title, description, forumId) => async (
   getState
 ) => {
   const accessToken = getToken(getState);
+  dispatch(set("loading", true));
   const res = await threadService.create(
     title,
     description,
@@ -46,6 +51,7 @@ export const createThread = (title, description, forumId) => async (
   } else {
     dispatch(handleError(res));
   }
+  dispatch(set("loading", false));
 };
 
 export const createMessage = (content, threadId) => async (
@@ -53,13 +59,14 @@ export const createMessage = (content, threadId) => async (
   getState
 ) => {
   const accessToken = getToken(getState);
+  dispatch(set("loading", true));
   const res = await messageService.create(content, threadId, accessToken);
-
   if (res.data) {
     dispatch(getAll(threadId));
   } else {
     dispatch(handleError(res));
   }
+  dispatch(set("loading", false));
 };
 
 export const replyMessage = (content, threadId, messageId) => async (
@@ -67,19 +74,19 @@ export const replyMessage = (content, threadId, messageId) => async (
   getState
 ) => {
   const accessToken = getToken(getState);
+  dispatch(set("loading", true));
   const res = await messageService.reply(
     content,
     threadId,
     messageId,
     accessToken
   );
-
   if (res.data) {
     dispatch(getAll(threadId));
   } else {
     dispatch(handleError(res));
   }
-  dispatch(getAll(threadId));
+  dispatch(set("loading", false));
 };
 
 export const upvoteMessage = (action, messageId) => async (
@@ -98,6 +105,7 @@ export const markSolvedMessage = (isCorrect, messageId, threadId) => async (
   getState
 ) => {
   const accessToken = getToken(getState);
+  dispatch(set("loading", true));
   const res = await messageService.markSolved(
     isCorrect,
     messageId,
@@ -108,4 +116,5 @@ export const markSolvedMessage = (isCorrect, messageId, threadId) => async (
   } else {
     dispatch(handleError(res));
   }
+  dispatch(set("loading", false));
 };

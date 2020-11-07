@@ -8,16 +8,27 @@ import Button from "../../components/Button";
 import {
   selectUserJS,
   selectUserAccessTokenJS,
+  selectUserLoadingJS,
 } from "../../selectors/user.selector";
 
 import * as actions from "../../actions/user.action";
 
 import styles from "./styles.scss";
 
-const Login = ({ accessToken, login, reset, verifyAccess }) => {
+const Login = ({
+  accessToken,
+  loading,
+  login,
+  reset,
+  verifyAccess,
+  cancelLoading,
+}) => {
   useEffect(() => {
     verifyAccess();
     reset();
+    cancelLoading();
+
+    return () => reset();
   }, []);
 
   const [username, setUsername] = useState("");
@@ -31,11 +42,8 @@ const Login = ({ accessToken, login, reset, verifyAccess }) => {
     setPassword(e.target.value);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (username && password) {
-      login(username, password);
-    }
+  const handleSubmit = () => {
+    if (!loading) login(username, password);
   };
 
   const onEnterPress = (e) => {
@@ -44,7 +52,7 @@ const Login = ({ accessToken, login, reset, verifyAccess }) => {
     }
   };
 
-  if (accessToken) {
+  if (accessToken && !loading) {
     return <Redirect to="/" push />;
   }
 
@@ -87,9 +95,11 @@ const Login = ({ accessToken, login, reset, verifyAccess }) => {
 
 const mapStateToProps = (state) => {
   const user = selectUserJS(state);
+  const loading = selectUserLoadingJS(state);
   const accessToken = selectUserAccessTokenJS(state);
   return {
     user,
+    loading,
     accessToken,
   };
 };
@@ -98,6 +108,7 @@ const mapDispatchToProps = {
   verifyAccess: actions.verifyAccess,
   login: actions.login,
   reset: actions.reset,
+  cancelLoading: actions.cancelLoading,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

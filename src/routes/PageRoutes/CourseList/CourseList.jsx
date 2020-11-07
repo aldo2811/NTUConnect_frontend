@@ -31,10 +31,8 @@ const CourseList = ({
   const currentUrl = useLocation().pathname;
 
   const onJoinClick = (forumId) => {
-    joinForum(forumId);
+    if (!forumLoading) joinForum(forumId);
   };
-
-  if (forumLoading) return null;
 
   return (
     <div
