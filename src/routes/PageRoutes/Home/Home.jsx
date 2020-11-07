@@ -29,9 +29,9 @@ const Home = ({
   if (threadLoading) return null;
   return (
     <div className={appStyles.content_section}>
-      <h1 className={appStyles.heading}>All Discussions</h1>
+      <h1 className={appStyles.heading}>All Threads</h1>
       <p className={appStyles.subheading}>
-        All discussions in courses which you joined
+        All threads in forums which you joined
       </p>
       {allThreads.map((thread) => {
         return <ThreadBox key={thread.id} {...thread} />;
