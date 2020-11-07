@@ -29,11 +29,7 @@ const WithAuth = (WrappedComponent) => {
     const [finish, setFinish] = useState(false);
     useEffect(() => {
       verifyAccess()
-        .then(() => {
-          setTimeout(() => {
-            getCurrentUser();
-          }, 500);
-        })
+        .then(() => getCurrentUser())
         .then(() => setFinish(true));
     }, [url]);
 

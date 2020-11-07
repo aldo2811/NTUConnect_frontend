@@ -16,8 +16,8 @@ import styles from "./styles.scss";
 
 const Login = ({ accessToken, login, reset, verifyAccess }) => {
   useEffect(() => {
-    reset();
     verifyAccess();
+    reset();
   }, []);
 
   const [username, setUsername] = useState("");
