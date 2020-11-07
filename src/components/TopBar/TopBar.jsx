@@ -24,6 +24,7 @@ const TopBar = ({ currentUser, logout }) => {
   const onEnterPress = (e) => {
     if (e.key === "Enter" && keyword) {
       history.push(`/search?q=${encodeURIComponent(keyword)}`);
+      setKeyword("");
     }
   };
 
